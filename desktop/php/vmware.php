@@ -28,7 +28,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 	</div>
 	
   </div>
-  <legend><i class="fas fa-table"></i> {{Mes serveurs ESXi/ machines virtuelles}}</legend>
+  <legend><i class="fas fa-table"></i> {{Mes serveurs ESXi Mes machines virtuelles}}</legend>
 	   <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
 <div class="eqLogicThumbnailContainer">
 	<?php
