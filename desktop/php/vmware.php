@@ -36,8 +36,6 @@ foreach ($eqLogics as $eqLogicEsxiHost) {
 	if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
 		echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 		echo '<div class="eqLogicThumbnailContainer">';
-		//$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
-		//echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '" style="text-align: center; background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 		$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
 		echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 		// On affiche une image différente pour le serveur eSXi pour le répérer plus facilement
