@@ -171,7 +171,7 @@ foreach (jeeObject::all() as $object) {
 				</fieldset>
 			</form>
 		</div>			
-</div>
+	</div>
       <div role="tabpanel" class="tab-pane" id="commandtab">
 <a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
 <table id="table_cmd" class="table table-bordered table-condensed">
@@ -186,8 +186,8 @@ foreach (jeeObject::all() as $object) {
 </div>
 </div>
 
-</div>
-</div>
+<!--</div>
+</div>-->
 
 <?php include_file('desktop', 'vmware', 'js', 'vmware');?>
 <?php include_file('core', 'plugin.template', 'js');?>
