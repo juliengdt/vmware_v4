@@ -38,8 +38,8 @@ foreach ($eqLogics as $eqLogicEsxiHost) {
 		echo '<div class="eqLogicThumbnailContainer">';
 		//$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 		//echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '" style="text-align: center; background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
-		$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
-		echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
+		$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
+		echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 		// On affiche une image différente pour le serveur eSXi pour le répérer plus facilement
 		echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.jpg" height="105" width="95">';
 		echo '<br>';
@@ -186,8 +186,8 @@ foreach (jeeObject::all() as $object) {
 </div>
 </div>
 
-<!--</div>
-</div>-->
+</div>
+</div>
 
 <?php include_file('desktop', 'vmware', 'js', 'vmware');?>
 <?php include_file('core', 'plugin.template', 'js');?>
