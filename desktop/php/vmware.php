@@ -22,7 +22,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <span>{{Configuration}}</span>
 	</div>
 	<div class="cursor eqLogicAction logoSecondary" id="bt_healtvmware">
-		<i class="fas fa-wrench"></i>
+		<i class="fas fa-medkit"></i>
     <br>
     <span>{{Santé}}</span>
 	</div>
