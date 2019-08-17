@@ -47,11 +47,11 @@ foreach ($eqLogics as $eqLogicEsxiHost) {
 		echo '</div>';
 		foreach ($eqLogics as $eqLogicVM) {
 			if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
-				$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
-				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
+				$opacity = ($$eqLogicVM->getIsEnable()) ? '' : 'disableCard';
+				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $$eqLogicVM->getId() . '">';
 				echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
 				echo "<br>";
-				echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+				echo '<span class="name">' . $$eqLogicVM->getHumanName(true, true) . '</span>';
 				echo '</div>';
 			}
 		}
