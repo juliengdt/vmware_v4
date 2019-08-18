@@ -31,7 +31,7 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 		<input class="form-control" placeholder="{{Mes équipements VMWARE}" id="in_searchEqlogic" />
 	<div class="eqLogicThumbnailContainer">
     <?php
-		console.log("debut PHP");
+		echo 'console.log("debut PHP")';
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
             	echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
