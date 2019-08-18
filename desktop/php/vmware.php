@@ -156,7 +156,7 @@ function console_log($output, $with_script_tags = true) {
           <form class="form-horizontal">
             <fieldset>
               <div class="form-group">
-                <label class="col-sm-2 control-label">{{Type}}</label>
+                <label class="col-sm-3 control-label">{{Type}}</label>
                 <div class="col-sm-2">
                   <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="type" id="typefield"></span>
                 </div>
@@ -167,7 +167,7 @@ function console_log($output, $with_script_tags = true) {
               </div>            
 			
               <div class="form-group">
-                <label class="col-sm-2 control-label" id="ipAddressLabelRightPartOfPage">{{Adresse IP}}</label>
+                <label class="col-sm-3 control-label" id="ipAddressLabelRightPartOfPage">{{Adresse IP}}</label>
                 <div class="col-sm-2">
                   <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="vmIPAddress" id="ipAddressfield"></span>
                 </div>
