@@ -200,8 +200,6 @@ function console_log($output, $with_script_tags = true) {
 			</table>
 	  </div>
    </div>
-
- <!--</div>-->
  </div>
 </div>
 
