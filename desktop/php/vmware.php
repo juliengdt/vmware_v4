@@ -8,52 +8,19 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 ?>
 
 <div class="row row-overflow">
-    <!--<div class="col-xs-12 eqLogicThumbnailDisplay"> --> <!-- TOUT ça c'était pour le bandeau à gauche qui apparaissait au survol -->
-        <!--<div class="bs-sidebar">
-            <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
-                <a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
-                <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
-                <?php/*
-foreach ($eqLogics as $eqLogic) {
-	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
-	echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '" style="' . $opacity .'"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
-}
-*/		    ?>
-           </ul>
-       </div>
-   </div>-->
-
-   <!--<div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">-->
-   <div class="col-xs-12 eqLogicThumbnailDisplay">
-   <!-- <legend>{{Mes équipements}}</legend>-->
-  <legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
-  <div class="eqLogicThumbnailContainer">
-     <!-- <div class="cursor eqLogicAction" data-action="add" style="text-align: center; background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
-        <i class="fa fa-plus-circle" style="font-size : 6em;color:#00A9EC;"></i>
-        <br>
-        <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#00A9EC">{{Ajouter}}</span>
-    </div> Remplacer par le bloc en dessous -->
+   <div class="col-lg-12 eqLogicThumbnailDisplay">
+	<legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
+	<div class="eqLogicThumbnailContainer">
 	    <div class="cursor eqLogicAction logoPrimary" data-action="add">
 			<i class="fas fa-plus-circle"></i>
 			<br>
 			<span>{{Ajouter}}</span>
 		</div>
-  <!--<div class="cursor eqLogicAction" data-action="gotoPluginConf" style="text-align: center; background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;">
-      <i class="fa fa-wrench" style="font-size : 6em;color:#767676;"></i>
-    <br>
-    <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676">{{Configuration}}</span>
-  </div> remplacer par le bloc en dessous -->
 		<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
 			<i class="fas fa-wrench"></i>
 			<br>
 			<span>{{Configuration}}</span>
 		</div>
-  <!--<div class="cursor" id="bt_healthvmware" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
-        <center>
-          <i class="fa fa-medkit" style="font-size : 6em;color:#767676;"></i>
-        </center>
-        <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>
-      </div> remplacer par le bloc en dessous -->
 		<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf" id="bt_healthvmware"> <!-- l'action est traitée dans le vmware.js -->
 			<i class="fas fa-wrench"></i>
 			<br>
