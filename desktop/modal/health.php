@@ -28,6 +28,7 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 <table class="table table-condensed tablesorter" id="table_healthvmware">
 	<thead>
 		<tr>
+			<th>{{Image}}</th>
 			<th>{{Nom de la VM}}</th>
 			<th>{{Adresse IP}}</th>
 			<th>{{Allumée ?}}</th>
@@ -63,7 +64,7 @@ foreach ($eqLogics as $eqLogic) {
 				$img = '<img class="lazy" src="' . $plugin->getPathImgIcon() . '" height="55" width="55" style="' . $opacity . '"/>';	
 			}
 			$styleTD = "style='font-size : 1em; cursor : default;'";
-			echo '<tr>';
+			echo '<tr><td>' . $img .'</td>';
 			echo "<td $styleTD>";
 			echo '<a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">'.$eqLogic->getHumanName(true).'';
 			echo "</span></td>";
