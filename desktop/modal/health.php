@@ -43,7 +43,7 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 <?php
 $cpt = 1; // Initialisation de la variable cpt pour changer le look une ligne sur deux dans le tableau qui sera affiché
 foreach ($eqLogics as $eqLogic) {
-			switch($cpt) { // Définition du style pour les lignes, On change de style une ligne sur deux
+			/*switch($cpt) { // Définition du style pour les lignes, On change de style une ligne sur deux
 					case 1:
 						echo "<tr style='padding: 5px; border-width:1px;  border-style:solid;  border-color:black; border-collapse: collapse; background-color:#b8d4e0';>";
 						$cpt=2;
@@ -52,10 +52,12 @@ foreach ($eqLogics as $eqLogic) {
 						echo "<tr style='padding: 5px; border-width:1px;  border-style:solid;  border-color:black; border-collapse: collapse; background-color:#D3DFEE';>";
 						$cpt=1;
 						break;
-			}
+			}*/
 			
-			$styleTD = "style='padding: 5px; border-width:1px;  border-style:solid;  border-color:black; border-collapse: collapse; color: #000000;'"; // Définition du style pour les colonnes
+			//$styleTD = "style='padding: 5px; border-width:1px;  border-style:solid;  border-color:black; border-collapse: collapse; color: #000000;'"; // Définition du style pour les colonnes
 			// exemple de code pour avoir la couleur en paramètre  :  //$listing .= "<td style='padding: 5px; border-width:1px;  border-style:solid;  border-color:black; border-collapse: collapse; background-color:$color';>";
+			$styleTD = "style='font-size : 1em; cursor : default;'";
+			echo '<tr>';
 			echo "<td $styleTD>";
 			echo '<a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">'.$eqLogic->getHumanName(true).'';
 			echo "</span></td>";
