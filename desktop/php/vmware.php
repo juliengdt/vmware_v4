@@ -8,7 +8,7 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 ?>
 
 <div class="row row-overflow">
-   <div class="col-lg-12 eqLogicThumbnailDisplay">
+ <div class="col-lg-12 eqLogicThumbnailDisplay">
 	<legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
 	<div class="eqLogicThumbnailContainer">
 	    <div class="cursor eqLogicAction logoPrimary" data-action="add">
@@ -28,9 +28,10 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 		</div>
 	</div>
 	<legend><i class="fas fa-table"></i> {{Mes serveurs ESXi}}</legend>
-		<input class="form-control" placeholder="{{Mes ESXi(s) ou VM(s) connus}}" id="in_searchEqlogic" />
+		<input class="form-control" placeholder="{{Mes équipements VMWARE}" id="in_searchEqlogic" />
 	<div class="eqLogicThumbnailContainer">
     <?php
+		console.log("debut PHP");
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
             	echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
@@ -69,7 +70,7 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
     <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Equipement}}</a></li>
     <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
   </ul>
-  <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
+   <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
     <div role="tabpanel" class="tab-pane active" id="eqlogictab">
       <br/>
 		<div class="row">
@@ -169,21 +170,21 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 		</div>
 	</div>
       <div role="tabpanel" class="tab-pane" id="commandtab">
-<a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
-<table id="table_cmd" class="table table-bordered table-condensed">
-    <thead>
-        <tr>
-            <th>{{Nom}}</th><th>{{Type}}</th><th>{{Configuration}}</th><th>{{Action}}</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-</div>
-</div>
+		<a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
+			<table id="table_cmd" class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>{{Nom}}</th><th>{{Type}}</th><th>{{Configuration}}</th><th>{{Action}}</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+	  </div>
+   </div>
 
-</div>
-</div>
+  </div>
+ </div>
 </div>
 
 <?php include_file('desktop', 'vmware', 'js', 'vmware');?>
