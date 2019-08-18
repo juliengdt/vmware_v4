@@ -73,7 +73,7 @@ function console_log($output, $with_script_tags = true) {
 	?>	
 	</div>
   </div>
-  <div class="col-lg-12 eqLogic" style="display: none;">
+  <div class="col-xs-12 eqLogic" style="display: none;">
 	<?php console_log("DIV ligne 76"); ?>
 		<div class="input-group pull-right" style="display:inline-flex">
 		<?php console_log("DIV ligne 79"); ?>
