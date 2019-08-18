@@ -56,6 +56,12 @@ foreach ($eqLogics as $eqLogic) {
 			
 			//$styleTD = "style='padding: 5px; border-width:1px;  border-style:solid;  border-color:black; border-collapse: collapse; color: #000000;'"; // Définition du style pour les colonnes
 			// exemple de code pour avoir la couleur en paramètre  :  //$listing .= "<td style='padding: 5px; border-width:1px;  border-style:solid;  border-color:black; border-collapse: collapse; background-color:$color';>";
+			$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
+			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
+				$img = '<img class="lazy" src="plugins/vmware/docs/assets/images/icone_esxi.png" height="55" width="55" style="' . $opacity . '"/>';
+			}else{
+				$img = '<img class="lazy" src="' . $plugin->getPathImgIcon() . '" height="55" width="55" style="' . $opacity . '"/>';	
+			}
 			$styleTD = "style='font-size : 1em; cursor : default;'";
 			echo '<tr>';
 			echo "<td $styleTD>";

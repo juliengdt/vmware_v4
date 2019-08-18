@@ -50,7 +50,8 @@ function console_log($output, $with_script_tags = true) {
 				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
-					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png" height="105" width="95">';
+					//echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png" height="105" width="95">';
+					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png">';
 					echo '<br>';
 					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
 				echo '</div>';
