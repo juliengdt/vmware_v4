@@ -33,7 +33,7 @@ function console_log($output, $with_script_tags = true) {
 			<br>
 			<span>{{Configuration}}</span>
 		</div>
-		<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf" id="bt_healthvmware"> <!-- l'action est traitée dans le vmware.js -->
+		<div class="cursor eqLogicAction logoSecondary" id="bt_healthvmware"> <!-- l'action est traitée dans le vmware.js -->
 			<i class="fas fa-medkit"></i>
 			<br>
 			<span>{{Santé}}</span>
