@@ -34,9 +34,9 @@ function console_log($output, $with_script_tags = true) {
 			<span>{{Configuration}}</span>
 		</div>
 		<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf" id="bt_healthvmware"> <!-- l'action est traitée dans le vmware.js -->
-			<i class="fas fa-wrench"></i>
+			<i class="fas fa-medkit"></i>
 			<br>
-			<span>{{Configuration}}</span>
+			<span>{{Santé}}</span>
 		</div>
 	</div>
 	<legend><i class="fas fa-table"></i> {{Mes serveurs ESXi}}</legend>
