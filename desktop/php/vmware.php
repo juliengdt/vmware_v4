@@ -40,13 +40,11 @@ function console_log($output, $with_script_tags = true) {
 		</div>
 	</div>
 	<legend><i class="fas fa-table"></i> {{Mes serveurs ESXi}}</legend>
-		<input class="form-control" placeholder="{{Mes équipements VMWARE}" id="in_searchEqlogic" />
+		<input class="form-control" placeholder="{{Mes équipements VMWARE}}" id="in_searchEqlogic" />
 	<div class="eqLogicThumbnailContainer">
     <?php
-		console_log("debut PHP");
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
-				console_log("On a trouvé le serveur ESXI");
             	echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 				echo '<div class="eqLogicThumbnailContainer">';
 				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
@@ -58,7 +56,6 @@ function console_log($output, $with_script_tags = true) {
 				echo '</div>';
 				foreach ($eqLogics as $eqLogicVM) {
 					if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
-						console_log("On a trouvé 1 VM " . $eqLogicVM->getHumanName(true, true) . "");
 						$opacity = ($eqLogicVM->getIsEnable()) ? '' : 'disableCard';
 						echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicVM->getId() . '">';
 							echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
@@ -74,9 +71,7 @@ function console_log($output, $with_script_tags = true) {
 	</div>
   </div>
   <div class="col-xs-12 eqLogic" style="display: none;">
-	<?php console_log("DIV ligne 76"); ?>
 		<div class="input-group pull-right" style="display:inline-flex">
-		<?php console_log("DIV ligne 79"); ?>
 			<span class="input-group-btn">
 				<a class="btn btn-default btn-sm eqLogicAction roundedLeft" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i> {{Dupliquer}}</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}</a><a class="btn btn-danger btn-sm eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}</a>
 			</span>
@@ -87,9 +82,7 @@ function console_log($output, $with_script_tags = true) {
     <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
   </ul>
    <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
-   <?php console_log("DIV ligne 90"); ?>
     <div role="tabpanel" class="tab-pane active" id="eqlogictab">
-	<?php console_log("DIV ligne 91"); ?>
       <br/>
 		<div class="row">
          <div class="col-sm-6">
