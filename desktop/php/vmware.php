@@ -73,8 +73,10 @@ function console_log($output, $with_script_tags = true) {
 	?>	
 	</div>
 
-  <div class="col-xs-12 eqLogic" style="display: none;">
+  <div class="col-lg-12 eqLogic" style="display: none;">
+	<?php console_log("DIV ligne 76"); ?>
 		<div class="input-group pull-right" style="display:inline-flex">
+		<?php console_log("DIV ligne 79"); ?>
 			<span class="input-group-btn">
 				<a class="btn btn-default btn-sm eqLogicAction roundedLeft" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i> {{Dupliquer}}</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}</a><a class="btn btn-danger btn-sm eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}</a>
 			</span>
@@ -85,7 +87,9 @@ function console_log($output, $with_script_tags = true) {
     <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
   </ul>
    <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
+   <?php console_log("DIV ligne 90"); ?>
     <div role="tabpanel" class="tab-pane active" id="eqlogictab">
+	<?php console_log("DIV ligne 91"); ?>
       <br/>
 		<div class="row">
          <div class="col-sm-6">
