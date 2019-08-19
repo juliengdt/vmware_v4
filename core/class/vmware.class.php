@@ -720,17 +720,17 @@ class vmware extends eqLogic {
 		
 		
 		log::add('vmware', 'debug', 'On appelle la commande qui récupère la ram totale de l\'ESXi'); 
-		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep memorySize | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$_request = "vim-cmd hostsvc/hostsummary | grep memorySize | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$MemoryGBESXi = stream_get_contents($result);
 		$MemoryGBESXi = preg_replace("#\n|\t|\r#","",$MemoryGBESXi); // on supprime les retours à la ligne et autre retour chariots
 		$MemoryGBESXi = trim($MemoryGBESXi);
-	/*	$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
+	//	$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
 		
 		
 		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de CPU de l\'ESXi'); 
-		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuPkgs | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$_request = "vim-cmd hostsvc/hostsummary | grep numCpuPkgs | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$numCpuESXi = stream_get_contents($result);
@@ -738,7 +738,7 @@ class vmware extends eqLogic {
 		$numCpuESXi = trim($numCpuESXi);
 		
 		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de coeur par CPU de l\'ESXi'); 
-		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuCores | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$_request = "vim-cmd hostsvc/hostsummary | grep numCpuCores | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$numCpuCoresESXi = stream_get_contents($result);
