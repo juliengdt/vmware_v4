@@ -68,6 +68,21 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '================= Début du log PreSave =================');
 		log::add('vmware', 'info', '========================================================');
 		
+		log::add('vmware', 'debug', 'Avant le premier log et le If sans variable');
+		log::add('vmware', 'debug', 'valeur du champ type dans la configuration'.$this->getConfiguration("type").'');
+		if (strcmp($this->getConfiguration('type'),"vm") != 0) { // Si ça n'est pas une VM, alors on définit le type, donc on doit matcher quand c'est un ESXi
+			$this->setCategory('automatism', 1);
+			$this->setConfiguration('type','ESXi');
+			$this->setConfiguration('name',$this->getName());
+			$this->setConfiguration('esxiHost',$this->getName());
+			$this->setLogicalId('vmware'.$this->getName());
+			log::add('vmware', 'debug', 'C\'est un ESXi, on vient d\'ajouter des paramètres à sa configuration');
+			log::add('vmware', 'info', 'Fin mise en place configuration ESXi');
+		}
+		else {
+			log::add('vmware', 'debug', 'Boucle Else PreSave, on n\'arrive pas à identifier que c\'est un ESX');
+		}		
+		
 		if($this->getConfiguration("type") == 'ESXi'){ // Création des commandes spécifiques au ESXi
 				$nbVM = $this->getCmd(null, 'nbVM');
 			if (!is_object($nbVM)) {
