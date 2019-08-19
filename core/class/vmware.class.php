@@ -737,14 +737,14 @@ class vmware extends eqLogic {
 		$numCpuESXi = preg_replace("#\n|\t|\r#","",$numCpuESXi); // on supprime les retours à la ligne et autre retour chariots
 		$numCpuESXi = trim($numCpuESXi);
 		*/
-		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de coeur par CPU de l\'ESXi'); 
+	/*	log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de coeur par CPU de l\'ESXi'); 
 		$_request = "vim-cmd hostsvc/hostsummary | grep numCpuCores | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$numCpuCoresESXi = stream_get_contents($result);
 		$numCpuCoresESXi = preg_replace("#\n|\t|\r#","",$numCpuCoresESXi); // on supprime les retours à la ligne et autre retour chariots
 		$numCpuCoresESXi = trim($numCpuCoresESXi);
-		
+	*/	
 		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
 		/*$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
