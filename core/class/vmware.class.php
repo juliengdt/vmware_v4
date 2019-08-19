@@ -697,7 +697,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========== Début du log getEsxiInformationList ===========');
 		log::add('vmware', 'info', '========================================================');
 		
-	/*	$password = $this->getConfiguration("passwordSSH"); // on récupère le password
+		$password = $this->getConfiguration("passwordSSH"); // on récupère le password
 		$login = $this->getConfiguration("login"); // on récupère le login
 		$hostIP = $this->getConfiguration("ipAddress"); // on récupère l'adresseIP
 		$ESXiHostName = $this->getConfiguration("esxiHost"); // on récupère l'adresseIP
@@ -719,7 +719,7 @@ class vmware extends eqLogic {
 		}
 		
 		
-		log::add('vmware', 'debug', 'On appelle la commande qui récupère la ram totale de l\'ESXi'); 
+	/*	log::add('vmware', 'debug', 'On appelle la commande qui récupère la ram totale de l\'ESXi'); 
 		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep memorySize | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
