@@ -746,7 +746,7 @@ class vmware extends eqLogic {
 		$numCpuCoresESXi = trim($numCpuCoresESXi);
 		
 		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
-		/*$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
+		//$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
 		//$this->checkAndUpdateCmd('osType', $os); 
 		
