@@ -411,68 +411,6 @@ class vmware extends eqLogic {
 		log::add('vmware', 'debug', 'Fin fonction postUpdate');
     }
 	
-	public function getEsxiInformationList(){
-		log::add('vmware', 'info', '========================================================');
-		log::add('vmware', 'info', '========== Début du log getEsxiInformationList ===========');
-		log::add('vmware', 'info', '========================================================');
-		
-		$password = $this->getConfiguration("passwordSSH"); // on récupère le password
-		$login = $this->getConfiguration("login"); // on récupère le login
-		$hostIP = $this->getConfiguration("ipAddress"); // on récupère l'adresseIP
-		$ESXiHostName = $this->getConfiguration("esxiHost"); // on récupère l'adresseIP
-  
-		log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
-			
-		if (!$connection = ssh2_connect($hostIP,'22')) {
-				return 'error connecting';
-				log::add('vmware', 'error', 'ESXi injoignable');
-		}else{
-			log::add('vmware', 'info', 'ESXi joignable');
-		}
-			
-		if (!ssh2_auth_password($connection,$login,$password)){
-				return 'error connecting';
-				log::add('vmware', 'error', 'Connexion KO à l\'ESXi');
-		}else {
-			log::add('vmware', 'info', 'Connexion OK à l\'ESXi');
-		}
-		
-		
-		log::add('vmware', 'debug', 'On appelle la commande qui récupère la ram totale de l\'ESXi'); 
-		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep memorySize | cut -d '=' -f 2 | cut -d ',' -f 1";
-		$result = ssh2_exec($connection, $_request . ' 2>&1');
-		stream_set_blocking($result, true);
-		$MemoryGBESXi = stream_get_contents($result);
-		$MemoryGBESXi = preg_replace("#\n|\t|\r#","",$MemoryGBESXi); // on supprime les retours à la ligne et autre retour chariots
-		$MemoryGBESXi = trim($MemoryGBESXi);
-		$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
-		
-		
-		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de CPU de l\'ESXi'); 
-		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuPkgs | cut -d '=' -f 2 | cut -d ',' -f 1";
-		$result = ssh2_exec($connection, $_request . ' 2>&1');
-		stream_set_blocking($result, true);
-		$numCpuESXi = stream_get_contents($result);
-		$numCpuESXi = preg_replace("#\n|\t|\r#","",$numCpuESXi); // on supprime les retours à la ligne et autre retour chariots
-		$numCpuESXi = trim($numCpuESXi);
-		
-		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de coeur par CPU de l\'ESXi'); 
-		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuCores | cut -d '=' -f 2 | cut -d ',' -f 1";
-		$result = ssh2_exec($connection, $_request . ' 2>&1');
-		stream_set_blocking($result, true);
-		$numCpuCoresESXi = stream_get_contents($result);
-		$numCpuCoresESXi = preg_replace("#\n|\t|\r#","",$numCpuCoresESXi); // on supprime les retours à la ligne et autre retour chariots
-		$numCpuCoresESXi = trim($numCpuCoresESXi);
-		
-		$this->checkAndUpdateCmd('ramTotal', $MemoryGBESXi); 
-		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
-		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
-		$this->checkAndUpdateCmd('osType', $os); 
-		
-		log::add('vmware', 'info', 'Fin fonction getEsxiInformationList'); 
-		
-	}
-	  
 	public function getVmInformationList() {
       	log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '========== Début du log getVmInformationList ===========');
@@ -753,7 +691,69 @@ class vmware extends eqLogic {
 		}
 		log::add('vmware', 'info', 'Fin fonction saveVmAsEquipment'); 
 	}
- // INUTILISABLE, ça part en boucle continue, je ne trouve pas la solution pour l'instant
+ 
+	public function getEsxiInformationList() {
+		log::add('vmware', 'info', '========================================================');
+		log::add('vmware', 'info', '========== Début du log getEsxiInformationList ===========');
+		log::add('vmware', 'info', '========================================================');
+		
+	/*	$password = $this->getConfiguration("passwordSSH"); // on récupère le password
+		$login = $this->getConfiguration("login"); // on récupère le login
+		$hostIP = $this->getConfiguration("ipAddress"); // on récupère l'adresseIP
+		$ESXiHostName = $this->getConfiguration("esxiHost"); // on récupère l'adresseIP
+  
+		log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
+			
+		if (!$connection = ssh2_connect($hostIP,'22')) {
+				return 'error connecting';
+				log::add('vmware', 'error', 'ESXi injoignable');
+		}else{
+			log::add('vmware', 'info', 'ESXi joignable');
+		}
+			
+		if (!ssh2_auth_password($connection,$login,$password)){
+				return 'error connecting';
+				log::add('vmware', 'error', 'Connexion KO à l\'ESXi');
+		}else {
+			log::add('vmware', 'info', 'Connexion OK à l\'ESXi');
+		}
+		
+		
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère la ram totale de l\'ESXi'); 
+		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep memorySize | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$MemoryGBESXi = stream_get_contents($result);
+		$MemoryGBESXi = preg_replace("#\n|\t|\r#","",$MemoryGBESXi); // on supprime les retours à la ligne et autre retour chariots
+		$MemoryGBESXi = trim($MemoryGBESXi);
+		$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
+		
+		
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de CPU de l\'ESXi'); 
+		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuPkgs | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$numCpuESXi = stream_get_contents($result);
+		$numCpuESXi = preg_replace("#\n|\t|\r#","",$numCpuESXi); // on supprime les retours à la ligne et autre retour chariots
+		$numCpuESXi = trim($numCpuESXi);
+		
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de coeur par CPU de l\'ESXi'); 
+		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuCores | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$numCpuCoresESXi = stream_get_contents($result);
+		$numCpuCoresESXi = preg_replace("#\n|\t|\r#","",$numCpuCoresESXi); // on supprime les retours à la ligne et autre retour chariots
+		$numCpuCoresESXi = trim($numCpuCoresESXi);
+		
+		$this->checkAndUpdateCmd('ramTotal', $MemoryGBESXi); 
+		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
+		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
+		//$this->checkAndUpdateCmd('osType', $os); 
+		
+		log::add('vmware', 'info', 'Fin fonction getEsxiInformationList'); */
+	}
+
+
 	public function updateVmInformations($vmNameToUpdate,$esxiHostNameOfVm) {
       	log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '========== Début du log updateVmInformations ===========');
@@ -1010,7 +1010,7 @@ class vmwareCmd extends cmd {
 			log::add('vmware', 'debug', 'On est dans le case refresh de la class vmwareCmd '); 
 			if($eqlogic->getConfiguration("type") == 'ESXi'){
 				log::add('vmware', 'debug', 'On appel la fonction getEsxiInformationList '); 
-				$eqlogic->getEsxiInformationList();
+				$return = $eqlogic->getEsxiInformationList() ;
 				log::add('vmware', 'debug', 'On appel la fonction getvmInformationList '); 
 				$vmListing = $eqlogic->getVmInformationList() ; //Lance la fonction pour récupérer la liste des VMs et stocke le résultat dans vmListing
 				$eqlogic->checkAndUpdateCmd('nbVM', $vmListing[1]); // stocke le contenu de vmListing dans la commande nbVM
