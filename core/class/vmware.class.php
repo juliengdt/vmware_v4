@@ -745,10 +745,18 @@ class vmware extends eqLogic {
 		$numCpuCoresESXi = preg_replace("#\n|\t|\r#","",$numCpuCoresESXi); // on supprime les retours à la ligne et autre retour chariots
 		$numCpuCoresESXi = trim($numCpuCoresESXi);
 		
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère la version VMWARE de l\'ESXi'); 
+		$_request = "vim-cmd hostsvc/hostsummary | grep fullName | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$osESXI = stream_get_contents($result);
+		$osESXI = preg_replace("#\n|\t|\r#|\"","",$osESXI); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
+		$osESXI = trim($osESXI);
+		
 		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
 		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
-		//$this->checkAndUpdateCmd('osType', $os); 
+		$this->checkAndUpdateCmd('osType', $osESXI); 
 		
 		log::add('vmware', 'info', 'Fin fonction getEsxiInformationList'); 
 	}
