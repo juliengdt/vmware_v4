@@ -303,6 +303,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '================ Début du log PreUpdate ================');
 		log::add('vmware', 'info', '========================================================');
 		//if($this->getConfiguration("type") != 'vm'){ // Si ça n'est pas une VM, alors on définit le type, donc on doit matcher quand c'est un ESXi
+		log::add('vmware', 'debug', 'Avant le premier log et le If sans variable');
 		log::add('vmware', 'debug', 'valeur du champ type dans la configuration'.$this->getConfiguration("type").'');
 		if (strcmp($this->getConfiguration('type'),"vm") != 0) { // Si ça n'est pas une VM, alors on définit le type, donc on doit matcher quand c'est un ESXi
 			$this->setCategory('automatism', 1);
