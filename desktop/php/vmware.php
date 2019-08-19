@@ -68,10 +68,11 @@ function console_log($output, $with_script_tags = true) {
 					}
 				}
 				echo '</div>';
+			  echo '</div>';				
 			}
 		}
 	?>	
-	</div>
+<!--	</div>-->
   </div>
   <div class="col-lg-12 eqLogic" style="display: none;">
 		<div class="input-group pull-right" style="display:inline-flex">
