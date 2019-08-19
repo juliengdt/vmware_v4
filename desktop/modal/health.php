@@ -86,7 +86,8 @@ foreach ($eqLogics as $eqLogic) {
 				if (is_object($onlinecmd)) {
 					$online = $onlinecmd->execCmd();
 					echo $online;			
-				}				
+				}
+			}				
 			echo "</span></td>";
 			//echo "<td $styleTD>";
 			//echo str_replace(array("notRunning","running"), array("NON","OUI"), $eqLogic->getConfiguration('Started'));
