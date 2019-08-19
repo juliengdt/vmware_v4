@@ -6,7 +6,6 @@ $plugin = plugin::byId('vmware');
 sendVarToJS('eqType', $plugin->getId()); // Permet de rendre cliquable les éléments de la page Mes équipements (Mes Serveurs ESXi)
 $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste des équipements de type vmware dans la table eqLogic
 
-
 // pour le débug -> permet d'afficher sur la console du navigateur en appelant la fonction console_log
 function console_log($output, $with_script_tags = true) {
     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
@@ -45,17 +44,20 @@ function console_log($output, $with_script_tags = true) {
     <?php
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
-            	echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
+            	console_log('ESXI trouvé');
+				console_log($eqLogicEsxiHost->getConfiguration('name');
+				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 				echo '<div class="eqLogicThumbnailContainer">';
 				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
-					//echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png" height="105" width="95">';
 					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png">';
 					echo '<br>';
 					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
-				echo '</div>';
+					echo '</div>';
 				foreach ($eqLogics as $eqLogicVM) {
+					console_log('VM trouvée');
+					console_log($eqLogicVM->getConfiguration('name');
 					if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
 						$opacity = ($eqLogicVM->getIsEnable()) ? '' : 'disableCard';
 						echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicVM->getId() . '">';
