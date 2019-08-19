@@ -726,7 +726,7 @@ class vmware extends eqLogic {
 		$MemoryGBESXi = stream_get_contents($result);
 		$MemoryGBESXi = preg_replace("#\n|\t|\r#","",$MemoryGBESXi); // on supprime les retours à la ligne et autre retour chariots
 		$MemoryGBESXi = trim($MemoryGBESXi);
-	//	$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
+		$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
 		
 		
 		/*log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de CPU de l\'ESXi'); 
