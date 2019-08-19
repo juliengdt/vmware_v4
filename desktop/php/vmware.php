@@ -33,7 +33,7 @@ function console_log($output, $with_script_tags = true) {
 			<br>
 			<span>{{Configuration}}</span>
 		</div>
-		<div class="cursor eqLogicAction logoSecondary" id="bt_healthvmware"> <!-- l'action est traitée dans le vmware.js -->
+		<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf" id="bt_healthvmware"> <!-- l'action est traitée dans le vmware.js -->
 			<i class="fas fa-medkit"></i>
 			<br>
 			<span>{{Santé}}</span>
@@ -50,8 +50,7 @@ function console_log($output, $with_script_tags = true) {
 				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
-					//echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png" height="105" width="95">';
-					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png">';
+					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.jpg" height="105" width="95">';
 					echo '<br>';
 					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
 				echo '</div>';
@@ -71,7 +70,7 @@ function console_log($output, $with_script_tags = true) {
 	?>	
 	</div>
   </div>
-  <div class="col-lg-12 eqLogic" style="display: none;">
+  <div class="col-xs-12 eqLogic" style="display: none;">
 		<div class="input-group pull-right" style="display:inline-flex">
 			<span class="input-group-btn">
 				<a class="btn btn-default btn-sm eqLogicAction roundedLeft" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i> {{Dupliquer}}</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}</a><a class="btn btn-danger btn-sm eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}</a>
@@ -199,4 +198,3 @@ function console_log($output, $with_script_tags = true) {
 
 <?php include_file('desktop', 'vmware', 'js', 'vmware');?>
 <?php include_file('core', 'plugin.template', 'js');?>
-
