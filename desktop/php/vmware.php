@@ -44,7 +44,7 @@ function console_log($output, $with_script_tags = true) {
     <?php
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
-            	console_log('ESXI trouvé' . $eqLogicEsxiHost->getConfiguration('name') . '');
+            	console_log('ESXI trouvé ' . $eqLogicEsxiHost->getConfiguration('name') . '');
 				//console_log($eqLogicEsxiHost->getConfiguration('name'));
 				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 				echo '<div class="eqLogicThumbnailContainer">';
@@ -56,9 +56,8 @@ function console_log($output, $with_script_tags = true) {
 					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
 					echo '</div>';
 				foreach ($eqLogics as $eqLogicVM) {
-					console_log('VM trouvée' . $eqLogicVM->getConfiguration('name') . '');
-					//console_log($eqLogicVM->getConfiguration('name'));
 					if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
+						console_log('VM trouvée ' . $eqLogicVM->getConfiguration('name') . '');
 						$opacity = ($eqLogicVM->getIsEnable()) ? '' : 'disableCard';
 						echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicVM->getId() . '">';
 							echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
