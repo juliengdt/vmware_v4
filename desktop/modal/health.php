@@ -64,7 +64,7 @@ foreach ($eqLogics as $eqLogic) {
 				$img = '<img class="lazy" src="' . $plugin->getPathImgIcon() . '" height="55" width="55" style="' . $opacity . '"/>';	
 			}
 			$styleTD = "style='font-size : 1em; cursor : default;'";
-			echo '<tr><td>' . $img .'</td>';
+		echo '<tr><td>' . $img .'</td>';
 			echo "<td $styleTD>";
 			echo '<a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">'.$eqLogic->getHumanName(true).'';
 			echo "</span></td>";
@@ -135,18 +135,17 @@ foreach ($eqLogics as $eqLogic) {
 			
 			$snapShotList = $null;
 			echo "<td $styleTD>";
-			$snapShotListCmd = $eqLogic->getCmd('info','snapShotList');
-			if (is_object($snapShotListCmd)) {
-				$snapShotList = $snapShotListCmd->execCmd();
-			}
-			echo $snapShotList;
-			echo "</span></td>";
-			
-		//	echo "<td $styleTD>";
-		//	echo $eqLogic->getConfiguration('snapList');
-		//	echo "</td>";
-			
-			echo "</tr>"; 
+			if ($eqLogic->getConfiguration('type') == 'ESXi') {
+				echo '   N/A   ';
+			}else {
+				$snapShotListCmd = $eqLogic->getCmd('info','snapShotList');
+				if (is_object($snapShotListCmd)) {
+					$snapShotList = $snapShotListCmd->execCmd();
+				}
+				echo $snapShotList;
+			}	
+			echo "</span></td>";						
+		echo "</tr>"; 
 	}			
 ?>
 	</tbody>
