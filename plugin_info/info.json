@@ -4,7 +4,7 @@
 	"description" : "Plugin permettant le pilotage de votre ESXi pour lister les VMs et divers attributs. Gestion des snapshots, Gestion du stop/start, etc",
 	"licence" : "AGPL",
 	"author" : "TaG",
-	"require" : "4.0",
+	"require" : "3.3.24",
 	"category" : "monitoring",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
