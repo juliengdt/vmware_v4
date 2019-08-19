@@ -3,9 +3,8 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 $plugin = plugin::byId('vmware');
-sendVarToJS('eqType', $plugin->getId()); // Permet de rendre cliquable les éléments de la page Mes équipements (Mes Serveurs ESXi)
+sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste des équipements de type vmware dans la table eqLogic
-
 
 // pour le débug -> permet d'afficher sur la console du navigateur en appelant la fonction console_log
 function console_log($output, $with_script_tags = true) {
@@ -20,22 +19,22 @@ function console_log($output, $with_script_tags = true) {
 ?>
 
 <div class="row row-overflow">
- <div class="col-lg-12 eqLogicThumbnailDisplay">
+ <div class="col-xs-12 eqLogicThumbnailDisplay">
 	<legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
 	<div class="eqLogicThumbnailContainer">
 	    <div class="cursor eqLogicAction logoPrimary" data-action="add">
 			<i class="fas fa-plus-circle"></i>
-			<br>
+			<br />
 			<span>{{Ajouter}}</span>
 		</div>
 		<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
 			<i class="fas fa-wrench"></i>
-			<br>
+			<br />
 			<span>{{Configuration}}</span>
 		</div>
 		<div class="cursor eqLogicAction logoSecondary" id="bt_healthvmware"> <!-- l'action est traitée dans le vmware.js -->
 			<i class="fas fa-medkit"></i>
-			<br>
+			<br />
 			<span>{{Santé}}</span>
 		</div>
 	</div>
@@ -51,7 +50,7 @@ function console_log($output, $with_script_tags = true) {
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
 					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png">';
-					echo '<br>';
+					echo '<br />';
 					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
 				echo '</div>';
 				foreach ($eqLogics as $eqLogicVM) {
@@ -59,7 +58,7 @@ function console_log($output, $with_script_tags = true) {
 						$opacity = ($eqLogicVM->getIsEnable()) ? '' : 'disableCard';
 						echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicVM->getId() . '">';
 							echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
-							echo "<br>";
+							echo "<br />";
 							echo '<span class="name">' . $eqLogicVM->getHumanName(true, true) . '</span>';
 						echo '</div>';
 					}
@@ -70,7 +69,7 @@ function console_log($output, $with_script_tags = true) {
 	?>	
 	</div>
   </div>
-  <div class="col-lg-12 eqLogic" style="display: none;">
+  <div class="col-xs-12 eqLogic" style="display: none;">
 		<div class="input-group pull-right" style="display:inline-flex">
 			<span class="input-group-btn">
 				<a class="btn btn-default btn-sm eqLogicAction roundedLeft" data-action="configure"><i class="fas fa-cogs"></i> {{Configuration avancée}}</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i> {{Dupliquer}}</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}</a><a class="btn btn-danger btn-sm eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}</a>
@@ -92,7 +91,7 @@ function console_log($output, $with_script_tags = true) {
 						<label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
 						<div class="col-sm-6">
 							<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-							<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement ESXi}}"/>
+							<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement}}"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -170,10 +169,6 @@ function console_log($output, $with_script_tags = true) {
                 <div class="col-sm-2">
                   <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="vmIPAddress" id="ipAddressfield"></span>
                 </div>
-                <!--<label class="col-sm-3 control-label" id="nbSnapLabel">{{Nb snap}}</label>
-                <div class="col-sm-3">
-                  <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="nbSnap" id="nbSnapfield"></span> 
-                </div>-->
               </div>
             </fieldset>
           </form>
