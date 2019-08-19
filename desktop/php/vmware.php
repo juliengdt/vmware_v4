@@ -44,7 +44,7 @@ function console_log($output, $with_script_tags = true) {
     <?php
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			//if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
-			if (strcmp($eqLogicEsxiHost->getConfiguration('type'),'ESXi') == 0)
+			if (strcmp($eqLogicEsxiHost->getConfiguration('type'),'ESXi') == 0){
             	console_log('ESXI trouvé');
 				console_log($eqLogicEsxiHost->getConfiguration('name'));
 				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
