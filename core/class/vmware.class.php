@@ -744,7 +744,7 @@ class vmware extends eqLogic {
 		$numCpuCoresESXi = stream_get_contents($result);
 		$numCpuCoresESXi = preg_replace("#\n|\t|\r#","",$numCpuCoresESXi); // on supprime les retours à la ligne et autre retour chariots
 		$numCpuCoresESXi = trim($numCpuCoresESXi);
-		*/
+		
 		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
 		/*$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
