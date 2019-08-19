@@ -750,13 +750,15 @@ class vmware extends eqLogic {
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$osESXI = stream_get_contents($result);
+		log::add('vmware', 'debug', 'valeur de la variable OS avant nettoyage' . $osESXI); 
 		$osESXI = preg_replace("#\n|\t|\r#|\"","",$osESXI); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
-		$osESXI = trim($osESXI);
-		
+		$osESXIClean = trim($osESXI);
+		log::add('vmware', 'debug', 'valeur de la variable OS propre' . $osESXIClean); 
+				
 		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
 		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
-		$this->checkAndUpdateCmd('osType', $osESXI); 
+		$this->checkAndUpdateCmd('osType', $osESXIClean); 
 		
 		log::add('vmware', 'info', 'Fin fonction getEsxiInformationList'); 
 	}
