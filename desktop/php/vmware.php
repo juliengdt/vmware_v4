@@ -5,6 +5,16 @@ if (!isConnect('admin')) {
 $plugin = plugin::byId('vmware');
 sendVarToJS('eqType', $plugin->getId()); // Permet de rendre cliquable les éléments de la page Mes équipements (Mes Serveurs ESXi)
 $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste des équipements de type vmware dans la table eqLogic
+
+// pour le débug -> permet d'afficher sur la console du navigateur en appelant la fonction console_log
+function console_log($output, $with_script_tags = true) {
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
+');';
+    if ($with_script_tags) {
+        $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
+}
 ?>
 
 <div class="row row-overflow">
