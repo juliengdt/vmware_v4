@@ -114,32 +114,78 @@ class vmware extends eqLogic {
 			
 			if($this->getConfiguration("type") == 'ESXi'){ // Création des commandes spécifiques au ESXi
 					
-			$nbVM = $this->getCmd(null, 'nbVM');
-			if (!is_object($nbVM)) {
-				$nbVM = new vmwareCmd();
-				$nbVM->setName(__('Nombre de VM', __FILE__));
+				$nbVM = $this->getCmd(null, 'nbVM');
+				if (!is_object($nbVM)) {
+					$nbVM = new vmwareCmd();
+					$nbVM->setName(__('Nombre de VM', __FILE__));
+				}
+				$nbVM->setLogicalId('nbVM');
+				$nbVM->setEqLogic_id($this->getId());
+				$nbVM->setType('info');
+				$nbVM->setSubType('string');
+				$nbVM->save();
+				log::add('vmware', 'info', 'Création de la commande Nombre de VM dans l\'équipement ESXi');
+				
+				$vmList = $this->getCmd(null, 'vmList');
+				if (!is_object($vmList)) {
+					$vmList = new vmwareCmd();
+					$vmList->setName(__('Liste des VMs', __FILE__));
+				}
+				$vmList->setLogicalId('vmList');
+				$vmList->setEqLogic_id($this->getId());
+				$vmList->setType('info');
+				$vmList->setSubType('string');
+				$vmList->save();	 
+				log::add('vmware', 'info', 'Création de la commande VMList dans l\'équipement ESXi');
+				
+				$ramTotal = $this->getCmd(null, 'ramTotal');
+				if (!is_object($ramTotal)) {
+					$ramTotal = new vmwareCmd();
+					$ramTotal->setName(__('Total RAM', __FILE__));
+					$ramTotal->setLogicalId('ramTotal');
+					$ramTotal->setEqLogic_id($this->getId());
+					$ramTotal->setType('info');
+					$ramTotal->setSubType('string');
+					$ramTotal->save();	 
+					log::add('vmware', 'info', 'Création de la commande Ram Total dans l\'équipement ESXi');
+				}
+												
+				$cpuNumber = $this->getCmd(null, 'cpuNumber');
+				if (!is_object($cpuNumber)) {
+					$cpuNumber = new vmwareCmd();
+					$cpuNumber->setName(__('Quantité CPU', __FILE__));
+					$cpuNumber->setLogicalId('cpuNumber');
+					$cpuNumber->setEqLogic_id($this->getId());
+					$cpuNumber->setType('info');
+					$cpuNumber->setSubType('string');
+					$cpuNumber->save();	 
+					log::add('vmware', 'info', 'Création de la commande Quantité CPU dans l\'équipement ESXi');
+				}
+								
+				$corePerCpuNumber = $this->getCmd(null, 'corePerCpuNumber');
+				if (!is_object($corePerCpuNumber)) {
+					$corePerCpuNumber = new vmwareCmd();
+					$corePerCpuNumber->setName(__('Quantité Coeur par CPU', __FILE__));
+					$corePerCpuNumber->setLogicalId('corePerCpuNumber');
+					$corePerCpuNumber->setEqLogic_id($this->getId());
+					$corePerCpuNumber->setType('info');
+					$corePerCpuNumber->setSubType('string');
+					$corePerCpuNumber->save();	 
+					log::add('vmware', 'info', 'Création de la commande Quantité Coeur par CPU dans l\'équipement ESXi');
+				}
+								
+				$osType = $this->getCmd(null, 'osType');
+				if (!is_object($osType)) {
+					$osType = new vmwareCmd();
+					$osType->setName(__('Système Exploitation', __FILE__));
+					$osType->setLogicalId('osType');
+					$osType->setEqLogic_id($this->getId());
+					$osType->setType('info');
+					$osType->setSubType('string');
+					$osType->save();	 
+					log::add('vmware', 'info', 'Création de la commande Système Exploitation dans l\'équipement ESXi');
+				}	
 			}
-			$nbVM->setLogicalId('nbVM');
-			$nbVM->setEqLogic_id($this->getId());
-			$nbVM->setType('info');
-			$nbVM->setSubType('string');
-			$nbVM->save();
-			log::add('vmware', 'info', 'Création de la commande Nombre de VM dans l\'équipement ESXi');
-			
-			$vmList = $this->getCmd(null, 'vmList');
-			if (!is_object($vmList)) {
-				$vmList = new vmwareCmd();
-				$vmList->setName(__('Liste des VMs', __FILE__));
-			}
-			$vmList->setLogicalId('vmList');
-			$vmList->setEqLogic_id($this->getId());
-			$vmList->setType('info');
-			$vmList->setSubType('string');
-			$vmList->save();	 
-			log::add('vmware', 'info', 'Création de la commande VMList dans l\'équipement ESXi');
-			}
-			
-			
 			
 			
 			if($this->getConfiguration("type") == 'vm'){//Création des commandes spécifiques aux VMS
@@ -364,6 +410,68 @@ class vmware extends eqLogic {
 		}
 		log::add('vmware', 'debug', 'Fin fonction postUpdate');
     }
+	
+	public function getEsxiInformationList(){
+		log::add('vmware', 'info', '========================================================');
+		log::add('vmware', 'info', '========== Début du log getEsxiInformationList ===========');
+		log::add('vmware', 'info', '========================================================');
+		
+		$password = $this->getConfiguration("passwordSSH"); // on récupère le password
+		$login = $this->getConfiguration("login"); // on récupère le login
+		$hostIP = $this->getConfiguration("ipAddress"); // on récupère l'adresseIP
+		$ESXiHostName = $this->getConfiguration("esxiHost"); // on récupère l'adresseIP
+  
+		log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
+			
+		if (!$connection = ssh2_connect($hostIP,'22')) {
+				return 'error connecting';
+				log::add('vmware', 'error', 'ESXi injoignable');
+		}else{
+			log::add('vmware', 'info', 'ESXi joignable');
+		}
+			
+		if (!ssh2_auth_password($connection,$login,$password)){
+				return 'error connecting';
+				log::add('vmware', 'error', 'Connexion KO à l\'ESXi');
+		}else {
+			log::add('vmware', 'info', 'Connexion OK à l\'ESXi');
+		}
+		
+		
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère la ram totale de l\'ESXi'); 
+		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep memorySize | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$MemoryGBESXi = stream_get_contents($result);
+		$MemoryGBESXi = preg_replace("#\n|\t|\r#","",$MemoryGBESXi); // on supprime les retours à la ligne et autre retour chariots
+		$MemoryGBESXi = trim($MemoryGBESXi);
+		$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
+		
+		
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de CPU de l\'ESXi'); 
+		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuPkgs | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$numCpuESXi = stream_get_contents($result);
+		$numCpuESXi = preg_replace("#\n|\t|\r#","",$numCpuESXi); // on supprime les retours à la ligne et autre retour chariots
+		$numCpuESXi = trim($numCpuESXi);
+		
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de coeur par CPU de l\'ESXi'); 
+		$_request = "vim-cmd hostsvc/hostsummary ".$ID ." | grep numCpuCores | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$numCpuCoresESXi = stream_get_contents($result);
+		$numCpuCoresESXi = preg_replace("#\n|\t|\r#","",$numCpuCoresESXi); // on supprime les retours à la ligne et autre retour chariots
+		$numCpuCoresESXi = trim($numCpuCoresESXi);
+		
+		$this->checkAndUpdateCmd('ramTotal', $MemoryGBESXi); 
+		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
+		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
+		$this->checkAndUpdateCmd('osType', $os); 
+		
+		log::add('vmware', 'info', 'Fin fonction getEsxiInformationList'); 
+		
+	}
 	  
 	public function getVmInformationList() {
       	log::add('vmware', 'info', '========================================================');
