@@ -506,7 +506,7 @@ class vmware extends eqLogic {
 			$cpt = $cpt+1;
 			$vmNameList = $vmName."<br>".$vmNameList;
 		}
-		$vmNameList = "<br>".$vmNameList.""; // Permet de faire un retour à la ligne pour que ça soit plus propre sur le widget
+		$vmNameList = "<br>".$vmNameList."<br>"; // Permet de faire un retour à la ligne pour que ça soit plus propre sur le widget
 		
 		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 		stream_set_blocking($closesession, true);
