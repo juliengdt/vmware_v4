@@ -750,7 +750,7 @@ class vmware extends eqLogic {
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
 		//$this->checkAndUpdateCmd('osType', $os); 
 		
-		log::add('vmware', 'info', 'Fin fonction getEsxiInformationList'); */
+		log::add('vmware', 'info', 'Fin fonction getEsxiInformationList'); 
 	}
 
 
