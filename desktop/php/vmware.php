@@ -38,17 +38,15 @@ function console_log($output, $with_script_tags = true) {
 			<span>{{Santé}}</span>
 		</div>
 	</div>
-	<legend><i class="fas fa-table"></i> {{Mes serveurs ESXi}}</legend>
-		<input class="form-control" placeholder="{{Mes équipements VMWARE}}" id="in_searchEqlogic" />
+	<legend><i class="fas fa-table"></i> {{Mes équipements VMWARE}}</legend>
+		<input class="form-control" placeholder="{{Chercher parmis vos équipements}}" id="in_searchEqlogic" />
 	<!--<div class="eqLogicThumbnailContainer">--> <!-- a commenter si besoin de tester l'alignement en cas de plusieurs ESXi présent -->
     <?php
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
-			  echo '<div class="eqLogicThumbnailContainer">'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
             	console_log('ESXI trouvé ' . $eqLogicEsxiHost->getConfiguration('name') . '');
 				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
-				//echo '<div class="eqLogicThumbnailContainer">';
-				echo '<div class="">';
+				echo '<div class="eqLogicThumbnailContainer">'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
 				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
@@ -68,7 +66,7 @@ function console_log($output, $with_script_tags = true) {
 					}
 				}
 				echo '</div>';
-			  echo '</div>'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
+			//  echo '</div>'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
 			}
 		}
 	?>	
