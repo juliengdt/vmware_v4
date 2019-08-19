@@ -68,10 +68,50 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '================= Début du log PreSave =================');
 		log::add('vmware', 'info', '========================================================');
 		if($this->getConfiguration("type",'none') == 'none'){
-			$this->setConfiguration("type",'ESXi');
+			$this->setCategory('automatism', 1);
+			$this->setConfiguration('type','ESXi');
+			$this->setConfiguration('name',$this->getName());
+			$this->setConfiguration('esxiHost',$this->getName());
+			$this->setLogicalId('vmware'.$this->getName());
+			log::add('vmware', 'debug', 'C\'est un ESXi, on vient d\'ajouter des paramètres à sa configuration');
 		}
+		$this->save();
 	  
-		if($this->getConfiguration("type") == 'ESXi'){ // Création des commandes spécifiques au ESXi
+		/*if($this->getConfiguration("type") == 'ESXi'){ // Création des commandes spécifiques au ESXi
+					
+			$nbVM = $this->getCmd(null, 'nbVM');
+			if (!is_object($nbVM)) {
+				$nbVM = new vmwareCmd();
+				$nbVM->setName(__('Nombre de VM', __FILE__));
+			}
+			$nbVM->setLogicalId('nbVM');
+			$nbVM->setEqLogic_id($this->getId());
+			$nbVM->setType('info');
+			$nbVM->setSubType('string');
+			$nbVM->save();
+			log::add('vmware', 'info', 'Création de la commande Nombre de VM dans l\'équipement ESXi');
+			
+			$vmList = $this->getCmd(null, 'vmList');
+			if (!is_object($vmList)) {
+				$vmList = new vmwareCmd();
+				$vmList->setName(__('Liste des VMs', __FILE__));
+			}
+			$vmList->setLogicalId('vmList');
+			$vmList->setEqLogic_id($this->getId());
+			$vmList->setType('info');
+			$vmList->setSubType('string');
+			$vmList->save();	 
+			log::add('vmware', 'info', 'Création de la commande VMList dans l\'équipement ESXi');
+		}*/
+		log::add('vmware', 'info', 'Fin du log - Fonction preSave');
+    }
+
+    public function postSave() {
+			log::add('vmware', 'info', '========================================================');
+			log::add('vmware', 'info', '================= Début du log PostSave ================');
+			log::add('vmware', 'info', '========================================================');
+			
+			if($this->getConfiguration("type") == 'ESXi'){ // Création des commandes spécifiques au ESXi
 					
 			$nbVM = $this->getCmd(null, 'nbVM');
 			if (!is_object($nbVM)) {
@@ -97,13 +137,9 @@ class vmware extends eqLogic {
 			$vmList->save();	 
 			log::add('vmware', 'info', 'Création de la commande VMList dans l\'équipement ESXi');
 		}
-		log::add('vmware', 'info', 'Fin du log - Fonction preSave');
-    }
-
-    public function postSave() {
-			log::add('vmware', 'info', '========================================================');
-			log::add('vmware', 'info', '================= Début du log PostSave ================');
-			log::add('vmware', 'info', '========================================================');
+			
+			
+			
 			
 			if($this->getConfiguration("type") == 'vm'){//Création des commandes spécifiques aux VMS
 				log::add('vmware', 'debug', 'Func : postSave - Création des commandes spécfiques à une VM - s\'il en manque');
