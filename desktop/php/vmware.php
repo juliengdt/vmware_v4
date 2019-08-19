@@ -40,7 +40,7 @@ function console_log($output, $with_script_tags = true) {
 	</div>
 	<legend><i class="fas fa-table"></i> {{Mes serveurs ESXi}}</legend>
 		<input class="form-control" placeholder="{{Mes équipements VMWARE}}" id="in_searchEqlogic" />
-	<!--<div class="eqLogicThumbnailContainer">--<
+	<!--<div class="eqLogicThumbnailContainer">-->
     <?php
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
