@@ -79,11 +79,14 @@ foreach ($eqLogics as $eqLogic) {
 			
 			$online = $null;
 			echo "<td $styleTD>";
-			$onlinecmd = $eqLogic->getCmd('info','online');
-			if (is_object($onlinecmd)) {
-				$online = $onlinecmd->execCmd();
-			}
-			echo $online;			
+			if ($eqLogic->getConfiguration('type') == 'ESXi') {
+				echo '   N/A   ';
+			}else {
+				$onlinecmd = $eqLogic->getCmd('info','online');
+				if (is_object($onlinecmd)) {
+					$online = $onlinecmd->execCmd();
+					echo $online;			
+				}				
 			echo "</span></td>";
 			//echo "<td $styleTD>";
 			//echo str_replace(array("notRunning","running"), array("NON","OUI"), $eqLogic->getConfiguration('Started'));
