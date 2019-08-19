@@ -70,7 +70,11 @@ foreach ($eqLogics as $eqLogic) {
 			echo "</span></td>";
 			
 			echo "<td $styleTD>";
-			echo $eqLogic->getConfiguration('vmIPAddress');
+			if ($eqLogic->getConfiguration('type') == 'ESXi') {
+				echo $eqLogic->getConfiguration('ipAddress');
+			}else {
+				echo $eqLogic->getConfiguration('vmIPAddress');
+			}
 			echo "</span></td>";
 			
 			$online = $null;
