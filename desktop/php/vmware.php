@@ -150,7 +150,7 @@ function console_log($output, $with_script_tags = true) {
 			</form>
 		 </div>
 
-		 <div class="col-sm-4">
+		 <div class="col-sm-6">
           <form class="form-horizontal">
             <fieldset>
               <div class="form-group">
