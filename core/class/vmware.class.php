@@ -751,7 +751,8 @@ class vmware extends eqLogic {
 		stream_set_blocking($result, true);
 		$osESXI = stream_get_contents($result);
 		log::add('vmware', 'debug', 'valeur de la variable OS avant nettoyage' . $osESXI); 
-		$osESXI = preg_replace("#\n|\t|\r#|\"","",$osESXI); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
+		$osESXI = preg_replace("#\n|\t|\r#|","",$osESXI); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
+		$osESXI = str_replace("\"","",$osESXI); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 		$osESXIClean = trim($osESXI);
 		log::add('vmware', 'debug', 'valeur de la variable OS propre' . $osESXIClean); 
 				
