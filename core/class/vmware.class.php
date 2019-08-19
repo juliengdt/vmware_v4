@@ -723,11 +723,11 @@ class vmware extends eqLogic {
 		$_request = "vim-cmd hostsvc/hostsummary | grep memorySize | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
-		$MemoryGBESXi = stream_get_contents($result);
-		$MemoryGBESXi = preg_replace("#\n|\t|\r#","",$MemoryGBESXi); // on supprime les retours à la ligne et autre retour chariots
-		$MemoryGBESXi = trim($MemoryGBESXi);
-		$MemoryGBESXi = round(intval($MemoryGBESXi) / 1024 / 1024 / 1024,4);
-		
+		$memoryESXi = stream_get_contents($result);
+		$memoryESXi = preg_replace("#\n|\t|\r#","",$memoryESXi); // on supprime les retours à la ligne et autre retour chariots
+		$memoryESXi = trim($memoryESXi);
+		$memoryGBESXi = round(intval($memoryESXi) / 1024 / 1024 / 1024,4);
+		log::add('vmware', 'debug', 'valeur en GB de la ram' . $memoryGBESXi); 
 		
 		/*log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de CPU de l\'ESXi'); 
 		$_request = "vim-cmd hostsvc/hostsummary | grep numCpuPkgs | cut -d '=' -f 2 | cut -d ',' -f 1";
@@ -736,7 +736,7 @@ class vmware extends eqLogic {
 		$numCpuESXi = stream_get_contents($result);
 		$numCpuESXi = preg_replace("#\n|\t|\r#","",$numCpuESXi); // on supprime les retours à la ligne et autre retour chariots
 		$numCpuESXi = trim($numCpuESXi);
-		
+		*/
 		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de coeur par CPU de l\'ESXi'); 
 		$_request = "vim-cmd hostsvc/hostsummary | grep numCpuCores | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
@@ -745,7 +745,7 @@ class vmware extends eqLogic {
 		$numCpuCoresESXi = preg_replace("#\n|\t|\r#","",$numCpuCoresESXi); // on supprime les retours à la ligne et autre retour chariots
 		$numCpuCoresESXi = trim($numCpuCoresESXi);
 		*/
-		$this->checkAndUpdateCmd('ramTotal', $MemoryGBESXi); 
+		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
 		/*$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
 		//$this->checkAndUpdateCmd('osType', $os); 
