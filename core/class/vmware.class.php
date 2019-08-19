@@ -67,6 +67,9 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '================= Début du log PreSave =================');
 		log::add('vmware', 'info', '========================================================');
+		if($this->getConfiguration("type",'none') == 'none'){
+			$this->setConfiguration("type",'ESXi');
+		}
 	  
 		if($this->getConfiguration("type") == 'ESXi'){ // Création des commandes spécifiques au ESXi
 					
@@ -303,14 +306,14 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '================ Début du log PreUpdate ================');
 		log::add('vmware', 'info', '========================================================');
-		if($this->getConfiguration("type") != 'vm'){ // 
+		/*if($this->getConfiguration("type") != 'vm'){ // 
 			$this->setCategory('automatism', 1);
 			$this->setConfiguration('type','ESXi');
 			$this->setConfiguration('name',$this->getName());
 			$this->setConfiguration('esxiHost',$this->getName());
 			$this->setLogicalId('vmware'.$this->getName());
 			log::add('vmware', 'debug', 'C\'est un ESXi, on vient d\'ajouter des paramètres à sa configuration');
-		}
+		}*/
 		log::add('vmware', 'debug', 'Fin fonction preUpdate');
     }
 
