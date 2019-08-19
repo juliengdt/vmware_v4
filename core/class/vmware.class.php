@@ -1009,6 +1009,8 @@ class vmwareCmd extends cmd {
 		case 'refresh':  
 			log::add('vmware', 'debug', 'On est dans le case refresh de la class vmwareCmd '); 
 			if($eqlogic->getConfiguration("type") == 'ESXi'){
+				log::add('vmware', 'debug', 'On appel la fonction getEsxiInformationList '); 
+				getEsxiInformationList();
 				log::add('vmware', 'debug', 'On appel la fonction getvmInformationList '); 
 				$vmListing = $eqlogic->getVmInformationList() ; //Lance la fonction pour récupérer la liste des VMs et stocke le résultat dans vmListing
 				$eqlogic->checkAndUpdateCmd('nbVM', $vmListing[1]); // stocke le contenu de vmListing dans la commande nbVM
