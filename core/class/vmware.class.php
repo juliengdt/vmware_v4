@@ -535,7 +535,7 @@ class vmware extends eqLogic {
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$osType = stream_get_contents($result);
-			$osType = preg_replace("#\n|\t|\r#","",$osType); // on supprime les retours à la ligne et autre retour chariots
+			//$osType = preg_replace("#\n|\t|\r#","",$osType); // on supprime les retours à la ligne et autre retour chariots
 			$osType = str_replace("\"","",$osType); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 			$osTypeClean = trim($osType);
 			//$osType = str_replace("Guest","",$osType);
@@ -628,7 +628,7 @@ class vmware extends eqLogic {
 			'MemoryGB' => $ramGBQuantity,
 			'vmwareTools' => $vmwareToolsClean,
 			//'SnapName' => $snapList,
-			'PowerState' => $started,
+			'PowerState' => $started
 			//'Description' => $description	
 			);
 			$cpt = $cpt+1;
