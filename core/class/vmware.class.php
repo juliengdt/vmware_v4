@@ -63,12 +63,12 @@ class vmware extends eqLogic {
 		
 		foreach ($eqLogicVmware as $eqLogicEsxiHost) {
 			if($eqLogicEsxiHost->getConfiguration("type") == 'ESXi'){ // on cherche si c'est un ESXI 
-			log::add('vmware', 'debug', 'Func cron Daily On a trouvé un ESXi');
-			$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
-			$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
-			$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
+				log::add('vmware', 'debug', 'Func cron Daily On a trouvé un ESXi' . $eqLogicEsxiHost->getConfiguration("name"));
+				$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
+				$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
+				$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
 			}				
-		  
+			  
 			log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
 
 			if (!$connection = ssh2_connect($hostIP,'22')) {
@@ -149,14 +149,11 @@ class vmware extends eqLogic {
 						// echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible car on a qu\une seule entrée dans le tableau des mises à jour disponible';
 						$toBeUpdated = "Non";
 				}
-			}
 			$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 			stream_set_blocking($closesession, true);
 			stream_get_contents($closesession);
-		
-			//$toBeUpdated
-		
 			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
+			}		
 		}
 		log::add('vmware', 'info', 'Fin de la fonction Cron Daily');
 	}
