@@ -68,7 +68,7 @@ class vmware extends eqLogic {
 				$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
 				$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
 				$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
-			}				
+			//}				
 			  
 			log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
 
@@ -155,6 +155,7 @@ class vmware extends eqLogic {
 			stream_get_contents($closesession);
 			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
 			}		
+		  }
 		}
 		log::add('vmware', 'info', 'Fin de la fonction Cron Daily');
 	}
