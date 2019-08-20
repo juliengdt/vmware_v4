@@ -674,7 +674,7 @@ class vmware extends eqLogic {
 		  $os = $vm['GuestId'];
 		  //$started = str_replace(array("notRunning","running"), array("No","Yes"), $vm['PowerState'] );
 		  $started = str_replace(array("Powered off","Powered on"), array("Non","Oui"), $vm['PowerState'] );
-		  $toolsStatus = str_replace(array("toolsNotInstalled","toolsOK"), array("Non","Oui"), $vm['vmwareTools'] );
+		  $toolsStatus = str_replace(array("toolsNotInstalled","toolsOK","toolsNotRunning"), array("Non Installé","Oui","Non Démarré"), $vm['vmwareTools'] );
 		 
 		  $vmware = self::byLogicalId('vmware'.$deviceid,'vmware'); // Création de l'enveloppe vide d'une VM
 		  if (!is_object($vmware)) {
