@@ -531,7 +531,7 @@ class vmware extends eqLogic {
 			}
 			
 			// Récupération et stockage de l'OS
-			$_request = "vim-cmd vmsvc/get.config ".$ID ." | grep guestFullName | cut -d "=" -f 2 | cut -d "," -f 1"; // permet de récupérer le nom de l'OS si VMWARE TOOLS non installé ou machine éteinte
+			$_request = "vim-cmd vmsvc/get.config ".$ID ." | grep guestFullName | cut -d \"=\" -f 2 | cut -d \",\" -f 1"; // permet de récupérer le nom de l'OS si VMWARE TOOLS non installé ou machine éteinte
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$osType = stream_get_contents($result);
