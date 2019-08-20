@@ -68,30 +68,96 @@ class vmware extends eqLogic {
 			$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
 			$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
 			}				
-		}
-  
-		log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
+		  
+			log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
 
-		if (!$connection = ssh2_connect($hostIP,'22')) {
-				return 'error connecting';
-				log::add('vmware', 'error', 'ESXi injoignable');
-		}else{
-			log::add('vmware', 'info', 'ESXi joignable');
-		}
+			if (!$connection = ssh2_connect($hostIP,'22')) {
+					return 'error connecting';
+					log::add('vmware', 'error', 'ESXi injoignable');
+			}else{
+				log::add('vmware', 'info', 'ESXi joignable');
+			}
+				
+			if (!ssh2_auth_password($connection,$login,$password)){
+					return 'error connecting';
+					log::add('vmware', 'error', 'Connexion KO à l\'ESXi');
+			}else {
+				log::add('vmware', 'info', 'Connexion OK à l\'ESXi');
+			}
 			
-		if (!ssh2_auth_password($connection,$login,$password)){
-				return 'error connecting';
-				log::add('vmware', 'error', 'Connexion KO à l\'ESXi');
-		}else {
-			log::add('vmware', 'info', 'Connexion OK à l\'ESXi');
+			// On récupère la version software de l'ESXi
+			$_request = "esxcli software profile get | grep -i Name | sed -e 's/.*ESXi-\(.*\\)-standard.*/\\1/'"; // il faut faire un double antislash sinon il est perdu en passant dans php
+			$result = ssh2_exec($connection, $_request . ' 2>&1');
+			stream_set_blocking($result, true);
+			$esxiCurrentVersion = stream_get_contents($result);
+			//echo ' Version récupérée de l\ESXI : ';
+			//echo $esxiCurrentVersion;
+
+			// on torture le string récupéré pour interroger la liste des versions disponibles 
+			$esxiCurrentVersionSplitted = explode ("-",$esxiCurrentVersion,2); // on divise en deux la chaine de caractères au premier - trouvé
+			//echo ' Version récupérée de l\ESXI en enlevant la version de l\'Update en cours : ';
+			//print_r($esxiCurrentVersionSplitted);
+			//echo $esxiCurrentVersionSplitted[0];
+			 
+			$esxiCurrentVersionSplittedLast = substr($esxiCurrentVersionSplitted[0], 0, -1); // on supprime le dernier caractères car on doit le remplacer par un * pour faire une requête proprement formatée
+			//echo ' Version récupérée de l\ESXI en enlevant le dernier caractères : ';
+			//echo $esxiCurrentVersionSplittedLast;
+			
+			// on récupère la liste des mises à jours disponible depuis l'ESXI
+			$_request = "esxcli software sources profile list -d https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml | grep -i ESXi-".$esxiCurrentVersionSplittedLast."*-standard | sed -e 's/.*ESXi-\\(.*\\)-standard.*/\\1/'  | awk '{print $1\":9999999\"}' | sort -r"; // il faut faire un double antislash sinon il est perdu en passant dans php
+			//echo 'contenu de la requête : ';
+			// echo $_request;
+			$result = ssh2_exec($connection, $_request . ' 2>&1');
+			stream_set_blocking($result, true);
+			$esxiUpdateList = stream_get_contents($result);
+			// echo ' Version récupérée de l\ESXI : ';
+			// echo $esxiUpdateList;
+
+			//$firstLineRemoved = array_shift($esxiUpdateListArray);
+			$esxiUpdateListArray = explode(":9999999", $esxiUpdateList);
+			$lastLineRemoved = array_pop($esxiUpdateListArray); // on supprime la dernière ligne du tableau car elle est vide
+			$trimmedEsxiUpdateListArray =array_map('trim',$esxiUpdateListArray);
+			sort($trimmedEsxiUpdateListArray);
+			// echo ' Version tableau triée : ';
+			// print_r($trimmedEsxiUpdateListArray);
+			$countArrayMembers = count($trimmedEsxiUpdateListArray); // on stocke le nombre d'entrée présente dans l'objet pour comparer par la suite
+			// afin de savoir si on est à jour il faut comparer notre version d'ESXi avec celle disponible en ligne			
+			if (strlen($esxiCurrentVersion) <15) { // IF notre version contient moins de 15 caractères alors on est sur la première version sortie d'ESXI, sans aucune mise à jour appliquée
+				// echo 'nombre d\'élément du tableau';
+				// echo count($trimmedEsxiUpdateListArray);
+				if ($countArrayMembers >1) { //// ALORS IF le nombre d'élément dans le tableau > 1 (donc il y en a 2) DONC on met une valeur à 1 pour indiquer que mise à jour disponible
+					// echo 'boucle IF du IF';
+					$toBeUpdated = "Oui";
+				}else {
+				  // echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible';
+				  $toBeUpdated = "Non";
+				}
+			}else { // ELSE notre version contient plus de 15 caractères alors on a déjà un update ou mise à jour appliquée
+				// echo 'Boucle ELSE, on a donc un ESXi avec une version qui a au moins un update';
+				// echo 'nombre d\'élément du tableau';
+				// echo count($trimmedEsxiUpdateListArray);
+				if ($countArrayMembers > 1) {		
+					// echo 'boucle IF du ELSE';
+						if(array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier il y a une mise à jour disponible
+							// echo 'boucle IF DU IF du ELSE';
+							$toBeUpdated = "Oui";
+						}else {
+							// echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible car on a qu\une seule entrée dans le tableau des mises à jour disponible';
+							$toBeUpdated = "Non";
+						}
+				}else {
+						// echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible car on a qu\une seule entrée dans le tableau des mises à jour disponible';
+						$toBeUpdated = "Non";
+				}
+			}
+			$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
+			stream_set_blocking($closesession, true);
+			stream_get_contents($closesession);
+		
+			//$toBeUpdated
+		
+			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
 		}
-		
-		
-		
-		
-		
-		
-		
 		log::add('vmware', 'info', 'Fin de la fonction Cron Daily');
 	}
 
