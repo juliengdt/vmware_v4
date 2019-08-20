@@ -568,7 +568,7 @@ class vmware extends eqLogic {
 			
 			// Récupération de l'état des VMWARE Tools
 			log::add('vmware', 'debug', 'On appelle la commande qui récupère l\'état des des VMWARE Tools'); 
-			$_request = "vim-cmd vmsvc/get.guest | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
+			$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$vmwareTools = stream_get_contents($result);
@@ -674,6 +674,7 @@ class vmware extends eqLogic {
 		  $os = $vm['GuestId'];
 		  //$started = str_replace(array("notRunning","running"), array("No","Yes"), $vm['PowerState'] );
 		  $started = str_replace(array("Powered off","Powered on"), array("Non","Oui"), $vm['PowerState'] );
+		  $toolsStatus = str_replace(array("toolsNotInstalled","toolsOK"), array("Non","Oui"), $vm['vmwareTools'] );
 		 
 		  $vmware = self::byLogicalId('vmware'.$deviceid,'vmware'); // Création de l'enveloppe vide d'une VM
 		  if (!is_object($vmware)) {
@@ -712,7 +713,7 @@ class vmware extends eqLogic {
 			$vmware->setConfiguration('esxiHost', $ESXiHostName);
 			$vmware->save();				
 			
-			$toolsStatus = str_replace(array("toolsNotInstalled","toolsOK"), array("Non","Oui"), $vm['vmwareTools'] );
+			
 			// Stockage des valeurs dans les commandes information
 			//$vmware->checkAndUpdateCmd('nbSnap', $nbSnapCount); 
 			//$vmware->checkAndUpdateCmd('snapShotList', $snapList); 
