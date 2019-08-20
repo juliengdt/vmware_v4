@@ -531,8 +531,17 @@ class vmware extends eqLogic {
 			}
 			
 			// Récupération et stockage de l'OS
+			$_request = "vim-cmd vmsvc/get.config ".$ID ." | grep guestFullName | cut -d "=" -f 2 | cut -d "," -f 1"; // permet de récupérer le nom de l'OS si VMWARE TOOLS non installé ou machine éteinte
+			$result = ssh2_exec($connection, $_request . ' 2>&1');
+			stream_set_blocking($result, true);
+			$osType = stream_get_contents($result);
+			$osType = preg_replace("#\n|\t|\r#","",$osType); // on supprime les retours à la ligne et autre retour chariots
+			$osType = str_replace("\"","",$osType); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
+			$osTypeClean = trim($osType);
+			//$osType = str_replace("Guest","",$osType);
+			
 			//if($started == "running") {
-			if($started == "Powered on") {
+			/*if($started == "Powered on") {
 				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestId | cut -d '\"' -f 2";
 				$result = ssh2_exec($connection, $_request . ' 2>&1');
 				stream_set_blocking($result, true);
@@ -541,7 +550,8 @@ class vmware extends eqLogic {
 				$osType = str_replace("Guest","",$osType);
 			}else {
 				$osType = "Not Found";
-			}
+				//vim-cmd vmsvc/get.config ".$ID ." | grep guestFullName | cut -d "=" -f 2 | cut -d "," -f 1 // permet de récupérer le nom de l'OS si VMWARE TOOLS non installé ou machine éteinte
+			}*/
 			// Récupération et stockage du nombre de CPU
 			$_request = "vim-cmd vmsvc/get.config ".$ID." | grep numCPU | sed -n 1p | cut -d '=' -f 2 | cut -d ',' -f 1 | cut -d ' ' -f 2";
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
@@ -611,7 +621,7 @@ class vmware extends eqLogic {
 			'id' => $ID,
 			'Name' => $vmName,
 			'IPAddress' => $IPAddress,
-			'GuestId' => $osType,
+			'GuestId' => $osTypeClean,
 			'NumCpu' => $cpuNb,
 			'CoresPerSocket' => $corePerCpu,
 			//'MemoryGB' => $ramQuantity,
