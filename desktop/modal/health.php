@@ -32,7 +32,7 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 			<th>{{Nom}}</th>
 			<th>{{Adresse IP}}</th>
 			<th>{{Allumé(e) ?}}</th>
-			<!--<th>{{Vmware Tools ?}}</th>-->
+			<th>{{Vmware Tools ?}}</th>
 			<th>{{OS}}</th>
 			<th>{{Nb CPU}}</th>
 			<th>{{Nb Coeur/CPU}}</th>
@@ -93,6 +93,20 @@ foreach ($eqLogics as $eqLogic) {
 			//echo "<td $styleTD>";
 			//echo str_replace(array("notRunning","running"), array("NON","OUI"), $eqLogic->getConfiguration('Started'));
 			//echo "</span></td>";			  
+			
+			$vmwareToolsStatus = $null;
+			echo "<td $styleTD>";
+			if ($eqLogic->getConfiguration('type') == 'ESXi') {
+				echo '   N/A   ';
+			}else {
+				$onlinecmd = $eqLogic->getCmd('info','vmwareTools');
+				if (is_object($onlinecmd)) {
+					$vmwareToolsStatus = $onlinecmd->execCmd();
+					echo $vmwareToolsStatus;			
+				}
+			}				
+			echo "</span></td>";
+			
 			
 			$guestType = $null;
 			echo "<td $styleTD>";

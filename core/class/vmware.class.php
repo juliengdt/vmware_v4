@@ -572,10 +572,10 @@ class vmware extends eqLogic {
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$vmwareTools = stream_get_contents($result);
-			log::add('vmware', 'debug', 'valeur de la variable vmwaretools avant nettoyage' . $vmwareTools); 
+			log::add('vmware', 'debug', 'valeur de la variable vmwaretools avant nettoyage ' . $vmwareTools); 
 			$vmwareTools = str_replace("\"","",$vmwareTools); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 			$vmwareToolsClean = trim($vmwareTools);
-			log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre' . $vmwareToolsClean); 
+			log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre ' . $vmwareToolsClean); 
 				
 			
 			// Récupération et stockage du nombre de snapshot déclaré sur la VM
@@ -722,7 +722,7 @@ class vmware extends eqLogic {
 			$vmware->checkAndUpdateCmd('corePerCpuNumber', $vm['CoresPerSocket']); 
 			$vmware->checkAndUpdateCmd('osType', $os); 
 			$vmware->checkAndUpdateCmd('online', $started); 
-			$vmware->checkAndUpdateCmd('vmwareTools', $vm['toolsStatus']); 
+			$vmware->checkAndUpdateCmd('vmwareTools', $toolsStatus); 
 			
 		}
 		log::add('vmware', 'info', 'Fin fonction saveVmAsEquipment'); 
