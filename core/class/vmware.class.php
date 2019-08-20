@@ -33,8 +33,8 @@ class vmware extends eqLogic {
 
     /*     * ***********************Methode static*************************** */
     
-      //Fonction exécutée automatiquement toutes les heures par Jeedom
-      public static function cronHourly() {
+    //Fonction exécutée automatiquement toutes les heures par Jeedom
+    public static function cronHourly() {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '============== Début du log - Cron Hourly ==============');
 		log::add('vmware', 'info', '========================================================');
@@ -43,8 +43,7 @@ class vmware extends eqLogic {
 				$cmd = $vmware->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
 				if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
 					continue; 
-				}				
-          		
+				}		
 				log::add('vmware', 'info', 'début du refresh via le cron jeedom toutes les heures');
 				$cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
 				log::add('vmware', 'info', 'Fin du refresh via le cron hourly de jeedom');
@@ -52,6 +51,51 @@ class vmware extends eqLogic {
 		}
 		log::add('vmware', 'info', 'Fin de la fonction Cron Hourly');
       }
+
+	// Fonction exécutée automatiquement tous les jours par Jeedom
+	public static function cronDaily() {
+		log::add('vmware', 'info', '========================================================');
+		log::add('vmware', 'info', '============== Début du log - Cron Daily ===============');
+		log::add('vmware', 'info', '========================================================');
+		
+		$plugin = plugin::byId('vmware'); // Récupération des équipements du plugin vmware en se basant sur l'ID du plugin
+		$eqLogicVmware = eqLogic::byType($plugin->getId());
+		
+		foreach ($eqLogicVmware as $eqLogicEsxiHost) {
+			if($eqLogicEsxiHost->getConfiguration("type") == 'ESXi'){ // on cherche si c'est un ESXI 
+			log::add('vmware', 'debug', 'Func cron Daily On a trouvé un ESXi');
+			$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
+			$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
+			$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
+			}				
+		}
+  
+		log::add('vmware', 'debug', 'Login utilisé : ' . $login . ' - Ip de l\'ESXi : ' . $hostIP); 
+
+		if (!$connection = ssh2_connect($hostIP,'22')) {
+				return 'error connecting';
+				log::add('vmware', 'error', 'ESXi injoignable');
+		}else{
+			log::add('vmware', 'info', 'ESXi joignable');
+		}
+			
+		if (!ssh2_auth_password($connection,$login,$password)){
+				return 'error connecting';
+				log::add('vmware', 'error', 'Connexion KO à l\'ESXi');
+		}else {
+			log::add('vmware', 'info', 'Connexion OK à l\'ESXi');
+		}
+		
+		
+		
+		
+		
+		
+		
+		log::add('vmware', 'info', 'Fin de la fonction Cron Daily');
+	}
+
+
 
     /*     * *********************Méthodes d'instance************************* */
 
@@ -184,7 +228,18 @@ class vmware extends eqLogic {
 					$osType->setSubType('string');
 					$osType->save();	 
 					log::add('vmware', 'info', 'Création de la commande Système Exploitation dans l\'équipement ESXi');
-				}	
+				}
+				$toBeUpdated = $this->getCmd(null, 'toBeUpdated');
+				if (!is_object($toBeUpdated)) {
+					$toBeUpdated = new vmwareCmd();
+					$toBeUpdated->setName(__('Mise à jour disponible', __FILE__));
+				}
+				$toBeUpdated->setLogicalId('toBeUpdated');
+				$toBeUpdated->setEqLogic_id($this->getId());
+				$toBeUpdated->setType('info');
+				$toBeUpdated->setSubType('string');
+				$toBeUpdated->save();
+				log::add('vmware', 'info', 'Création de la commande toBeUpdated dans l\'équipement ESXi');
 			}
 			
 			
@@ -741,7 +796,7 @@ class vmware extends eqLogic {
  
 	public function getEsxiInformationList() {
 		log::add('vmware', 'info', '========================================================');
-		log::add('vmware', 'info', '========== Début du log getEsxiInformationList ===========');
+		log::add('vmware', 'info', '========= Début du log getEsxiInformationList ==========');
 		log::add('vmware', 'info', '========================================================');
 		
 		$password = $this->getConfiguration("passwordSSH"); // on récupère le password
