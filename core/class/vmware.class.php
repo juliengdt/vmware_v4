@@ -512,7 +512,7 @@ class vmware extends eqLogic {
 			// On va chercher les informations qu'il nous manque
 			// Récupération et stockage de l'état de la VM (allumée ou éteinte)
 			//$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestState | sed -n 1p | cut -d '\"' -f 2";
-			$_request = "vim-cmd vmsvc/power.getstate ".$ID." | sed -n 1p";
+			$_request = "vim-cmd vmsvc/power.getstate ".$ID." | sed -n 2p";
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$started = stream_get_contents($result);
@@ -564,7 +564,7 @@ class vmware extends eqLogic {
 			$ramQuantity = preg_replace("#\n|\t|\r#","",$ramQuantity); // on supprime les retours à la ligne et autre retour chariots
 			$ramQuantity = trim($ramQuantity);
 			$ramGBQuantity = round(intval($ramQuantity) / 1024,2);
-			log::add('vmware', 'debug', 'valeur en GB de la ram' . $ramGBQuantity); 
+			log::add('vmware', 'debug', 'valeur en GB de la ram sur la VM ' . $ramGBQuantity); 
 			
 			// Récupération et stockage du nombre de snapshot déclaré sur la VM
 	/*		$_request = "vim-cmd vmsvc/snapshot.get ".$ID ." | grep 'Snapshot Name' | wc -l";
