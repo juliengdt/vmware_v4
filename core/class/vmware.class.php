@@ -62,6 +62,7 @@ class vmware extends eqLogic {
 		$eqLogicVmware = eqLogic::byType($plugin->getId());
 		
 		foreach ($eqLogicVmware as $eqLogicEsxiHost) {
+			log::add('vmware', 'debug', 'Func cron Daily FOREACH on est sur l`\'équipement' . $eqLogicEsxiHost->getConfiguration("name"));
 			if($eqLogicEsxiHost->getConfiguration("type") == 'ESXi'){ // on cherche si c'est un ESXI 
 				log::add('vmware', 'debug', 'Func cron Daily On a trouvé un ESXi' . $eqLogicEsxiHost->getConfiguration("name"));
 				$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
@@ -84,7 +85,7 @@ class vmware extends eqLogic {
 			}else {
 				log::add('vmware', 'info', 'Connexion OK à l\'ESXi');
 			}
-			
+			log::add('vmware', 'debug', 'Apres la connexion'); 
 			// On récupère la version software de l'ESXi
 			$_request = "esxcli software profile get | grep -i Name | sed -e 's/.*ESXi-\(.*\\)-standard.*/\\1/'"; // il faut faire un double antislash sinon il est perdu en passant dans php
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
