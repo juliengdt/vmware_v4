@@ -29,13 +29,14 @@ $eqLogics = eqLogic::byType($plugin->getId()); // Permet de récupérer la liste
 	<thead>
 		<tr>
 			<th>{{Image}}</th>
-			<th>{{Nom de la VM}}</th>
+			<th>{{Nom}}</th>
 			<th>{{Adresse IP}}</th>
-			<th>{{Allumée ?}}</th>
+			<th>{{Allumé(e) ?}}</th>
+			<!--<th>{{Vmware Tools ?}}</th>-->
 			<th>{{OS}}</th>
 			<th>{{Nb CPU}}</th>
 			<th>{{Nb Coeur/CPU}}</th>
-			<th>{{RAM}}</th>
+			<th>{{RAM (Go)}}</th>
 			<th>{{Snapshot ?}}</th>
 		</tr>
 	</thead>

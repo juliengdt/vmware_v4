@@ -275,6 +275,18 @@ class vmware extends eqLogic {
 					log::add('vmware', 'info', 'Création de la commande OnLine sur une VM');
 				}
 				
+				$vmwareToolsInstalled = $this->getCmd(null, 'vmwareTools');
+				if (!is_object($vmwareToolsInstalled)) {
+					$vmwareToolsInstalled = new vmwareCmd();
+					$vmwareToolsInstalled->setName(__('Vmware Tools', __FILE__));
+					$vmwareToolsInstalled->setLogicalId('vmwareTools');
+					$vmwareToolsInstalled->setEqLogic_id($this->getId());
+					$vmwareToolsInstalled->setType('info');
+					$vmwareToolsInstalled->setSubType('string');
+					$vmwareToolsInstalled->save();	 
+					log::add('vmware', 'info', 'Création de la commande vmwareToolsInstalled sur une VM');
+				}
+				
 				// Commandes Action 
 				$takeSnapshot = $this->getCmd('action', 'takeSnapshot');
 				if (!is_object($takeSnapshot)) {
@@ -499,15 +511,17 @@ class vmware extends eqLogic {
 			
 			// On va chercher les informations qu'il nous manque
 			// Récupération et stockage de l'état de la VM (allumée ou éteinte)
-			$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestState | sed -n 1p | cut -d '\"' -f 2";
+			//$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestState | sed -n 1p | cut -d '\"' -f 2";
+			$_request = "vim-cmd vmsvc/power.getstate ".$ID." | sed -n 1p";
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$started = stream_get_contents($result);
 			$started = preg_replace("#\n|\t|\r#","",$started); // on supprime les retours à la ligne et autre retour chariots
 
 			// Récupération et stockage de l'IP si la VM est allumée, sinon on ne peut pas l'obtenir
-			if($started == "running") {
-				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep ipAddress | sed -n 1p | cut -d '\"' -f 2";
+			//if($started == "running") {
+			if($started == "Powered on") {
+				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep ipAddress | sed -n 1p | cut -d '\"' -f 2";				
 				$result = ssh2_exec($connection, $_request . ' 2>&1');
 				stream_set_blocking($result, true);
 				$IPAddress = stream_get_contents($result);
@@ -517,7 +531,8 @@ class vmware extends eqLogic {
 			}
 			
 			// Récupération et stockage de l'OS
-			if($started == "running") {
+			//if($started == "running") {
+			if($started == "Powered on") {
 				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestId | cut -d '\"' -f 2";
 				$result = ssh2_exec($connection, $_request . ' 2>&1');
 				stream_set_blocking($result, true);
@@ -547,6 +562,9 @@ class vmware extends eqLogic {
 			stream_set_blocking($result, true);
 			$ramQuantity = stream_get_contents($result);
 			$ramQuantity = preg_replace("#\n|\t|\r#","",$ramQuantity); // on supprime les retours à la ligne et autre retour chariots
+			$ramQuantity = trim($ramQuantity);
+			$ramGBQuantity = round(intval($ramQuantity) / 1024,2);
+			log::add('vmware', 'debug', 'valeur en GB de la ram' . $ramGBQuantity); 
 			
 			// Récupération et stockage du nombre de snapshot déclaré sur la VM
 	/*		$_request = "vim-cmd vmsvc/snapshot.get ".$ID ." | grep 'Snapshot Name' | wc -l";
@@ -584,7 +602,8 @@ class vmware extends eqLogic {
 			'GuestId' => $osType,
 			'NumCpu' => $cpuNb,
 			'CoresPerSocket' => $corePerCpu,
-			'MemoryGB' => $ramQuantity,
+			//'MemoryGB' => $ramQuantity,
+			'MemoryGB' => $ramGBQuantity,
 			//'HardwareVersion' => $hardwareVersion,
 			//'SnapName' => $snapList,
 			'PowerState' => $started,
@@ -641,7 +660,8 @@ class vmware extends eqLogic {
 		  $ipAddress = $vm['IPAddress'];
 		  $name = $vm['Name'];
 		  $os = $vm['GuestId'];
-		  $started = str_replace(array("notRunning","running"), array("No","Yes"), $vm['PowerState'] );
+		  //$started = str_replace(array("notRunning","running"), array("No","Yes"), $vm['PowerState'] );
+		  $started = str_replace(array("Powered off","Powered on"), array("No","Yes"), $vm['PowerState'] );
 		 
 		  $vmware = self::byLogicalId('vmware'.$deviceid,'vmware'); // Création de l'enveloppe vide d'une VM
 		  if (!is_object($vmware)) {
