@@ -574,7 +574,7 @@ class vmware extends eqLogic {
 		//}		
 		
 		 log::add('vmware', 'info', 'Fin de la fonction refreshViaBouttonSynchroniser');
-      }*/
+      }
 
 	
 	public function getVmInformationList() {
