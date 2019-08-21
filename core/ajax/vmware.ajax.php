@@ -33,10 +33,10 @@ try {
 		log::add('vmware', 'debug', 'DEBUG action synchronisation fichier ajax - Juste après la récupération par l\'ID');
 		log::add('vmware', 'debug', 'Debut appel refresh via le bouton de synchronisation de la page équipement de l\'ESXi dont l\'ID est : '. init('id') .' et le nom est :  '. $eqLogic->getConfiguration('name') .'');
 		//if ($eqLogic->getIsEnable() == 1) { //Vérifie que l'équipement est actif
-			//$cmd = $eqLogic->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
-			//if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
-			//	continue; 
-			//}		
+			$cmd = $eqLogic->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
+			if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
+				continue; 
+			}		
 			//log::add('vmware', 'debug', 'Debut appel refresh via le bouton de synchronisation de la page équipement de l\'ESXi dont l\'ID est : '. init('id') .' et le nom est :  '. $eqLogic->getConfiguration('name') .'');
 			//ajax::success($cmd->execCmd());
 			//$cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
