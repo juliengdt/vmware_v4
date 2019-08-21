@@ -164,7 +164,14 @@ class vmware extends eqLogic {
 				stream_get_contents($closesession);
 				log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated );
 				//$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
+				log::add('vmware', 'debug', 'avant la mise à jour du nombre de vm ');
+				$eqLogicEsxiHost->checkAndUpdateCmd('nbVM', '1');
+				log::add('vmware', 'debug', 'après la mise à jour du nombre de vm ');
+				
+				log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated );
+				log::add('vmware', 'debug', 'avant la mise à jour du statut ToBeUpdated');
 				$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', 'Yes'); 
+				log::add('vmware', 'debug', 'avant la mise à jour du statut ToBeUpdated');
 			}		
 		  }
 		}
@@ -233,7 +240,6 @@ class vmware extends eqLogic {
 			log::add('vmware', 'info', '========================================================');
 			
 			if($this->getConfiguration("type") == 'ESXi'){ // Création des commandes spécifiques au ESXi
-					
 				$nbVM = $this->getCmd(null, 'nbVM');
 				if (!is_object($nbVM)) {
 					$nbVM = new vmwareCmd();
