@@ -533,7 +533,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '===== Début du log - refreshViaBouttonSynchroniser =====');
 		log::add('vmware', 'info', '========================================================');
 		
-		// $eqLogic = vmware::byId($id));
+		 $eqLogic = vmware::byId($id));
 		// log::add('vmware', 'info', 'Juste après la récupération de l\'eqLogic');
 		// if ($eqLogic->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 			// log::add('vmware', 'info', 'DEBUT DU IF ENABLE');
