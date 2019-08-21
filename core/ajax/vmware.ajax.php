@@ -29,8 +29,8 @@ try {
 	if (init('action') == 'synchronisation') {
 		log::add('vmware', 'debug', 'DEBUG IF de la partie Synchronisation du fichier ajax');
 		$eqLogic = vmware::byId(init('id'));
-		//$eqLogic->save();
-		$eqLogic->refresh();
+		$eqLogic->save();
+		//$eqLogic->refresh();
 		//$eqLogic->refreshViaBouttonSynchroniser(init('id'));
 		ajax::success();
 	}
