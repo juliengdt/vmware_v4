@@ -134,6 +134,7 @@ class vmware extends eqLogic {
 					// echo 'boucle IF du IF';
 					$toBeUpdated = "Oui";
 					log::add('vmware', 'debug', 'Valeur de TO BE UPDATED IF IF : '. $toBeUpdated .'');
+					log::add('vmware', 'debug', 'Valeur de TO BE UPDATED IF IF 22222 ');
 				}else {
 				  // echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible';
 				  $toBeUpdated = "Non";
