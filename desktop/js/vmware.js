@@ -64,7 +64,7 @@ $('#bt_healthvmware').on('click', function () {
 });
 
 // Appel à la fonction refresh de l'ESXi (bouton synchroniser à gauche de chaque ESXi)
-$('#bt_synchroEqLogic').on('click', function () {
+$('.synchronisation').on('click', function () {
 	console.log("On appelle la fonction Synchroniser de l'ESXI nommé : ");
 	var id = $(this).attr('data-id');
 	console.log(id);
