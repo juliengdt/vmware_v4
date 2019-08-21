@@ -33,7 +33,7 @@ try {
 		// NE SEMBLE PAS MARCHER COMME ESPERER vmware::refreshViaBouttonSynchroniser(init('id'));
 		$eqLogic = vmware::byId(init('id'));
 		log::add('vmware', 'debug', 'entre le byId et l\'appel à la fonction');
-		$eqLogic->refreshViaBouttonSynchroniser();
+		$eqLogic->refreshViaBouttonSynchroniser(init('id'));
 		//ajax::success($eqLogic->refreshViaBouttonSynchroniser());
 		log::add('vmware', 'debug', 'DEBUG APRES appel à la fonction de synchro dans le fichier AJAX');
 		
