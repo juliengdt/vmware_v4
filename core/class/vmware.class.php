@@ -1011,7 +1011,7 @@ class vmware extends eqLogic {
 		
 		// Récupération de l'état des VMWARE Tools
 		log::add('vmware', 'debug', 'On appelle la commande qui récupère l\'état des des VMWARE Tools'); 
-		$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$_request = "vim-cmd vmsvc/get.guest ".$vmIDToUpdate ." | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$vmwareTools = stream_get_contents($result);
