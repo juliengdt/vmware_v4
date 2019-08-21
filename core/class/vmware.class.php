@@ -160,7 +160,7 @@ class vmware extends eqLogic {
 						$toBeUpdated = "Non";
 						log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE ELSE : '. $toBeUpdated .'');
 				}
-				
+			}☻
 				log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated .'');
 				//$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
 				log::add('vmware', 'debug', 'avant la mise à jour du nombre de vm ');
@@ -172,8 +172,7 @@ class vmware extends eqLogic {
 				log::add('vmware', 'debug', 'avant la mise à jour du statut ToBeUpdated');
 				$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 				stream_set_blocking($closesession, true);
-				stream_get_contents($closesession);
-			}		
+				stream_get_contents($closesession);		
 		  }
 		}
 		log::add('vmware', 'info', 'Fin de la fonction Cron Daily');
