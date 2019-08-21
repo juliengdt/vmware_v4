@@ -31,7 +31,7 @@ try {
 		$eqLogic = vmware::byId(init('id'));
 		$eqLogic->save();
 		//$eqLogic->refresh();
-		//$eqLogic->refreshViaBouttonSynchroniser(init('id'));
+		$eqLogic->refreshViaBouttonSynchroniser(init('id'));
 		ajax::success();
 	}
 

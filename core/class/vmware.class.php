@@ -526,12 +526,7 @@ class vmware extends eqLogic {
 	
 		
 	//public static function refreshViaBouttonSynchroniser($id) {
-/***********************************************************************************	public function refreshViaBouttonSynchroniser($idToSearch) {
-	************************************************************************************
-	************************************************************************************
-	************************************************************************************
-	************************************************************************************
-	************************************************************************************
+	public function refreshViaBouttonSynchroniser($idToSearch) {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '===== Début du log - refreshViaBouttonSynchroniser =====');
 		log::add('vmware', 'info', '========================================================');
@@ -547,8 +542,9 @@ class vmware extends eqLogic {
 				if ($eqLogicEsxiHost->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 					log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
 					$eqLogicEsxiHost->save();
+					$cmd = vmware::byEqLogicIdAndLogicalId($idToSearch,'refresh');
 					//$cmd = $eqLogicEsxiHost->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
-					//log::add('vmware', 'debug', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
+					log::add('vmware', 'debug', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
 					//if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
 					//	log::add('vmware', 'debug', 'DANS LE IF de la recherche de la commande, donc on l\'a trouvée');
 					//	 continue; 
