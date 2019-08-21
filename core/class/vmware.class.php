@@ -562,7 +562,7 @@ class vmware extends eqLogic {
 		// }
 		// }*/
 		// log::add('vmware', 'info', 'Fin de la fonction Cron Hourly');
-      // }
+      }
 
 
 	
