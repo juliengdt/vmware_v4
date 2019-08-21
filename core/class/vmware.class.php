@@ -541,7 +541,7 @@ class vmware extends eqLogic {
 				log::add('vmware', 'debug', 'Func refreshViaBouttonSynchroniser IF car on a trouvé l\'esxi par son ID dont voici le nom : '.$eqLogicEsxiHost->getConfiguration("name"));
 				if ($eqLogicEsxiHost->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 					log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
-					$eqLogicEsxiHost->save();
+					//$eqLogicEsxiHost->save();
 					$cmd = vmware::byEqLogicIdAndLogicalId($idToSearch,'refresh');
 					//$cmd = $eqLogicEsxiHost->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
 					log::add('vmware', 'debug', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
