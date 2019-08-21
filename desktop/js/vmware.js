@@ -56,40 +56,6 @@ function addCmdToTable(_cmd) {
     jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
 
-// Affichage de la page health 
-$('#bt_healthvmware').on('click', function () {
-	console.log("On appelle la modal Health");
-	$('#md_modal').dialog({title: "{{Santé VMWARE}}"});
-	$('#md_modal').load('index.php?v=d&plugin=vmware&modal=health').dialog('open');
-});
-
-// Appel à la fonction refresh de l'ESXi (bouton synchroniser à gauche de chaque ESXi)
-$('.synchronisation').on('click', function () {
-	console.log("On appelle la fonction Synchroniser de l'ESXI nommé : ");
-	var id = $(this).attr('data-id');
-	console.log(id);
-	/*$.ajax({
-        type: "POST",
-        url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php",
-        data: {
-            action: "InclusionGateway",
-            id: id,
-        },
-        dataType: 'json',
-        error: function (request, status, error) {
-            handleAjaxError(request, status, error);
-        },
-        success: function (data) {
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-        }
-    });*/
-});
-
-
-
 function typefieldChange(){
 	if ($('#typefield').value() == 'vm') {
     //$('#lienProcedureSSHKey').hide();
@@ -119,6 +85,38 @@ function typefieldChange(){
   
 $( "#typefield" ).change(function(){
   setTimeout(typefieldChange,100);
+});
+
+// Affichage de la page health 
+$('#bt_healthvmware').on('click', function () {
+	console.log("On appelle la modal Health");
+	$('#md_modal').dialog({title: "{{Santé VMWARE}}"});
+	$('#md_modal').load('index.php?v=d&plugin=vmware&modal=health').dialog('open');
+});
+
+// Appel à la fonction refresh de l'ESXi (bouton synchroniser à gauche de chaque ESXi)
+$('.synchronisation').on('click', function () {
+	console.log("On appelle la fonction Synchroniser de l'ESXI nommé : ");
+	var id = $(this).attr('data-id');
+	console.log(id);
+	$.ajax({
+        type: "POST",
+        url: "plugins/vmware/core/ajax/vmware.ajax.php",
+        data: {
+            action: "synchronisation",
+            id: id,
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state != 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+        }
+    });
 });
 
 // Appel au script action-on-vm.ps1 suite à l'appui sur un bouton Gooo sur le dashboard

@@ -527,6 +527,42 @@ class vmware extends eqLogic {
 		log::add('vmware', 'debug', 'Fin fonction postUpdate');
     }
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	public function refreshViaBouttonSynchroniser() {
+		log::add('vmware', 'info', '========================================================');
+		log::add('vmware', 'info', '===== Début du log - refreshViaBouttonSynchroniser =====');
+		log::add('vmware', 'info', '========================================================');
+		foreach (self::byType('vmware') as $vmware) { // parcours tous les équipements du plugin vmware
+			if ($vmware->getIsEnable() == 1) { //Vérifie que l'équipement est actif
+				$cmd = $vmware->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
+				if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
+					continue; 
+				}		
+				log::add('vmware', 'info', 'début du refresh via le cron jeedom toutes les heures');
+				$cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
+				log::add('vmware', 'info', 'Fin du refresh via le cron hourly de jeedom');
+			}
+		}
+		log::add('vmware', 'info', 'Fin de la fonction Cron Hourly');
+      }
+
+
+
+
+
+
+
+
+
+
+	
 	public function getVmInformationList() {
       	log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '========== Début du log getVmInformationList ===========');
