@@ -27,19 +27,10 @@ try {
     //ajax::init();
 
 	if (init('action') == 'synchronisation') {
-		//$eqLogic = vmware::byId(init('id'));
-		log::add('vmware', 'debug', 'DEBUG action synchronisation fichier ajax - DEBUT ');
-		log::add('vmware', 'debug', 'DEBUG AVANT appel à la fonction de synchro dans le fichier AJAX');
-		// NE SEMBLE PAS MARCHER COMME ESPERER vmware::refreshViaBouttonSynchroniser(init('id'));
+		log::add('vmware', 'debug', 'DEBUG IF de la partie Synchronisation du fichier ajax');
 		$eqLogic = vmware::byId(init('id'));
-		log::add('vmware', 'debug', 'entre le byId et l\'appel à la fonction');
-		//$eqLogic->save();
-		$eqLogic->refresh();
-		
+		$eqLogic->save();
 		//$eqLogic->refreshViaBouttonSynchroniser(init('id'));
-		//ajax::success($eqLogic->refreshViaBouttonSynchroniser());
-		log::add('vmware', 'debug', 'DEBUG APRES appel à la fonction de synchro dans le fichier AJAX');
-		
 		ajax::success();
 	}
 
