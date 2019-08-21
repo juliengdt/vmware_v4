@@ -551,10 +551,11 @@ class vmware extends eqLogic {
 						 continue; 
 					}else {
 						 log::add('vmware', 'debug', 'DANS LE ELSE de la recherche de la commande, ON LE PAS TROUVEE');
-				}				 
-				log::add('vmware', 'info', 'début du refresh via la fonction refreshViaBouttonSynchroniser');
-				// $cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
-				log::add('vmware', 'info', 'Fin du refresh via la fonction refreshViaBouttonSynchroniser');
+					}				 
+					log::add('vmware', 'info', 'début du refresh via la fonction refreshViaBouttonSynchroniser');
+					// $cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
+					log::add('vmware', 'info', 'Fin du refresh via la fonction refreshViaBouttonSynchroniser');
+				}
 			}
 		 }
 		 
