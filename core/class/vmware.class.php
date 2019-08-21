@@ -540,10 +540,10 @@ class vmware extends eqLogic {
 			 log::add('vmware', 'info', 'DEBUT DU IF ENABLE');
 			 $cmd = $this->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
 			 log::add('vmware', 'info', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
-			// if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
-				// log::add('vmware', 'info', 'DANS LE IF de la recherche de la commande, donc on l\'a trouvée');
-				// continue; 
-			// }		
+			 if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
+				log::add('vmware', 'info', 'DANS LE IF de la recherche de la commande, donc on l\'a trouvée');
+				 continue; 
+			 }		
 			// log::add('vmware', 'info', 'début du refresh via la fonction refreshViaBouttonSynchroniser');
 			// $cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
 			// log::add('vmware', 'info', 'Fin du refresh via la fonction refreshViaBouttonSynchroniser');
