@@ -522,7 +522,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');
 		$cmd = $this->getCmd(null, 'refresh'); // On appelle la commande refresh de l’équipement à chaque fois que l'on update l'équipement du plugin vmware (clic sur sauvegarder)
 		if (is_object($cmd)) { //Elle existe on lance la commande
-			 $cmd->execCmd();
+/////// en test pour valider que si on commente ici, lorsque l'on sauve un ESXi, ça va vite et qu'ensuite on clic sur le bouton synchroniser			 $cmd->execCmd();
 		}
 		log::add('vmware', 'debug', 'Fin fonction postUpdate');
     }
