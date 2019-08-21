@@ -133,11 +133,11 @@ class vmware extends eqLogic {
 				if ($countArrayMembers >1) { //// ALORS IF le nombre d'élément dans le tableau > 1 (donc il y en a 2) DONC on met une valeur à 1 pour indiquer que mise à jour disponible
 					// echo 'boucle IF du IF';
 					$toBeUpdated = "Oui";
-					log::add('vmware', 'debug', 'Valeur de TO BE UPDATED IF IF : '. $toBeUpdated );
+					log::add('vmware', 'debug', 'Valeur de TO BE UPDATED IF IF : '. $toBeUpdated .'');
 				}else {
 				  // echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible';
 				  $toBeUpdated = "Non";
-				  log::add('vmware', 'debug', 'Valeur de TO BE UPDATED IF ELSE : '. $toBeUpdated );
+				  log::add('vmware', 'debug', 'Valeur de TO BE UPDATED IF ELSE : '. $toBeUpdated .'');
 				}
 			}else { // ELSE notre version contient plus de 15 caractères alors on a déjà un update ou mise à jour appliquée
 				// echo 'Boucle ELSE, on a donc un ESXi avec une version qui a au moins un update';
@@ -148,16 +148,16 @@ class vmware extends eqLogic {
 						if(array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier il y a une mise à jour disponible
 							// echo 'boucle IF DU IF du ELSE';
 							$toBeUpdated = "Oui";
-							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF IF : '. $toBeUpdated );
+							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF IF : '. $toBeUpdated .'');
 						}else {
 							// echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible car on a qu\une seule entrée dans le tableau des mises à jour disponible';
 							$toBeUpdated = "Non";
-							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF ELSE : '. $toBeUpdated );
+							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF ELSE : '. $toBeUpdated .'');
 						}
 				}else {
 						// echo 'ICI c\'est pour le cas ou il n\'y pas de mise à jour disponible car on a qu\une seule entrée dans le tableau des mises à jour disponible';
 						$toBeUpdated = "Non";
-						log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE ELSE : '. $toBeUpdated );
+						log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE ELSE : '. $toBeUpdated .'');
 				}
 				$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 				stream_set_blocking($closesession, true);
