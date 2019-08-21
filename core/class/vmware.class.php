@@ -1213,7 +1213,7 @@ class vmwareCmd extends cmd {
 			break;
 		case 'deleteSnapshot':	
 				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - snapshot delete');  
-				$action = $eqlogic->actionOnVM('snapshot.remove',$options['Nom']); // liste ou saisie manuelle ?)
+				$action = $eqlogic->actionOnVM('snapshot.remove',$options['Nom'],'',''); // liste ou saisie manuelle ?)
 			break;
 		case 'reboot':	
 				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - reboot'); 
@@ -1221,19 +1221,19 @@ class vmwareCmd extends cmd {
 			break;
 		case 'rebootOS':	
 				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - rebootOS'); 
-				$action = $eqlogic->actionOnVM('power.reboot');
+				$action = $eqlogic->actionOnVM('power.reboot','','','');
 			break;
 		case 'stop':	
 				log::add('vmware', 'info', 'On appelle la fonction actionOnVM - stop'); 
-				$action = $eqlogic->actionOnVM('power.off');
+				$action = $eqlogic->actionOnVM('power.off','','','');
 			break;
 		case 'stopOS':	
 				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - stopOS'); 
-				$action = $eqlogic->actionOnVM('power.shutdown');
+				$action = $eqlogic->actionOnVM('power.shutdown','','','');
 			break;
 		case 'powerOn':	
 				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - powerOn'); 
-				$action = $eqlogic->actionOnVM('power.on');
+				$action = $eqlogic->actionOnVM('power.on','','','');
 			break;
 		}
 		log::add('vmware', 'info', 'Fin fonction execute');
