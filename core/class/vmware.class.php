@@ -528,7 +528,7 @@ class vmware extends eqLogic {
     }
 	
 		
-	public static function refreshViaBouttonSynchroniser($id) {
+	public function refreshViaBouttonSynchroniser($id) {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '===== Début du log - refreshViaBouttonSynchroniser =====');
 		log::add('vmware', 'info', '========================================================');
