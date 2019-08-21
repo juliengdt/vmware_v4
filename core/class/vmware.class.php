@@ -1217,14 +1217,14 @@ class vmwareCmd extends cmd {
 			break;
 		case 'reboot':	
 				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - reboot'); 
-				$action = $eqlogic->actionOnVM('power.reset');
+				$action = $eqlogic->actionOnVM('power.reset','','','');
 			break;
 		case 'rebootOS':	
 				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - rebootOS'); 
 				$action = $eqlogic->actionOnVM('power.reboot');
 			break;
 		case 'stop':	
-				log::add('vmware', 'info', 'On appelle la fonction ActionOnVM - stop'); 
+				log::add('vmware', 'info', 'On appelle la fonction actionOnVM - stop'); 
 				$action = $eqlogic->actionOnVM('power.off');
 			break;
 		case 'stopOS':	
