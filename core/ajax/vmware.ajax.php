@@ -24,7 +24,7 @@ try {
         throw new Exception(__('401 - Accès non autorisé', __FILE__));
     }
     
-    ajax::init();
+    //ajax::init();
 
 	if (init('action') == 'synchronisation') {
 		//$eqLogic = vmware::byId(init('id'));
