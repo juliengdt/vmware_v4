@@ -551,7 +551,7 @@ class vmware extends eqLogic {
 			// log::add('vmware', 'info', 'début du refresh via la fonction refreshViaBouttonSynchroniser');
 			// $cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
 			// log::add('vmware', 'info', 'Fin du refresh via la fonction refreshViaBouttonSynchroniser');
-		}		
+		//}		
 		
 		// /*foreach (self::byType('vmware') as $vmware) { // parcours tous les équipements du plugin vmware
 			// if ($vmware->){
