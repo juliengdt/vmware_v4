@@ -58,13 +58,14 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '============== Début du log - Cron Daily ===============');
 		log::add('vmware', 'info', '========================================================');
 		
-		$plugin = plugin::byId('vmware'); // Récupération des équipements du plugin vmware en se basant sur l'ID du plugin
-		$eqLogicVmware = eqLogic::byType($plugin->getId());
+		// $plugin = plugin::byId('vmware'); // Récupération des équipements du plugin vmware en se basant sur l'ID du plugin
+		//$eqLogicVmware = eqLogic::byType($plugin->getId());
 		
-		foreach ($eqLogicVmware as $eqLogicEsxiHost) {
+		//foreach ($eqLogicVmware as $eqLogicEsxiHost) {
+		foreach (self::byType('vmware') as $eqLogicEsxiHost) { // parcours tous les équipements du plugin vmware
 			log::add('vmware', 'debug', 'Func cron Daily FOREACH on est sur l`\'équipement' . $eqLogicEsxiHost->getConfiguration("name"));
 			if($eqLogicEsxiHost->getConfiguration("type") == 'ESXi'){ // on cherche si c'est un ESXI 
-				log::add('vmware', 'debug', 'Func cron Daily On a trouvé un ESXi' . $eqLogicEsxiHost->getConfiguration("name"));
+				log::add('vmware', 'debug', 'Func cron Daily On a trouvé un ESXi : ' . $eqLogicEsxiHost->getConfiguration("name"));
 				$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
 				$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
 				$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
@@ -158,11 +159,11 @@ class vmware extends eqLogic {
 						$toBeUpdated = "Non";
 						log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE ELSE : '. $toBeUpdated );
 				}
-			$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
-			stream_set_blocking($closesession, true);
-			stream_get_contents($closesession);
-			log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated );
-			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
+				$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
+				stream_set_blocking($closesession, true);
+				stream_get_contents($closesession);
+				log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated );
+				$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
 			}		
 		  }
 		}
