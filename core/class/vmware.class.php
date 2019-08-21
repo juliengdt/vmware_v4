@@ -1046,7 +1046,7 @@ class vmware extends eqLogic {
 		$this->checkAndUpdateCmd('nbSnap', $nbSnapCount); 
 		$this->checkAndUpdateCmd('snapShotList', $snapListe); 
 		$this->checkAndUpdateCmd('online', $started); 
-		$vmware->checkAndUpdateCmd('vmwareTools', $vmwareToolsClean); 
+		$this->checkAndUpdateCmd('vmwareTools', $vmwareToolsClean); 
 			
 		log::add('vmware', 'info', 'Fin fonction updateVmInformations'); 
 	}
