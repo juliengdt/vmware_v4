@@ -163,7 +163,8 @@ class vmware extends eqLogic {
 				stream_set_blocking($closesession, true);
 				stream_get_contents($closesession);
 				log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated );
-				$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
+				//$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
+				$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', 'Yes'); 
 			}		
 		  }
 		}
