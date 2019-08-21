@@ -58,10 +58,6 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '============== Début du log - Cron Daily ===============');
 		log::add('vmware', 'info', '========================================================');
 		
-		// $plugin = plugin::byId('vmware'); // Récupération des équipements du plugin vmware en se basant sur l'ID du plugin
-		//$eqLogicVmware = eqLogic::byType($plugin->getId());
-		
-		//foreach ($eqLogicVmware as $eqLogicEsxiHost) {
 		foreach (self::byType('vmware') as $eqLogicEsxiHost) { // parcours tous les équipements du plugin vmware
 			log::add('vmware', 'debug', 'Func cron Daily FOREACH on est sur l`\'équipement : ' . $eqLogicEsxiHost->getConfiguration("name"));
 			if($eqLogicEsxiHost->getConfiguration("type") == 'ESXi'){ // on cherche si c'est un ESXI 
@@ -530,7 +526,12 @@ class vmware extends eqLogic {
 	
 		
 	//public static function refreshViaBouttonSynchroniser($id) {
-/*	public function refreshViaBouttonSynchroniser($idToSearch) {
+/***********************************************************************************	public function refreshViaBouttonSynchroniser($idToSearch) {
+	************************************************************************************
+	************************************************************************************
+	************************************************************************************
+	************************************************************************************
+	************************************************************************************
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '===== Début du log - refreshViaBouttonSynchroniser =====');
 		log::add('vmware', 'info', '========================================================');
@@ -579,7 +580,6 @@ class vmware extends eqLogic {
 		 log::add('vmware', 'info', 'Fin de la fonction refreshViaBouttonSynchroniser');
       }*/
 
-
 	
 	public function getVmInformationList() {
       	log::add('vmware', 'info', '========================================================');
@@ -611,11 +611,6 @@ class vmware extends eqLogic {
 		
 		log::add('vmware', 'debug', 'On appelle la commande qui liste les VMs sur l\'ESXi'); 
 	
-		// Ancienne requete -> renvoyait un tableau complet, mais lors de commentaire avec retour à la ligne, celà plantait la fonction dans Jeedom $request = "vim-cmd vmsvc/getallvms | awk '{print $0\"9999999\"}'";
-		//$request = "vim-cmd vmsvc/getallvms | awk -F '[[:space:]][[:space:]]+' '{print $1\":\"$2\":\"$4\":\"$5\":9999999\"}'";
-		// Retourne en 0 l'ID   / en 1 le nom de la VM  / en 2 le type de l'OS  / en 3 la version Hardware de la machine  / en 4 9999999 pour la séparation coté jeedom
-		//$request = "vim-cmd vmsvc/getallvms | sed -e '1d' -e 's/ \vmx-.*$//' | awk '$1 ~ /^[0-9]+$/ {print $1\":\"$2\":\"$5\":9999999\"}'"; // truncate line at vmx-
-		// Retourne en 0 l'ID   / en 1 le nom de la VM  / en 2 le type de l'OS / en 3 9999999 pour la séparation coté jeedom
 		$request = "vim-cmd vmsvc/getallvms | sed -e '1d' -e 's/ \[.*$//' | awk '$1 ~ /^[0-9]+$/ {print $1\":\"substr($0,8,80)\":9999999\"}'";
 		//Retourne en 0 l'ID / en 1 le nom / en 2 9999999 pour la séparation coté jeedom de chaque ligne
 		$result = ssh2_exec($connection, $request . ' 2>&1');
@@ -624,9 +619,6 @@ class vmware extends eqLogic {
 		//$typeOfVmList = gettype($vmlist);
 		$vmListArray = explode("9999999", $vmlist); // Conversion en tableau à chaque fois que l'on trouve la suite de charactères 9999999
 		//$typeOfVmListArray = gettype($vmListArray);
-		
-	//	$vmlistTest = str_replace("9999999","+",$vmlist);
-	//	$vmListArrayTest = explode("+", $vmlistTest); // Conversion en tableau à chaque fois que l'on trouve la suite de charactères 9999999
 		
 		//$firstLineRemoved = array_shift($vmListArray); // on supprime la première ligne du tableau avec les entêtes plus besoin car sed s'occupe de supprimer la première ligne
 		$lastLineRemoved = array_pop($vmListArray); // on supprime la dernière ligne du tableau car elle est vide
@@ -650,13 +642,7 @@ class vmware extends eqLogic {
 			$vm = trim($vm); // on supprime les espaces au début et à la fin
 			$vm = rtrim($vm,':');  // nettoyage de la variable pour enlever le dernier : qui ne sera pas utile
 			$vmLineArray = preg_split('/:/',$vm); // on éclate la ligne contenant le détail d'une VM en un tableau en se basant sur les : on est obligé de les entourer de /
-			//log::add('vmware', 'debug', 'Contenu de la variable VM dans le foreach APRES les trim et rtrim'); 
-			//log::add('vmware', 'debug', $vm);
-		
-			//log::add('vmware', 'debug', 'ForEach Création tableau contenant les VMs Element 0 '.$vmLineArray[0].''); 
-			//log::add('vmware', 'debug', 'ForEach Création tableau contenant les VMs Element 1 '.$vmLineArray[1].''); 
-			//log::add('vmware', 'debug', 'ForEach Création tableau contenant les VMs Element 2 '.$vmLineArray[2].''); 
-			//log::add('vmware', 'debug', 'ForEach Création tableau contenant les VMs Element 3 '.$vmLineArray[3].''); 
+			
 			log::add('vmware', 'debug', 'ForEach Création tableau contenant les VMs - '.$vmLineArray[1].''); 
 			
 			// stockage des informations récupérées lors de l'interrogation de la liste des vms
@@ -669,7 +655,6 @@ class vmware extends eqLogic {
 			
 			// On va chercher les informations qu'il nous manque
 			// Récupération et stockage de l'état de la VM (allumée ou éteinte)
-			//$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestState | sed -n 1p | cut -d '\"' -f 2";
 			$_request = "vim-cmd vmsvc/power.getstate ".$ID." | sed -n 2p";
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
@@ -689,7 +674,6 @@ class vmware extends eqLogic {
 			// 4 valeurs connues à ce jour : toolsOld,toolsNotInstalled,toolsOk,toolsNotRunning
 
 			// Récupération et stockage de l'IP si la VM est allumée et que les VMWARES TOOLS sont installés, sinon on ne peut pas l'obtenir
-			//if($started == "Powered on") {
 			if($started == "Powered on" && $vmwareToolsClean == "toolsOk") {
 				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep ipAddress | sed -n 1p | cut -d '\"' -f 2";				
 				$result = ssh2_exec($connection, $_request . ' 2>&1');
@@ -705,22 +689,9 @@ class vmware extends eqLogic {
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$osType = stream_get_contents($result);
-			//$osType = preg_replace("#\n|\t|\r#","",$osType); // on supprime les retours à la ligne et autre retour chariots
 			$osType = str_replace("\"","",$osType); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 			$osTypeClean = trim($osType);
-			//$osType = str_replace("Guest","",$osType);
-			//if($started == "running") {
-			/*if($started == "Powered on") {
-				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestId | cut -d '\"' -f 2";
-				$result = ssh2_exec($connection, $_request . ' 2>&1');
-				stream_set_blocking($result, true);
-				$osType = stream_get_contents($result);
-				$osType = preg_replace("#\n|\t|\r#","",$osType); // on supprime les retours à la ligne et autre retour chariots
-				$osType = str_replace("Guest","",$osType);
-			}else {
-				$osType = "Not Found";
-				//vim-cmd vmsvc/get.config ".$ID ." | grep guestFullName | cut -d "=" -f 2 | cut -d "," -f 1 // permet de récupérer le nom de l'OS si VMWARE TOOLS non installé ou machine éteinte
-			}*/
+			
 			// Récupération et stockage du nombre de CPU
 			$_request = "vim-cmd vmsvc/get.config ".$ID." | grep numCPU | sed -n 1p | cut -d '=' -f 2 | cut -d ',' -f 1 | cut -d ' ' -f 2";
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
@@ -839,10 +810,8 @@ class vmware extends eqLogic {
 		  $ipAddress = $vm['IPAddress'];
 		  $name = $vm['Name'];
 		  $os = $vm['GuestId'];
-		  //$started = str_replace(array("notRunning","running"), array("No","Yes"), $vm['PowerState'] );
 		  $started = str_replace(array("Powered off","Powered on"), array("Non","Oui"), $vm['PowerState'] );
 		  $toolsStatus = str_replace(array("toolsOld","toolsNotInstalled","toolsOk","toolsNotRunning"), array("Pas à jour","Pas installé","Démarré","Pas démarré"), $vm['vmwareTools'] );
-		 // log::add('vmware', 'debug', 'valeur dans saveVmAsEquipement de toolsStatus ' . $toolsStatus );
 		 
 		  $vmware = self::byLogicalId('vmware'.$deviceid,'vmware'); // Création de l'enveloppe vide d'une VM
 		  if (!is_object($vmware)) {
@@ -929,7 +898,7 @@ class vmware extends eqLogic {
 		$memoryESXi = stream_get_contents($result);
 		$memoryESXi = preg_replace("#\n|\t|\r#","",$memoryESXi); // on supprime les retours à la ligne et autre retour chariots
 		$memoryESXi = trim($memoryESXi);
-		$memoryGBESXi = round(intval($memoryESXi) / 1024 / 1024 / 1024,2);
+		$memoryGBESXi = round(intval($memoryESXi) / 1024 / 1024 / 1024,2); // conversion en Go
 		log::add('vmware', 'debug', 'valeur en GB de la ram' . $memoryGBESXi); 
 		
 		log::add('vmware', 'debug', 'On appelle la commande qui récupère le nombre de CPU de l\'ESXi'); 
@@ -989,14 +958,10 @@ class vmware extends eqLogic {
 		$eqLogicVmware = eqLogic::byType($plugin->getId());
 		
 		foreach ($eqLogicVmware as $eqLogicEsxiHost) {
-			//log::add('vmware', 'debug', 'for each' ); 
-			//$eqLogicNameToCompare = $eqLogicEsxiHost->getConfiguration('name');
-			//log::add('vmware', 'debug',$eqLogicEsxiHost->getConfiguration('name'));
 			if (strcmp($eqLogicEsxiHost->getConfiguration('name'),$esxiHostNameOfVm) == 0) { // on cherche l'hote ESXI 
-			//log::add('vmware', 'debug', 'IF dans le foreach - donc on a trouvé un nom qui match' ); 
-			$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
-			$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
-			$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
+				$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
+				$login = $eqLogicEsxiHost->getConfiguration("login"); // on récupère le login
+				$hostIP = $eqLogicEsxiHost->getConfiguration("ipAddress"); // on récupère l'adresseIP
 			}				
 		}
   
@@ -1171,7 +1136,6 @@ class vmware extends eqLogic {
 			
 			// Récupération de l'ID du snapshot
 			$_request = " vim-cmd vmsvc/snapshot.get ".$vmID." | grep -A 1 ".$snapName." | sed '1d' | awk '{print $4}'";
-			// Original, mais prend le dernier snapshot disponible sans tenir du compte du nom $_request = " vim-cmd vmsvc/get.snapshotinfo ".$vmID." ".$snapName." |grep id | cut -d '=' -f 2 | cut -d ',' -f 1 "; // premier cut permet de couper au caractère = et prendre le deuxième élément, second permet de couper au caractère , et de prendre le premier élément
 			log::add('vmware', 'debug', 'Contenu de la requete  Find snapshot ID ' . $_request);				
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
@@ -1249,7 +1213,6 @@ class vmwareCmd extends cmd {
 				$eqlogic->setConfiguration('esxiHost',$vmListing[2]); // stocke le contenu de vmListing dans la commande hoteESXi
 				$eqlogic->setConfiguration('type',$vmListing[3]); // stocke le contenu de vmListing dans la commande type
 			}else if($eqlogic->getConfiguration("type") == 'vm') {
-				//log::add('vmware', 'debug', 'C\'est une VM mais on ne fait rien '); 
 				log::add('vmware', 'debug', 'C\'est une VM que l\'on va mettre à jour '); 
 				$eqlogic->updateVmInformations($eqlogic->getConfiguration("name"),$eqlogic->getConfiguration("esxiHost")) ;
 			}else {
