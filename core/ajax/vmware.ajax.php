@@ -40,6 +40,7 @@ try {
 			////////////////$cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
 			// log::add('vmware', 'debug', 'Fin du refresh via le bouton synchronisation de la page équipement');
 		// }
+		ajax::success();
 	}
 
     throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
