@@ -33,7 +33,8 @@ try {
 		// NE SEMBLE PAS MARCHER COMME ESPERER vmware::refreshViaBouttonSynchroniser(init('id'));
 		$eqLogic = vmware::byId(init('id'));
 		log::add('vmware', 'debug', 'entre le byId et l\'appel à la fonction');
-		$eqLogic->save();
+		//$eqLogic->save();
+		$eqLogic->refresh();
 		
 		//$eqLogic->refreshViaBouttonSynchroniser(init('id'));
 		//ajax::success($eqLogic->refreshViaBouttonSynchroniser());
