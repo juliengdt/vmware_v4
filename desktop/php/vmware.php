@@ -46,7 +46,7 @@ function console_log($output, $with_script_tags = true) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
             	console_log('ESXI trouvé ' . $eqLogicEsxiHost->getConfiguration('name') . '');
 				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
-				echo '<div class="eqLogicThumbnailContainer">';
+				echo '<div class="eqLogicThumbnailContainer">'; 
 				echo '<div class="cursor eqLogicAction synchronisation"  data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement // on se base sur le terme synchronisation pour le retrouver dans le JS
 				echo '<i class="fas fa-sync"></i>';
 				echo '<br>';
