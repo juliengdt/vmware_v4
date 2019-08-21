@@ -535,11 +535,27 @@ class vmware extends eqLogic {
 	
 	
 	
-	/*public function refreshViaBouttonSynchroniser() {
+	public function refreshViaBouttonSynchroniser($id) {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '===== Début du log - refreshViaBouttonSynchroniser =====');
 		log::add('vmware', 'info', '========================================================');
-		foreach (self::byType('vmware') as $vmware) { // parcours tous les équipements du plugin vmware
+		
+		$eqLogic = vmware::byId($id));
+		log::add('vmware', 'info', 'Juste après la récupération de l\'eqLogic');
+		if ($eqLogic->getIsEnable() == 1) { //Vérifie que l'équipement est actif
+			log::add('vmware', 'info', 'DEBUT DU IF ENABLE');
+			$cmd = $eqLogic->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
+			log::add('vmware', 'info', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
+			if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
+				log::add('vmware', 'info', 'DANS LE IF de la recherche de la commande, donc on l\'a trouvée');
+				continue; 
+			}		
+			log::add('vmware', 'info', 'début du refresh via la fonction refreshViaBouttonSynchroniser');
+			$cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
+			log::add('vmware', 'info', 'Fin du refresh via la fonction refreshViaBouttonSynchroniser');
+		}		
+		
+		/*foreach (self::byType('vmware') as $vmware) { // parcours tous les équipements du plugin vmware
 			if ($vmware->){
 				if ($vmware->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 					$cmd = $vmware->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
@@ -551,9 +567,9 @@ class vmware extends eqLogic {
 					log::add('vmware', 'info', 'Fin du refresh via le cron hourly de jeedom');
 				}
 		}
-		}
+		}*/
 		log::add('vmware', 'info', 'Fin de la fonction Cron Hourly');
-      }*/
+      }
 
 
 
