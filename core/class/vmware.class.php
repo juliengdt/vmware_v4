@@ -535,8 +535,15 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', 'valeur de l\'ID : '. $idToSearch .'');
 		 log::add('vmware', 'info', 'Juste avant la récupération de l\'eqLogic');
-		 $eqLogic = eqLogic::byId($idToSearch);
+		 //$eqLogic = eqLogic::byId($idToSearch);
 		 log::add('vmware', 'info', 'Juste après la récupération de l\'eqLogic'. $eqLogic.'');
+		 
+		 foreach (self::byType('vmware') as $eqLogicEsxiHost) { // parcours tous les équipements du plugin vmware
+			log::add('vmware', 'debug', 'Func refreshViaBouttonSynchroniser FOREACH on est sur l`\'équipement : ' . $eqLogicEsxiHost->getConfiguration("name"));
+			if($eqLogicEsxiHost->getId() == $idToSearch){ 
+				log::add('vmware', 'debug', 'Func refreshViaBouttonSynchroniser IF car on a trouvé l\esxi par son ID dont voici le nom : '.$eqLogicEsxiHost->getConfiguration("name"));
+			}
+		 }
 		 
 		 //if ($this->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 			// log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
