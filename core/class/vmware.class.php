@@ -542,7 +542,7 @@ class vmware extends eqLogic {
 				if ($eqLogicEsxiHost->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 					log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
 					//$eqLogicEsxiHost->save();
-					$cmd = vmware::byEqLogicIdAndLogicalId($idToSearch,'refresh');
+/////////					$cmd = vmware::byEqLogicIdAndLogicalId($idToSearch,'refresh');
 					//$cmd = $eqLogicEsxiHost->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
 					log::add('vmware', 'debug', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
 					//if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
