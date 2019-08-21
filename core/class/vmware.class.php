@@ -63,7 +63,7 @@ class vmware extends eqLogic {
 		
 		//foreach ($eqLogicVmware as $eqLogicEsxiHost) {
 		foreach (self::byType('vmware') as $eqLogicEsxiHost) { // parcours tous les équipements du plugin vmware
-			log::add('vmware', 'debug', 'Func cron Daily FOREACH on est sur l`\'équipement' . $eqLogicEsxiHost->getConfiguration("name"));
+			log::add('vmware', 'debug', 'Func cron Daily FOREACH on est sur l`\'équipement : ' . $eqLogicEsxiHost->getConfiguration("name"));
 			if($eqLogicEsxiHost->getConfiguration("type") == 'ESXi'){ // on cherche si c'est un ESXI 
 				log::add('vmware', 'debug', 'Func cron Daily On a trouvé un ESXi : ' . $eqLogicEsxiHost->getConfiguration("name"));
 				$password = $eqLogicEsxiHost->getConfiguration("passwordSSH"); // on récupère le password
