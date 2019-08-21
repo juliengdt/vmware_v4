@@ -1010,7 +1010,7 @@ class vmware extends eqLogic {
 		}
 		
 		// Récupération de l'état des VMWARE Tools
-		log::add('vmware', 'debug', 'On appelle la commande qui récupère l\'état des des VMWARE Tools'); 
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère l\'état des des VMWARE Tools refreshVM'); 
 		$_request = "vim-cmd vmsvc/get.guest ".$vmIDToUpdate ." | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
@@ -1018,13 +1018,9 @@ class vmware extends eqLogic {
 		log::add('vmware', 'debug', 'valeur de la variable vmwaretools avant nettoyage ' . $vmwareTools); 
 		$vmwareTools = str_replace("\"","",$vmwareTools); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 		$vmwareToolsClean = trim($vmwareTools);
-		$vmwareToolsClean = str_replace(array("toolsOld","toolsNotInstalled","toolsOk","toolsNotRunning"), array("Pas à jour","Pas installé","Démarré","Pas démarré"), $vmwareToolsClean );
-		log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre ' . $vmwareToolsClean); 
+		$vmwareToolsLast = str_replace(array("toolsOld","toolsNotInstalled","toolsOk","toolsNotRunning"), array("Pas à jour","Pas installé","Démarré","Pas démarré"), $vmwareToolsClean );
+		log::add('vmware', 'debug', 'valeur de la variable vmwaretoolsLast : ' . $vmwareToolsLast .''); 
 		
-	
-		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
-		stream_set_blocking($closesession, true);
-		stream_get_contents($closesession);
 		if(is_array($snapList)){
 			  	foreach ($snapList as $snap){
 				$snapListe .= $snap . ",";
@@ -1046,8 +1042,12 @@ class vmware extends eqLogic {
 		$this->checkAndUpdateCmd('nbSnap', $nbSnapCount); 
 		$this->checkAndUpdateCmd('snapShotList', $snapListe); 
 		$this->checkAndUpdateCmd('online', $started); 
-		$this->checkAndUpdateCmd('vmwareTools', $vmwareToolsClean); 
-			
+		$this->checkAndUpdateCmd('vmwareTools', $vmwareToolsLast); 
+		
+		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
+		stream_set_blocking($closesession, true);
+		stream_get_contents($closesession);
+		
 		log::add('vmware', 'info', 'Fin fonction updateVmInformations'); 
 	}
 
