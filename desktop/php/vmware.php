@@ -47,6 +47,11 @@ function console_log($output, $with_script_tags = true) {
             	console_log('ESXI trouvé ' . $eqLogicEsxiHost->getConfiguration('name') . '');
 				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 				echo '<div class="eqLogicThumbnailContainer">'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
+				echo '<div class="cursor eqLogicAction logoSecondary" id="bt_synchroEqLogic">'! // l'action est traitée dans le vmware.js 
+				echo '<i class="fas fa-sync"></i>';
+				echo '<br>';
+				echo '<span>{{Synchroniser}}</span>';
+				echo '</div>';
 				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
