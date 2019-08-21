@@ -622,6 +622,17 @@ class vmware extends eqLogic {
 			$started = stream_get_contents($result);
 			$started = preg_replace("#\n|\t|\r#","",$started); // on supprime les retours à la ligne et autre retour chariots
 
+			// Récupération de l'état des VMWARE Tools
+			log::add('vmware', 'debug', 'On appelle la commande qui récupère l\'état des des VMWARE Tools'); 
+			$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
+			$result = ssh2_exec($connection, $_request . ' 2>&1');
+			stream_set_blocking($result, true);
+			$vmwareTools = stream_get_contents($result);
+			log::add('vmware', 'debug', 'valeur de la variable vmwaretools avant nettoyage ' . $vmwareTools); 
+			$vmwareTools = str_replace("\"","",$vmwareTools); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
+			$vmwareToolsClean = trim($vmwareTools);
+			log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre ' . $vmwareToolsClean); 
+
 			// Récupération et stockage de l'IP si la VM est allumée, sinon on ne peut pas l'obtenir
 			//if($started == "running") {
 			if($started == "Powered on") {
@@ -643,7 +654,6 @@ class vmware extends eqLogic {
 			$osType = str_replace("\"","",$osType); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 			$osTypeClean = trim($osType);
 			//$osType = str_replace("Guest","",$osType);
-			
 			//if($started == "running") {
 			/*if($started == "Powered on") {
 				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep guestId | cut -d '\"' -f 2";
@@ -679,18 +689,6 @@ class vmware extends eqLogic {
 			$ramQuantity = trim($ramQuantity);
 			$ramGBQuantity = round(intval($ramQuantity) / 1024,2);
 			log::add('vmware', 'debug', 'valeur en GB de la ram sur la VM ' . $ramGBQuantity); 
-			
-			// Récupération de l'état des VMWARE Tools
-			log::add('vmware', 'debug', 'On appelle la commande qui récupère l\'état des des VMWARE Tools'); 
-			$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
-			$result = ssh2_exec($connection, $_request . ' 2>&1');
-			stream_set_blocking($result, true);
-			$vmwareTools = stream_get_contents($result);
-			log::add('vmware', 'debug', 'valeur de la variable vmwaretools avant nettoyage ' . $vmwareTools); 
-			$vmwareTools = str_replace("\"","",$vmwareTools); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
-			$vmwareToolsClean = trim($vmwareTools);
-			log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre ' . $vmwareToolsClean); 
-				
 			
 			// Récupération et stockage du nombre de snapshot déclaré sur la VM
 	/*		$_request = "vim-cmd vmsvc/snapshot.get ".$ID ." | grep 'Snapshot Name' | wc -l";
@@ -837,8 +835,7 @@ class vmware extends eqLogic {
 			$vmware->checkAndUpdateCmd('corePerCpuNumber', $vm['CoresPerSocket']); 
 			$vmware->checkAndUpdateCmd('osType', $os); 
 			$vmware->checkAndUpdateCmd('online', $started); 
-			$vmware->checkAndUpdateCmd('vmwareTools', $toolsStatus); 
-			
+			$vmware->checkAndUpdateCmd('vmwareTools', $toolsStatus); 			
 		}
 		log::add('vmware', 'info', 'Fin fonction saveVmAsEquipment'); 
 	}
@@ -1011,6 +1008,18 @@ class vmware extends eqLogic {
 			  $snapList = $snapListArray;
 			  log::add('vmware', 'debug', 'X snapshots trouvés ');
 		}
+		
+		// Récupération de l'état des VMWARE Tools
+		log::add('vmware', 'debug', 'On appelle la commande qui récupère l\'état des des VMWARE Tools'); 
+		$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep toolsStatus | cut -d '=' -f 2 | cut -d ',' -f 1";
+		$result = ssh2_exec($connection, $_request . ' 2>&1');
+		stream_set_blocking($result, true);
+		$vmwareTools = stream_get_contents($result);
+		log::add('vmware', 'debug', 'valeur de la variable vmwaretools avant nettoyage ' . $vmwareTools); 
+		$vmwareTools = str_replace("\"","",$vmwareTools); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
+		$vmwareToolsClean = trim($vmwareTools);
+		log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre ' . $vmwareToolsClean); 
+		
 	
 		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 		stream_set_blocking($closesession, true);
@@ -1036,6 +1045,7 @@ class vmware extends eqLogic {
 		$this->checkAndUpdateCmd('nbSnap', $nbSnapCount); 
 		$this->checkAndUpdateCmd('snapShotList', $snapListe); 
 		$this->checkAndUpdateCmd('online', $started); 
+		$vmware->checkAndUpdateCmd('vmwareTools', $toolsStatus); 
 			
 		log::add('vmware', 'info', 'Fin fonction updateVmInformations'); 
 	}
