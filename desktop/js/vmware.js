@@ -58,10 +58,36 @@ function addCmdToTable(_cmd) {
 
 // Affichage de la page health 
 $('#bt_healthvmware').on('click', function () {
-	console.log("On appel la modal Health");
+	console.log("On appelle la modal Health");
 	$('#md_modal').dialog({title: "{{Santé VMWARE}}"});
 	$('#md_modal').load('index.php?v=d&plugin=vmware&modal=health').dialog('open');
 });
+
+// Appel à la fonction refresh de l'ESXi (bouton synchroniser à gauche de chaque ESXi)
+$('#bt_synchroEqLogic').on('click', function () {
+	console.log("On appelle la fonction Synchroniser de l'ESXI nommé : ");
+	var id = $(this).attr('data-id');
+	console.log(id);
+	/*$.ajax({
+        type: "POST",
+        url: "plugins/xiaomihome/core/ajax/xiaomihome.ajax.php",
+        data: {
+            action: "InclusionGateway",
+            id: id,
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state != 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+        }
+    });*/
+});
+
 
 
 function typefieldChange(){
