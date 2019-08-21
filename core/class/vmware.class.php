@@ -535,7 +535,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');
 		
 		 log::add('vmware', 'info', 'Juste avant la récupération de l\'eqLogic');
-		 $eqLogic = vmware::byId($id));
+		 $eqLogic = vmware::byId($idToSearch));
 		 log::add('vmware', 'info', 'Juste après la récupération de l\'eqLogic'. $eqLogic.'');
 		 
 		 //if ($this->getIsEnable() == 1) { //Vérifie que l'équipement est actif
