@@ -39,7 +39,7 @@ try {
 			}		
 			//log::add('vmware', 'debug', 'Debut appel refresh via le bouton de synchronisation de la page équipement de l\'ESXi dont l\'ID est : '. init('id') .' et le nom est :  '. $eqLogic->getConfiguration('name') .'');
 			//ajax::success($cmd->execCmd());
-			$cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
+			//$cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
 			log::add('vmware', 'debug', 'Fin du refresh via le bouton synchronisation de la page équipement');
 		//}
 		ajax::success();
