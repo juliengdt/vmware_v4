@@ -160,7 +160,7 @@ class vmware extends eqLogic {
 						$toBeUpdated = "Non";
 						log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE ELSE : '. $toBeUpdated .'');
 				}
-			}☻
+			}
 				log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated .'');
 				//$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
 				log::add('vmware', 'debug', 'avant la mise à jour du nombre de vm ');
