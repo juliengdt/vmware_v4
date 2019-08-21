@@ -1018,6 +1018,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'debug', 'valeur de la variable vmwaretools avant nettoyage ' . $vmwareTools); 
 		$vmwareTools = str_replace("\"","",$vmwareTools); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 		$vmwareToolsClean = trim($vmwareTools);
+		$vmwareToolsClean = str_replace(array("toolsOld","toolsNotInstalled","toolsOk","toolsNotRunning"), array("Pas à jour","Pas installé","Démarré","Pas démarré"), $vmwareToolsClean );
 		log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre ' . $vmwareToolsClean); 
 		
 	
@@ -1045,7 +1046,7 @@ class vmware extends eqLogic {
 		$this->checkAndUpdateCmd('nbSnap', $nbSnapCount); 
 		$this->checkAndUpdateCmd('snapShotList', $snapListe); 
 		$this->checkAndUpdateCmd('online', $started); 
-		$vmware->checkAndUpdateCmd('vmwareTools', $toolsStatus); 
+		$vmware->checkAndUpdateCmd('vmwareTools', $vmwareToolsClean); 
 			
 		log::add('vmware', 'info', 'Fin fonction updateVmInformations'); 
 	}
