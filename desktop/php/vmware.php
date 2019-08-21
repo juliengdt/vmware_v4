@@ -47,7 +47,7 @@ function console_log($output, $with_script_tags = true) {
             	console_log('ESXI trouvé ' . $eqLogicEsxiHost->getConfiguration('name') . '');
 				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 				echo '<div class="eqLogicThumbnailContainer">'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
-				echo '<div class="cursor eqLogicDisplayCard" id="bt_synchroEqLogic" data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement
+				echo '<div class="cursor eqLogicAction" id="bt_synchroEqLogic" data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement
 				echo '<i class="fas fa-sync"></i>';
 				echo '<br>';
 				echo '<span>{{Synchroniser}}</span>';
