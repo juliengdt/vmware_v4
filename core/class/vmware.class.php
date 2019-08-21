@@ -632,10 +632,11 @@ class vmware extends eqLogic {
 			$vmwareTools = str_replace("\"","",$vmwareTools); // on supprime les retours à la ligne, retour chariots OU les Guillemets pour faire propre le nom
 			$vmwareToolsClean = trim($vmwareTools);
 			log::add('vmware', 'debug', 'valeur de la variable vmwaretools propre ' . $vmwareToolsClean); 
+			// 4 valeurs connues à ce jour : toolsOld,toolsNotInstalled,toolsOk,toolsNotRunning
 
-			// Récupération et stockage de l'IP si la VM est allumée, sinon on ne peut pas l'obtenir
-			//if($started == "running") {
-			if($started == "Powered on") {
+			// Récupération et stockage de l'IP si la VM est allumée et que les VMWARES TOOLS sont installés, sinon on ne peut pas l'obtenir
+			//if($started == "Powered on") {
+			if($started == "Powered on" && $vmwareToolsClean == "toolsOk") {
 				$_request = "vim-cmd vmsvc/get.guest ".$ID ." | grep ipAddress | sed -n 1p | cut -d '\"' -f 2";				
 				$result = ssh2_exec($connection, $_request . ' 2>&1');
 				stream_set_blocking($result, true);
