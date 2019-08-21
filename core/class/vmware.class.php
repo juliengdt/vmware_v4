@@ -529,23 +529,25 @@ class vmware extends eqLogic {
 	
 		
 	//public static function refreshViaBouttonSynchroniser($id) {
-	public function refreshViaBouttonSynchroniser() {
+	public function refreshViaBouttonSynchroniser($idToSearch) {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '===== Début du log - refreshViaBouttonSynchroniser =====');
 		log::add('vmware', 'info', '========================================================');
 		
-		 // $eqLogic = vmware::byId($id));
-		 //log::add('vmware', 'info', 'Juste après la récupération de l\'eqLogic');
-		 if ($this->getIsEnable() == 1) { //Vérifie que l'équipement est actif
-			 log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
-			 $cmd = $this->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
-			 log::add('vmware', 'debug', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
-			 if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
-				log::add('vmware', 'debug', 'DANS LE IF de la recherche de la commande, donc on l\'a trouvée');
-				 continue; 
-			 }else {
-				 log::add('vmware', 'debug', 'DANS LE ELSE de la recherche de la commande, ON LE PAS TROUVEE');
-			 }				 
+		 log::add('vmware', 'info', 'Juste avant la récupération de l\'eqLogic');
+		 $eqLogic = vmware::byId($id));
+		 log::add('vmware', 'info', 'Juste après la récupération de l\'eqLogic'. $eqLogic.'');
+		 
+		 //if ($this->getIsEnable() == 1) { //Vérifie que l'équipement est actif
+			// log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
+			 //$cmd = $this->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
+			 //log::add('vmware', 'debug', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
+			 //if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
+			//	log::add('vmware', 'debug', 'DANS LE IF de la recherche de la commande, donc on l\'a trouvée');
+			//	 continue; 
+			 //}else {
+			//	 log::add('vmware', 'debug', 'DANS LE ELSE de la recherche de la commande, ON LE PAS TROUVEE');
+			// }				 
 			// log::add('vmware', 'info', 'début du refresh via la fonction refreshViaBouttonSynchroniser');
 			// $cmd->execCmd(); // on a trouvé la commande, on l'exécute (Pas besoin d'une boucle else ? se renseigner sur la commande continue, semble permettre de sortir de la boucle;
 			// log::add('vmware', 'info', 'Fin du refresh via la fonction refreshViaBouttonSynchroniser');
