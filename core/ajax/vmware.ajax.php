@@ -28,8 +28,9 @@ try {
 
 	if (init('action') == 'synchronisation') {
 		//$eqLogic = vmware::byId(init('id'));
-		log::add('vmware', 'debug', 'DEBUG action synchronisation fichier ajax');
+		log::add('vmware', 'debug', 'DEBUG action synchronisation fichier ajax - DEBUT ');
 		$eqLogic = vmware::byId(init('id'));
+		log::add('vmware', 'debug', 'DEBUG action synchronisation fichier ajax - Juste après la récupération par l\'ID');
 		if ($eqLogic->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 			$cmd = $eqLogic->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
 			if (!is_object($cmd)) { // si la commande n'existe pas on continue à la chercher via le foreach
