@@ -31,7 +31,7 @@ try {
 		log::add('vmware', 'debug', 'DEBUG action synchronisation fichier ajax - DEBUT ');
 		log::add('vmware', 'debug', 'DEBUG AVANT appel à la fonction de synchro dans le fichier AJAX');
 		vmware::refreshViaBouttonSynchroniser(init('id'));
-		log::add('vmware', 'debug', 'DEBUG APRES appel à la fonction de synchro dans le fichier class');
+		log::add('vmware', 'debug', 'DEBUG APRES appel à la fonction de synchro dans le fichier AJAX');
 		
 		//$eqLogic = vmware::byId(init('id'));
 		//log::add('vmware', 'debug', 'DEBUG action synchronisation fichier ajax - Juste après la récupération par l\'ID');
