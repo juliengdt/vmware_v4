@@ -98,7 +98,7 @@ class vmware extends eqLogic {
 			log::add('vmware', 'debug', 'Valeur de esxiCurrentVersionSplittedLast : '. $esxiCurrentVersionSplittedLast );
 			
 			// on récupère la liste des mises à jours disponible depuis l'ESXI
-			$_request = "esxcli software sources profile list -d https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml | grep -i ESXi-".$esxiCurrentVersionSplittedLast."*-standard | sed -e 's/.*ESXi-\\(.*\\)-standard.*/\\1/'  | awk '{print $1\":9999999\"}' | sort -r"; // il faut faire un double antislash sinon il est perdu en passant dans php
+			$_request = "esxcli software sources profile list -d https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml | grep -i ESXi-".$esxiCurrentVersionSplittedLast."*-standard | sed -e 's/.*ESXi-\\(.*\\)-standard.*/\\1/'  | awk '{print $1\":9999999\"}' "; //| sort -r"; // il faut faire un double antislash sinon il est perdu en passant dans php
 			log::add('vmware', 'debug', 'Contenu de la requete : '. $_request );
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
@@ -130,7 +130,8 @@ class vmware extends eqLogic {
 				  log::add('vmware', 'debug', 'Valeur de TO BE UPDATED IF ELSE : '. $toBeUpdated .'');
 				}
 			}else { // ELSE notre version contient plus de 15 caractères alors on a déjà un update ou mise à jour appliquée
-				if ($countArrayMembers > 1) {		
+				if ($countArrayMembers > 1) {	
+						$firstLineRemoved = array_shift($trimmedEsxiUpdateListArray); // on supprime la première ligne du tableau car elle contient la version avec nom court
 						if(array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier de la liste il y a une mise à jour disponible
 							$toBeUpdated = "Oui";
 							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF IF : '. $toBeUpdated .'');
