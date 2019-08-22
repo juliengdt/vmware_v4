@@ -88,6 +88,7 @@ class vmware extends eqLogic {
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$esxiCurrentVersion = stream_get_contents($result);
+			log::add('vmware', 'debug', 'Valeur de esxiCurrentVersion : '. $esxiCurrentVersion );
 			
 			// on torture le string récupéré pour interroger la liste des versions disponibles 
 			$esxiCurrentVersionSplitted = explode ("-",$esxiCurrentVersion,2); // on divise en deux la chaine de caractères au premier - trouvé

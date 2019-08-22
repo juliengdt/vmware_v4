@@ -87,9 +87,9 @@ foreach ($eqLogics as $eqLogic) {
 				if (is_object($onlinecmd)) {
 					$online = $onlinecmd->execCmd();
 					if ($online == 'Oui'){
-						$online = '<span class="label label-success" style="font-size : 1em;" title="{{Présent}}"><i class="fas fa-check"></i></span>';
+						$online = '<span class="label label-success" style="font-size : 1em;" title="{{Oui}}"><i class="fas fa-check"></i></span>';
 					} else {
-						$online = '<span class="label label-danger" style="font-size : 1em;" title="{{Absent}}"><i class="fas fa-times"></i></span>';	
+						$online = '<span class="label label-danger" style="font-size : 1em;" title="{{Non}}"><i class="fas fa-times"></i></span>';	
 					}
 				}
 				echo $online;
