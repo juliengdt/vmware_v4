@@ -118,11 +118,10 @@ class vmware extends eqLogic {
 			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après le sort : '. print_r($trimmedEsxiUpdateListArray,1) );
 			$countArrayMembers = count($trimmedEsxiUpdateListArray); // on stocke le nombre d'entrée présente dans l'objet pour comparer par la suite
 			log::add('vmware', 'debug', 'Nombre d\'élément trouvé dans le tableau countArrayMembers : '. $countArrayMembers );
-			$positionOfCurrentVersionInArray = array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray);
-			log::add('vmware', 'debug', 'Position de la version actuelle dans le tableau : '. $positionOfCurrentVersionInArray );
-			echo 'voici la valeur quand on fait le array_search : ';
-			$key = array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray);
-			log::add('vmware', 'debug', 'Position de la version actuelle dans le tableau 2ème fois : '. $key);
+			//$positionOfCurrentVersionInArray = array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray);
+			//log::add('vmware', 'debug', 'Position de la version actuelle dans le tableau : '. $positionOfCurrentVersionInArray );
+			//$key = array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray);
+			//log::add('vmware', 'debug', 'Position de la version actuelle dans le tableau 2ème fois : '. $key);
 			// afin de savoir si on est à jour il faut comparer notre version d'ESXi avec celle disponible en ligne			
 			if (strlen($esxiCurrentVersion) <15) { // IF notre version contient moins de 15 caractères alors on est sur la première version sortie d'ESXI, sans aucune mise à jour appliquée
 				if ($countArrayMembers >1) { //// ALORS IF le nombre d'élément dans le tableau > 1 (donc il y en a 2) DONC on met une valeur à 1 pour indiquer que mise à jour disponible
@@ -135,7 +134,8 @@ class vmware extends eqLogic {
 			}else { // ELSE notre version contient plus de 15 caractères alors on a déjà un update ou mise à jour appliquée
 				if ($countArrayMembers > 1) {	
 						$firstLineRemoved = array_shift($trimmedEsxiUpdateListArray); // on supprime la première ligne du tableau car elle contient la version avec nom court
-						if(array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier de la liste il y a une mise à jour disponible
+		// array_search ne fonctionne pas, dans un script jeedom c'est ok mais pas dans la class		//if(array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier de la liste il y a une mise à jour disponible
+						if(!($esxiCurrentVersion == $trimmedEsxiUpdateListArray[0])){ // On compare la version actuelle avec la version de la première ligne du tableau si c'est pas le premier il y a une mise à jour
 							$toBeUpdated = "Oui";
 							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF IF : '. $toBeUpdated .'');
 						}else {
