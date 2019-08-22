@@ -144,7 +144,7 @@ class vmware extends eqLogic {
 				}
 			}
 			log::add('vmware', 'debug', 'Valeur de TO BE UPDATED QUI VA ETRE MISE A JOUR : '.$toBeUpdated .'');
-			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', "<br>".$toBeUpdated."<br>"); 
+			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', "<br>".$toBeUpdated); 
 			
 			$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 			stream_set_blocking($closesession, true);
@@ -788,7 +788,8 @@ class vmware extends eqLogic {
 			$cpt = $cpt+1;
 			$vmNameList = $vmName."<br>".$vmNameList;
 		}
-		$vmNameList = "<br>".$vmNameList."<br>"; // Permet de faire un retour à la ligne avant et après la liste des VMs pour que ça soit plus propre sur le widget
+		$vmNameList = "<br>".$vmNameList; // Permet de faire un retour à la ligne avant et après la liste des VMs pour que ça soit plus propre sur le widget
+		//$vmNameList = "<br>".$vmNameList."<br>"; // Permet de faire un retour à la ligne avant et après la liste des VMs pour que ça soit plus propre sur le widget
 		
 		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 		stream_set_blocking($closesession, true);
@@ -953,10 +954,10 @@ class vmware extends eqLogic {
 		$osESXIClean = trim($osESXI);
 		log::add('vmware', 'debug', 'valeur de la variable OS propre' . $osESXIClean); 
 				
-		$this->checkAndUpdateCmd('ramTotal', "<br>".$memoryGBESXi."<br>"); 
-		$this->checkAndUpdateCmd('cpuNumber', "<br>".$numCpuESXi."<br>"); 
-		$this->checkAndUpdateCmd('corePerCpuNumber', "<br>".$numCpuCoresESXi."<br>"); 
-		$this->checkAndUpdateCmd('osType', "<br>".$osESXIClean."<br>"); 
+		$this->checkAndUpdateCmd('ramTotal', "<br>".$memoryGBESXi); 
+		$this->checkAndUpdateCmd('cpuNumber', "<br>".$numCpuESXi); 
+		$this->checkAndUpdateCmd('corePerCpuNumber', "<br>".$numCpuCoresESXi); 
+		$this->checkAndUpdateCmd('osType', "<br>".$osESXIClean); 
 		
 		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 		stream_set_blocking($closesession, true);
