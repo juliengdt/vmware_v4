@@ -107,15 +107,15 @@ class vmware extends eqLogic {
 			log::add('vmware', 'debug', 'Valeur de esxiUpdateList : '. $esxiUpdateList );
 
 			$esxiUpdateListArray = explode(":9999999", $esxiUpdateList);
-			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après l\'explode : '. print_r($esxiUpdateListArray) );
+			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après l\'explode : '. print_r($esxiUpdateListArray,1) );
 			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray ELEMENT 1 après l\'explode : '. $esxiUpdateListArray[1] );
 			$lastLineRemoved = array_pop($esxiUpdateListArray); // on supprime la dernière ligne du tableau car elle est vide
-			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après array pop: '. print_r($esxiUpdateListArray) );
+			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après array pop: '. print_r($esxiUpdateListArray,1) );
 			$trimmedEsxiUpdateListArray =array_map('trim',$esxiUpdateListArray);
-			log::add('vmware', 'debug', 'Valeur de esxiUpdateListArray  après le array_map: '. print_r($esxiUpdateListArray) );
-			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après array map: '. print_r($esxiUpdateListArray) );
+			log::add('vmware', 'debug', 'Valeur de esxiUpdateListArray  après le array_map: '. print_r($esxiUpdateListArray,1) );
+			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après array map: '. print_r($esxiUpdateListArray,1) );
 			sort($trimmedEsxiUpdateListArray);
-			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après le sort : '. print_r($trimmedEsxiUpdateListArray) );
+			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après le sort : '. print_r($trimmedEsxiUpdateListArray,1) );
 			$countArrayMembers = count($trimmedEsxiUpdateListArray); // on stocke le nombre d'entrée présente dans l'objet pour comparer par la suite
 			log::add('vmware', 'debug', 'Nombre d\'élément trouvé dans le tableau countArrayMembers : '. $countArrayMembers );
 			$positionOfCurrentVersionInArray = array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray);
@@ -953,7 +953,7 @@ class vmware extends eqLogic {
 		$osESXIClean = trim($osESXI);
 		log::add('vmware', 'debug', 'valeur de la variable OS propre' . $osESXIClean); 
 				
-		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
+		$this->checkAndUpdateCmd('ramTotal', "<br>".$memoryGBESXi); 
 		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
 		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
 		$this->checkAndUpdateCmd('osType', $osESXIClean); 
