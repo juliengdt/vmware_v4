@@ -94,7 +94,7 @@ class vmware extends eqLogic {
 			$esxiCurrentVersionSplitted = explode ("-",$esxiCurrentVersion,2); // on divise en deux la chaine de caractères au premier - trouvé
 			log::add('vmware', 'debug', 'Valeur de esxiCurrentVersionSplitted : '. $esxiCurrentVersionSplitted[0] );
 			 
-			$esxiCurrentVersionSplittedLast = substr($esxiCurrentVersionSplitted[0], 0, -1); // on supprime le dernier caractères car on doit le remplacer par un * pour faire une requête proprement formatée
+			$esxiCurrentVersionSplittedLast = substr($esxiCurrentVersionSplitted[0], 0, -1); // on supprime le dernier caractère car on doit le remplacer par un * pour faire une requête proprement formatée
 			log::add('vmware', 'debug', 'Valeur de esxiCurrentVersionSplittedLast : '. $esxiCurrentVersionSplittedLast );
 			
 			// on récupère la liste des mises à jours disponible depuis l'ESXI
@@ -110,7 +110,11 @@ class vmware extends eqLogic {
 			$lastLineRemoved = array_pop($esxiUpdateListArray); // on supprime la dernière ligne du tableau car elle est vide
 			$trimmedEsxiUpdateListArray =array_map('trim',$esxiUpdateListArray);
 			sort($trimmedEsxiUpdateListArray);
+			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray : '. print_r($trimmedEsxiUpdateListArray) );
 			$countArrayMembers = count($trimmedEsxiUpdateListArray); // on stocke le nombre d'entrée présente dans l'objet pour comparer par la suite
+			log::add('vmware', 'debug', 'Nombre d\'élément trouvé dans le tableau countArrayMembers : '. $countArrayMembers );
+			$positionOfCurrentVersionInArray = array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray);
+			log::add('vmware', 'debug', 'Position de la version actuelle dans le tableau :  : '. $positionOfCurrentVersionInArray );
 			// afin de savoir si on est à jour il faut comparer notre version d'ESXi avec celle disponible en ligne			
 			if (strlen($esxiCurrentVersion) <15) { // IF notre version contient moins de 15 caractères alors on est sur la première version sortie d'ESXI, sans aucune mise à jour appliquée
 				if ($countArrayMembers >1) { //// ALORS IF le nombre d'élément dans le tableau > 1 (donc il y en a 2) DONC on met une valeur à 1 pour indiquer que mise à jour disponible
@@ -134,8 +138,9 @@ class vmware extends eqLogic {
 						log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE ELSE : '. $toBeUpdated .'');
 				}
 			}
-			log::add('vmware', 'debug', 'Valeur de TO BE UPDATED : '.$toBeUpdated .'');
+			log::add('vmware', 'debug', 'Valeur de TO BE UPDATED QUI VA ETRE MISE A JOUR : '.$toBeUpdated .'');
 			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
+			
 			$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 			stream_set_blocking($closesession, true);
 			stream_get_contents($closesession);		
