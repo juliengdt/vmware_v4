@@ -95,7 +95,7 @@ function console_log($output, $with_script_tags = true) {
 						}
 					}
 					if ($doNothing != "Yes" && $firstOrpheline == "") {
-						<legend><i class="fas fa-table"></i> {{Mes machines virtuelles orphelines}}</legend>
+						echo '<legend><i class="fas fa-table"></i> {{Mes machines virtuelles orphelines}}</legend>';
 						console_log('Boucle If do nothing non égale à Yes et c\'est la première fois donc on affiche le bandeau Mes machines virtuelles orphelines');
 						$firstOrpheline ="Find";
 						//break;
