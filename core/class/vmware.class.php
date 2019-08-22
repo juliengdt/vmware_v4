@@ -88,6 +88,7 @@ class vmware extends eqLogic {
 			$result = ssh2_exec($connection, $_request . ' 2>&1');
 			stream_set_blocking($result, true);
 			$esxiCurrentVersion = stream_get_contents($result);
+			$esxiCurrentVersion = trim($esxiCurrentVersion); // on supprime les espaces au début et à la fin
 			log::add('vmware', 'debug', 'Valeur de esxiCurrentVersion : '. $esxiCurrentVersion );
 			
 			// on torture le string récupéré pour interroger la liste des versions disponibles 
@@ -134,8 +135,9 @@ class vmware extends eqLogic {
 			}else { // ELSE notre version contient plus de 15 caractères alors on a déjà un update ou mise à jour appliquée
 				if ($countArrayMembers > 1) {	
 						$firstLineRemoved = array_shift($trimmedEsxiUpdateListArray); // on supprime la première ligne du tableau car elle contient la version avec nom court
+						log::add('vmware', 'debug', 'Contenu du tableau après le array_shift : '. print_r($trimmedEsxiUpdateListArray,1) );
 		// array_search ne fonctionne pas, dans un script jeedom c'est ok mais pas dans la class		//if(array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier de la liste il y a une mise à jour disponible
-						if(!($esxiCurrentVersion == $trimmedEsxiUpdateListArray[0])){ // On compare la version actuelle avec la version de la première ligne du tableau si c'est pas le premier il y a une mise à jour
+						if(!(trim($esxiCurrentVersion) == trim($trimmedEsxiUpdateListArray[0]))){ // On compare la version actuelle avec la version de la première ligne du tableau si c'est pas le premier il y a une mise à jour
 							$toBeUpdated = "Oui";
 							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF IF : '. $toBeUpdated .'');
 						}else {
