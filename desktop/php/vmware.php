@@ -120,9 +120,9 @@ function console_log($output, $with_script_tags = true) {
 					//break;
 				}
 			}
-			if ($firstOrpheline == "Find") {
-				echo '</div>';
-			}
+		}
+		if ($firstOrpheline == "Find") { // on ferme la div que l'on a ouverte lors du IF suivant : if ($doNothing != "Yes" && $firstOrpheline == "")
+			echo '</div>';
 		}
 	?>	
 	
