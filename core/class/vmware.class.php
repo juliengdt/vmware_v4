@@ -144,7 +144,7 @@ class vmware extends eqLogic {
 				}
 			}
 			log::add('vmware', 'debug', 'Valeur de TO BE UPDATED QUI VA ETRE MISE A JOUR : '.$toBeUpdated .'');
-			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated); 
+			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', "<br>".$toBeUpdated."<br>"); 
 			
 			$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 			stream_set_blocking($closesession, true);
@@ -953,10 +953,10 @@ class vmware extends eqLogic {
 		$osESXIClean = trim($osESXI);
 		log::add('vmware', 'debug', 'valeur de la variable OS propre' . $osESXIClean); 
 				
-		$this->checkAndUpdateCmd('ramTotal', "<br>".$memoryGBESXi); 
-		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
-		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
-		$this->checkAndUpdateCmd('osType', $osESXIClean); 
+		$this->checkAndUpdateCmd('ramTotal', "<br>".$memoryGBESXi."<br>"); 
+		$this->checkAndUpdateCmd('cpuNumber', "<br>".$numCpuESXi."<br>"); 
+		$this->checkAndUpdateCmd('corePerCpuNumber', "<br>".$numCpuCoresESXi."<br>"); 
+		$this->checkAndUpdateCmd('osType', "<br>".$osESXIClean."<br>"); 
 		
 		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 		stream_set_blocking($closesession, true);
