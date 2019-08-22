@@ -82,7 +82,7 @@ function console_log($output, $with_script_tags = true) {
 					//console_log('IP de l\'ESXI ' . $eqLogicc->getConfiguration('ipAddress') . '');
 					//console_log('TYPE de l\'eqLogicc en cours ' . $eqLogicc->getConfiguration('type') . '');
 					if ($eqLogicc->getConfiguration('type') == 'ESXi' && $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') == $eqLogicc->getConfiguration('ipAddress')) { // on cherche si l'ESXi existe par son IP
-						console_log('On a trouvé l\'hote ESXI associé à la VM on ne fait donc rien et on sort du foreach');
+						console_log('On a trouvé l\'hote ESXI associé à la VM on set la variable donothing à YES');
 						$doNothing = "Yes";
 						//break;
 					}else {
