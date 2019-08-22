@@ -99,6 +99,7 @@ function console_log($output, $with_script_tags = true) {
 				if ($doNothing != "Yes" && $firstOrpheline == "") { // on a trouvé une VM orpheline et c'est la première trouvée, donc on ajoute le label vm Orpheline pour mieux s'y retrouver
 					console_log('Boucle If do nothing non égale à Yes et c\'est la première fois donc on affiche le bandeau Mes machines virtuelles orphelines');
 					echo '<legend><i class="fas fa-table"></i> {{Mes machines virtuelles orphelines}}</legend>';
+					echo '<div class="eqLogicThumbnailContainer">'; 
 					$opacity = ($eqLogicVM->getIsEnable()) ? '' : 'disableCard';
 					echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicVM->getId() . '">';
 						echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
@@ -118,6 +119,9 @@ function console_log($output, $with_script_tags = true) {
 					//$firstOrpheline ="Find";
 					//break;
 				}
+			}
+			if ($firstOrpheline == "Find") {
+				echo '</div>';
 			}
 		}
 	?>	
