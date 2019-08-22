@@ -519,7 +519,7 @@ class vmware extends eqLogic {
 		$cmd = $this->getCmd(null, 'refresh'); // On appelle la commande refresh de l’équipement à chaque fois que l'on update l'équipement du plugin vmware (clic sur sauvegarder)
 		if (is_object($cmd)) { //Elle existe on lance la commande
 		//en test pour valider que si on commente ici, lorsque l'on sauve un ESXi, ça va vite et qu'ensuite on clic sur le bouton synchroniser			 $cmd->execCmd();
-			$cmd->execCmd();
+//			$cmd->execCmd();
 		}
 		log::add('vmware', 'debug', 'Fin fonction postUpdate');
     }
@@ -543,7 +543,7 @@ class vmware extends eqLogic {
 					log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
 					
 					
-					// TEST 
+					// TEST 3
 					log::add('vmware', 'debug', 'On appel la fonction getEsxiInformationList '); 
 					$return = $eqLogicEsxiHost->getEsxiInformationList() ;
 					log::add('vmware', 'debug', 'On appel la fonction getvmInformationList '); 
@@ -558,7 +558,7 @@ class vmware extends eqLogic {
 					
 					
 					
-					
+					// TEST 2 ERREUR 500 à la commande byEqLogicIdAndLogicalId ou à la commande  $eqLogicEsxiHost->getCmd(null, 'refresh')
 					//$eqLogicEsxiHost->save();
 /////////					$cmd = vmware::byEqLogicIdAndLogicalId($idToSearch,'refresh');
 					//$cmd = $eqLogicEsxiHost->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
@@ -575,8 +575,9 @@ class vmware extends eqLogic {
 				}
 			}
 		 }
-		 
-		 //if ($this->getIsEnable() == 1) { //Vérifie que l'équipement est actif
+			
+			// TEST 3 Erreur 500 à la commande $this->getCmd(null, 'refresh') (j'ai essayé aussi 
+			//if ($this->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 			// log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
 			 //$cmd = $this->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
 			 //log::add('vmware', 'debug', 'JUSTE APRES LA RECHERCHE DE LA COMMANDE REFRESH');
