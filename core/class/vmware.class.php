@@ -110,11 +110,12 @@ class vmware extends eqLogic {
 			$lastLineRemoved = array_pop($esxiUpdateListArray); // on supprime la dernière ligne du tableau car elle est vide
 			$trimmedEsxiUpdateListArray =array_map('trim',$esxiUpdateListArray);
 			sort($trimmedEsxiUpdateListArray);
+			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray : '. print_r($esxiUpdateListArray) );
 			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray : '. print_r($trimmedEsxiUpdateListArray) );
 			$countArrayMembers = count($trimmedEsxiUpdateListArray); // on stocke le nombre d'entrée présente dans l'objet pour comparer par la suite
 			log::add('vmware', 'debug', 'Nombre d\'élément trouvé dans le tableau countArrayMembers : '. $countArrayMembers );
 			$positionOfCurrentVersionInArray = array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray);
-			log::add('vmware', 'debug', 'Position de la version actuelle dans le tableau :  : '. $positionOfCurrentVersionInArray );
+			log::add('vmware', 'debug', 'Position de la version actuelle dans le tableau : '. $positionOfCurrentVersionInArray );
 			// afin de savoir si on est à jour il faut comparer notre version d'ESXi avec celle disponible en ligne			
 			if (strlen($esxiCurrentVersion) <15) { // IF notre version contient moins de 15 caractères alors on est sur la première version sortie d'ESXI, sans aucune mise à jour appliquée
 				if ($countArrayMembers >1) { //// ALORS IF le nombre d'élément dans le tableau > 1 (donc il y en a 2) DONC on met une valeur à 1 pour indiquer que mise à jour disponible
