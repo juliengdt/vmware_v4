@@ -42,6 +42,7 @@ function console_log($output, $with_script_tags = true) {
 		<input class="form-control" placeholder="{{Chercher parmis vos équipements}}" id="in_searchEqlogic" />
 	<!--<div class="eqLogicThumbnailContainer">--> <!-- a commenter si besoin de tester l'alignement en cas de plusieurs ESXi présent -->
     <?php
+		$firstOrpheline = ""; // permet d'afficher le bandeau Mes machines virtuelles Orpheline une seule fois
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
             	console_log('ESXI trouvé ' . $eqLogicEsxiHost->getConfiguration('name') . '');
@@ -93,8 +94,14 @@ function console_log($output, $with_script_tags = true) {
 							break;
 						}
 					}
-					if ($doNothing != "Yes") {
-						console_log('Boucle If do nothing non égale à Yes donc on doit afficher l\'élément orphelin');
+					if ($doNothing != "Yes" && $firstOrpheline == "") {
+						<legend><i class="fas fa-table"></i> {{Mes machines virtuelles orphelines}}</legend>
+						console_log('Boucle If do nothing non égale à Yes et c\'est la première fois donc on affiche le bandeau Mes machines virtuelles orphelines');
+						$firstOrpheline ="Find";
+						//break;
+					}else if ($doNothing != "Yes") {
+						console_log('Boucle If do nothing non égale à Yes et on a déjà trouvé une VM, donc on n\'affiche pas ');
+						$firstOrpheline ="Find";
 						//break;
 					}
 				}
