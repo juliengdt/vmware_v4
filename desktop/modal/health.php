@@ -91,8 +91,8 @@ foreach ($eqLogics as $eqLogic) {
 					} else {
 						$online = '<span class="label label-danger" style="font-size : 1em;" title="{{Absent}}"><i class="fas fa-times"></i></span>';	
 					}
-					echo $online;
 				}
+				echo $online;
 			}				
 			echo "</span></td>";
 			//echo "<td $styleTD>";
