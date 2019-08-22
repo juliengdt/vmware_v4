@@ -1006,12 +1006,18 @@ class vmware extends eqLogic {
 						
 		// On va chercher les informations que l'on souhaite mettre à jour
 		// Récupération et stockage de l'état de la VM (allumée ou éteinte)
-		$_request = "vim-cmd vmsvc/get.guest ".$vmIDToUpdate ." | grep guestState | sed -n 1p | cut -d '\"' -f 2";
+		// $_request = "vim-cmd vmsvc/get.guest ".$vmIDToUpdate ." | grep guestState | sed -n 1p | cut -d '\"' -f 2";
+		// $result = ssh2_exec($connection, $_request . ' 2>&1');
+		// stream_set_blocking($result, true);
+		// $started = stream_get_contents($result);
+		// $started = preg_replace("#\n|\t|\r#","",$started); // on supprime les retours à la ligne et autre retour chariots
+		//$started = str_replace(array("notRunning","running"), array("No","Yes"), $started );
+		$_request = "vim-cmd vmsvc/power.getstate ".$ID." | sed -n 2p";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$started = stream_get_contents($result);
 		$started = preg_replace("#\n|\t|\r#","",$started); // on supprime les retours à la ligne et autre retour chariots
-		$started = str_replace(array("notRunning","running"), array("No","Yes"), $started );
+		$started = str_replace(array("Powered off","Powered on"), array("Non","Oui"), $started );
 		log::add('vmware', 'debug', 'Contenu de la variable started : ' . $started); 
 		
 		// Récupération et stockage du nombre de snapshot déclaré sur la VM
