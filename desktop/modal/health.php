@@ -89,9 +89,9 @@ foreach ($eqLogics as $eqLogic) {
 					if ($online == 'Oui'{
 						$online = '<span class="label label-success" style="font-size : 1em;" title="{{Présent}}"><i class="fas fa-check"></i></span>';
 					} else {
-						$online = '<span class="label label-danger" style="font-size : 1em;" title="{{Absent}}"><i class="fas fa-times"></i></span>';
-						echo $online;	
+						$online = '<span class="label label-danger" style="font-size : 1em;" title="{{Absent}}"><i class="fas fa-times"></i></span>';	
 					}
+					echo $online;
 				}
 			}				
 			echo "</span></td>";
