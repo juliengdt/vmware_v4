@@ -108,7 +108,7 @@ class vmware extends eqLogic {
 
 			$esxiUpdateListArray = explode(":9999999", $esxiUpdateList);
 			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après l\'explode : '. print_r($esxiUpdateListArray) );
-			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray ELEMENT 1 après l\'explode : '. $esxiUpdateListArray[1]) );
+			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray ELEMENT 1 après l\'explode : '. $esxiUpdateListArray[1] );
 			$lastLineRemoved = array_pop($esxiUpdateListArray); // on supprime la dernière ligne du tableau car elle est vide
 			log::add('vmware', 'debug', 'Valeur de trimmedEsxiUpdateListArray après array pop: '. print_r($esxiUpdateListArray) );
 			$trimmedEsxiUpdateListArray =array_map('trim',$esxiUpdateListArray);
