@@ -75,57 +75,29 @@ function console_log($output, $with_script_tags = true) {
 			}else {
 				console_log('VM trouvée, on boucle à la recherche de VM Orphelines ');	
 				$doNothing = "";
-			if ($eqLogicEsxiHost->getConfiguration('type') == 'vm') {
-				//console_log('VM trouvéeeeeeeeeeeeeeeeeeeeeee ' . $eqLogicEsxiHost->getConfiguration('name') . '');
-				foreach ($eqLogics as $eqLogicc) {
-					//console_log('IP de la VM ' . $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') . '');
-					//console_log('IP de l\'ESXI ' . $eqLogicc->getConfiguration('ipAddress') . '');
-					//console_log('TYPE de l\'eqLogicc en cours ' . $eqLogicc->getConfiguration('type') . '');
-					if ($eqLogicc->getConfiguration('type') == 'ESXi' && $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') == $eqLogicc->getConfiguration('ipAddress')) { // on cherche si l'ESXi existe par son IP
-						console_log('On a trouvé l\'hote ESXI associé à la VM on set la variable donothing à YES');
-						$doNothing = "Yes";
+				if ($eqLogicEsxiHost->getConfiguration('type') == 'vm') {
+					//console_log('VM trouvéeeeeeeeeeeeeeeeeeeeeee ' . $eqLogicEsxiHost->getConfiguration('name') . '');
+					foreach ($eqLogics as $eqLogicc) {
+						//console_log('IP de la VM ' . $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') . '');
+						//console_log('IP de l\'ESXI ' . $eqLogicc->getConfiguration('ipAddress') . '');
+						//console_log('TYPE de l\'eqLogicc en cours ' . $eqLogicc->getConfiguration('type') . '');
+						if ($eqLogicc->getConfiguration('type') == 'ESXi' && $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') == $eqLogicc->getConfiguration('ipAddress')) { // on cherche si l'ESXi existe par son IP
+							console_log('On a trouvé l\'hote ESXI associé à la VM on set la variable donothing à YES');
+							$doNothing = "Yes";
+							//break;
+						}else {
+							console_log('On n\'a pas trouvé l\'hote ESXI associé à la VM, on continue à boucler');
+						}
+						if ($doNothing == "Yes") {
+							console_log('Boucle If do nothing donc on break le foreach');
+							break;
+						}
+					}
+					if ($doNothing != "Yes") {
+						console_log('Boucle If do nothing non égale à Yes donc on doit afficher l\'élément orphelin');
 						//break;
-					}else {
-						console_log('On n\'a pas trouvé l\'hote ESXI associé à la VM, on continue à boucler');
-					}
-					if ($doNothing == "Yes") {
-						console_log('Boucle If do nothing donc on break le foreach');
-						break;
 					}
 				}
-				if ($doNothing != "Yes") {
-					console_log('Boucle If do nothing non égale à Yes donc on doit afficher l\'élément orphelin');
-					break;
-				}
-				
-			/*	echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
-				echo '<div class="eqLogicThumbnailContainer">'; 
-				echo '<div class="cursor eqLogicAction synchronisation"  data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement // on se base sur le terme synchronisation pour le retrouver dans le JS
-				echo '<i class="fas fa-sync"></i>';
-				echo '<br>';
-				echo '<span>{{Synchroniser}}</span>';
-				echo '</div>';
-				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
-				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
-				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
-					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png">';
-					echo '<br>';
-					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
-					echo '</div>';
-				foreach ($eqLogics as $eqLogicVM) {
-					if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
-						console_log('VM trouvée ' . $eqLogicVM->getConfiguration('name') . '');
-						$opacity = ($eqLogicVM->getIsEnable()) ? '' : 'disableCard';
-						echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicVM->getId() . '">';
-							echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
-							echo "<br>";
-							echo '<span class="name">' . $eqLogicVM->getHumanName(true, true) . '</span>';
-						echo '</div>';
-					}
-				}
-				echo '</div>';*/
-			//  echo '</div>'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
-			}
 			}
 		}
 	?>	
