@@ -1012,7 +1012,7 @@ class vmware extends eqLogic {
 		// $started = stream_get_contents($result);
 		// $started = preg_replace("#\n|\t|\r#","",$started); // on supprime les retours à la ligne et autre retour chariots
 		//$started = str_replace(array("notRunning","running"), array("No","Yes"), $started );
-		$_request = "vim-cmd vmsvc/power.getstate ".$ID." | sed -n 2p";
+		$_request = "vim-cmd vmsvc/power.getstate ".$vmIDToUpdate." | sed -n 2p";
 		$result = ssh2_exec($connection, $_request . ' 2>&1');
 		stream_set_blocking($result, true);
 		$started = stream_get_contents($result);
