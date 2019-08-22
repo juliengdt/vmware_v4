@@ -74,10 +74,15 @@ function console_log($output, $with_script_tags = true) {
 			//  echo '</div>'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
 			}else {
 				console_log('Boucle à la recherche de VM Orphelines ');	
-				console_log('On affiche le contenu de eqLogics');
-				console_log($eqLogics);
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'vm') {
 				console_log('VM trouvéeeeeeeeeeeeeeeeeeeeeee ' . $eqLogicEsxiHost->getConfiguration('name') . '');
+				foreach ($eqLogics as $eqLogicESXi) {
+					if ($eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') == $eqLogicESXi->getConfiguration('ipAddress')) { // on cherche si l'ESXi existe par son IP
+						console_log('On a trouvé l\'hote ESXI associé à la VM on ne fait donc rien');
+					}else {
+						console_log('On n\'a pas trouvé l\'hote ESXI associé à la VM, donc on l\'affiche');
+					}
+				}
 			/*	echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 				echo '<div class="eqLogicThumbnailContainer">'; 
 				echo '<div class="cursor eqLogicAction synchronisation"  data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement // on se base sur le terme synchronisation pour le retrouver dans le JS
