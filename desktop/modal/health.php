@@ -94,7 +94,8 @@ foreach ($eqLogics as $eqLogic) {
 				}
 				echo $online;
 			}				
-			echo "</span></td>";
+			echo "</td>";
+			/////echo "</span></td>";
 			//echo "<td $styleTD>";
 			//echo str_replace(array("notRunning","running"), array("NON","OUI"), $eqLogic->getConfiguration('Started'));
 			//echo "</span></td>";			  
