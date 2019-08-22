@@ -72,7 +72,7 @@ function console_log($output, $with_script_tags = true) {
 				}
 				echo '</div>';
 			//  echo '</div>'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
-			}
+			}else {
 			console.log('Boucle à la recherche de VM Orphelines ');	
 		console.log('On affiche le contenu de eqLogics');
 		console.log($eqLogics);
@@ -106,7 +106,7 @@ function console_log($output, $with_script_tags = true) {
 				echo '</div>';*/
 			//  echo '</div>'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
 			}
-			
+			}
 		}
 	?>	
 	<!-- Affichage de VM orphelines (cas de la suppression d'un server ESXi sans supprimer avant les VMs qui lui sont rattachées) -->
