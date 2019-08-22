@@ -76,11 +76,11 @@ function console_log($output, $with_script_tags = true) {
 				console_log('VM trouvée, on boucle à la recherche de VM Orphelines ');	
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'vm') {
 				console_log('VM trouvéeeeeeeeeeeeeeeeeeeeeee ' . $eqLogicEsxiHost->getConfiguration('name') . '');
-				foreach ($eqLogics as $eqLogic) {
+				foreach ($eqLogics as $eqLogicc) {
 					console_log('IP de la VM ' . $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') . '');
-					console_log('IP de l\'ESXI ' . $eqLogic->getConfiguration('ipAddress') . '');
-					console_log('TYPE de l\eqLogic en cours ' . $eqLogic->getConfiguration('type') . '');
-					if ($eqLogic->getConfiguration('type') == 'ESXi' && $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') == $eqLogic->getConfiguration('ipAddress')) { // on cherche si l'ESXi existe par son IP
+					console_log('IP de l\'ESXI ' . $eqLogicc->getConfiguration('ipAddress') . '');
+					console_log('TYPE de l\eqLogicc en cours ' . $eqLogicc->getConfiguration('type') . '');
+					if ($eqLogicc->getConfiguration('type') == 'ESXi' && $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') == $eqLogicc->getConfiguration('ipAddress')) { // on cherche si l'ESXi existe par son IP
 						console_log('On a trouvé l\'hote ESXI associé à la VM on ne fait donc rien');
 					}else {
 						console_log('On n\'a pas trouvé l\'hote ESXI associé à la VM, donc on l\'affiche');
