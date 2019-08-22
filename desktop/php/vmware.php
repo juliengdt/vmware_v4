@@ -86,7 +86,7 @@ function console_log($output, $with_script_tags = true) {
 						$doNothing = "Yes";
 						//break;
 					}else {
-						console_log('On n\'a pas trouvé l\'hote ESXI associé à la VM, donc on l\'affiche');
+						console_log('On n\'a pas trouvé l\'hote ESXI associé à la VM, on continue à boucler');
 					}
 					if ($doNothing == "Yes") {
 						console_log('Boucle If do nothing donc on break le foreach');
