@@ -61,7 +61,7 @@ function console_log($output, $with_script_tags = true) {
 					echo '</div>';
 				foreach ($eqLogics as $eqLogicVM) {
 					if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
-						console_log('VM trouvée ' . $eqLogicVM->getConfiguration('name') . '');
+						//console_log('VM trouvée ' . $eqLogicVM->getConfiguration('name') . '');
 						$opacity = ($eqLogicVM->getIsEnable()) ? '' : 'disableCard';
 						echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicVM->getId() . '">';
 							echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
@@ -73,7 +73,7 @@ function console_log($output, $with_script_tags = true) {
 				echo '</div>';
 			//  echo '</div>'; // Permet d'avoir le deuxième ESXi aligné à gauche, mais il se retrouve bien trop bas ( voir si c'est la présence de VM qui pose problème
 			}else {
-				console_log('Boucle à la recherche de VM Orphelines ');	
+				console_log('VM trouvée, on boucle à la recherche de VM Orphelines ');	
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'vm') {
 				console_log('VM trouvéeeeeeeeeeeeeeeeeeeeeee ' . $eqLogicEsxiHost->getConfiguration('name') . '');
 				foreach ($eqLogics as $eqLogicESXi) {
