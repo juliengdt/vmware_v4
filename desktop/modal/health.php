@@ -86,7 +86,11 @@ foreach ($eqLogics as $eqLogic) {
 				$onlinecmd = $eqLogic->getCmd('info','online');
 				if (is_object($onlinecmd)) {
 					$online = $onlinecmd->execCmd();
-					echo $online;			
+					if ($online == 1){
+						$online = '<span class="label label-success" style="font-size : 1em;" title="{{Présent}}"><i class="fa fa-check"></i></span>';
+					} else {
+					$online = '<span class="label label-danger" style="font-size : 1em;" title="{{Absent}}"><i class="fa fa-times"></i></span>';
+					echo $online;	
 				}
 			}				
 			echo "</span></td>";
