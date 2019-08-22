@@ -109,11 +109,11 @@ foreach ($eqLogics as $eqLogic) {
 				if (is_object($onlinecmd)) {
 					$vmwareToolsStatus = $onlinecmd->execCmd();
 					if ($vmwareToolsStatus == 'Pas à jour'){
-						$vmwareToolsStatus = '<span class="label label-success" style="font-size : 1em;" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
+						$vmwareToolsStatus = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
 					}else if ($vmwareToolsStatus == 'Pas installé'){
 						$vmwareToolsStatus = '<span class="label label-danger" style="font-size : 1em;" title="{{Pas installé}}"><i class="fas fa-times"></i></span>';	
 					}else if ($vmwareToolsStatus == 'Démarré'){
-						$vmwareToolsStatus = '<span class="label label-danger" style="font-size : 1em;" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
+						$vmwareToolsStatus = '<span class="label label-success" style="font-size : 1em;" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
 					}else if ($vmwareToolsStatus == 'Pas démarré'){
 						$vmwareToolsStatus = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas démarré}}"><i class="fas fa-check"></i></span>';	
 					}else {
