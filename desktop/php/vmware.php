@@ -79,12 +79,12 @@ function console_log($output, $with_script_tags = true) {
 		foreach ($eqLogics as $eqLogicVM) { // on parcoure les équipements à la recherche d'un équipement de type vm
 			$doNothing = "";
 			if ($eqLogicVM->getConfiguration('type') == 'vm') { // on a trouvé un équipement de type VM
-				//console_log('VM trouvéeeeeeeeeeeeeeeeeeeeeee ' . $eqLogicEsxiHost->getConfiguration('name') . '');
+				//console_log('VM trouvéeeeeeeeeeeeeeeeeeeeeee ' . $eqLogicVM->getConfiguration('name') . '');
 				foreach ($eqLogics as $eqLogicESXi) { // on parcours les équipements en cherchant si un Equipement de type ESXI exite pour cette VM
-					//console_log('IP de la VM ' . $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') . '');
+					//console_log('IP de la VM ' . $eqLogicVM->getConfiguration('ESXiHostIpAddress') . '');
 					//console_log('IP de l\'ESXI ' . $eqLogicc->getConfiguration('ipAddress') . '');
 					//console_log('TYPE de l\'eqLogicc en cours ' . $eqLogicc->getConfiguration('type') . '');
-					if ($eqLogicc->getConfiguration('type') == 'ESXi' && $eqLogicEsxiHost->getConfiguration('ESXiHostIpAddress') == $eqLogicc->getConfiguration('ipAddress')) { // on cherche si c'est un équipement de type ESXi  et si son IP correspond à celle de la VM
+					if ($eqLogicESXi->getConfiguration('type') == 'ESXi' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicESXi->getConfiguration('ipAddress')) { // on cherche si c'est un équipement de type ESXi  et si son IP correspond à celle de la VM
 						console_log('On a trouvé l\'hote ESXI associé à la VM on set la variable donothing à YES'); // VM orpheline
 						$doNothing = "Yes";
 						//break;
