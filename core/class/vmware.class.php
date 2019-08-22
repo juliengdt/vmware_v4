@@ -541,6 +541,24 @@ class vmware extends eqLogic {
 				log::add('vmware', 'debug', 'Func refreshViaBouttonSynchroniser IF car on a trouvé l\'esxi par son ID dont voici le nom : '.$eqLogicEsxiHost->getConfiguration("name"));
 				if ($eqLogicEsxiHost->getIsEnable() == 1) { //Vérifie que l'équipement est actif
 					log::add('vmware', 'debug', 'DEBUT DU IF ENABLE');
+					
+					
+					// TEST 
+					log::add('vmware', 'debug', 'On appel la fonction getEsxiInformationList '); 
+					$return = $eqLogicEsxiHost->getEsxiInformationList() ;
+					log::add('vmware', 'debug', 'On appel la fonction getvmInformationList '); 
+					$vmListing = $eqLogicEsxiHost->getVmInformationList() ; //Lance la fonction pour récupérer la liste des VMs et stocke le résultat dans vmListing
+					$eqlogic->checkAndUpdateCmd('nbVM', $vmListing[1]); // stocke le contenu de vmListing dans la commande nbVM
+					$eqlogic->checkAndUpdateCmd('vmList', $vmListing[0]); // stocke le contenu de vmListing dans la commande vmList
+					$eqlogic->setConfiguration('esxiHost',$vmListing[2]); // stocke le contenu de vmListing dans la commande hoteESXi
+					$eqlogic->setConfiguration('type',$vmListing[3]);
+					
+					
+					
+					
+					
+					
+					
 					//$eqLogicEsxiHost->save();
 /////////					$cmd = vmware::byEqLogicIdAndLogicalId($idToSearch,'refresh');
 					//$cmd = $eqLogicEsxiHost->getCmd(null, 'refresh'); // stocke la commande refresh, si elle existe
