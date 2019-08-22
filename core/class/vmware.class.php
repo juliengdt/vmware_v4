@@ -548,10 +548,10 @@ class vmware extends eqLogic {
 					$return = $eqLogicEsxiHost->getEsxiInformationList() ;
 					log::add('vmware', 'debug', 'On appel la fonction getvmInformationList '); 
 					$vmListing = $eqLogicEsxiHost->getVmInformationList() ; //Lance la fonction pour récupérer la liste des VMs et stocke le résultat dans vmListing
-					$eqlogic->checkAndUpdateCmd('nbVM', $vmListing[1]); // stocke le contenu de vmListing dans la commande nbVM
-					$eqlogic->checkAndUpdateCmd('vmList', $vmListing[0]); // stocke le contenu de vmListing dans la commande vmList
-					$eqlogic->setConfiguration('esxiHost',$vmListing[2]); // stocke le contenu de vmListing dans la commande hoteESXi
-					$eqlogic->setConfiguration('type',$vmListing[3]);
+					$eqLogicEsxiHost->checkAndUpdateCmd('nbVM', $vmListing[1]); // stocke le contenu de vmListing dans la commande nbVM
+					$eqLogicEsxiHost->checkAndUpdateCmd('vmList', $vmListing[0]); // stocke le contenu de vmListing dans la commande vmList
+					$eqLogicEsxiHost->setConfiguration('esxiHost',$vmListing[2]); // stocke le contenu de vmListing dans la commande hoteESXi
+					$eqLogicEsxiHost->setConfiguration('type',$vmListing[3]);
 					
 					
 					
