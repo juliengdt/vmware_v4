@@ -136,8 +136,9 @@ class vmware extends eqLogic {
 				if ($countArrayMembers > 1) {	
 						$firstLineRemoved = array_shift($trimmedEsxiUpdateListArray); // on supprime la première ligne du tableau car elle contient la version avec nom court
 						log::add('vmware', 'debug', 'Contenu du tableau après le array_shift : '. print_r($trimmedEsxiUpdateListArray,1) );
-		// array_search ne fonctionne pas, dans un script jeedom c'est ok mais pas dans la class		//if(array_search($esxiCurrentVersion,$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier de la liste il y a une mise à jour disponible
-						if(!(trim($esxiCurrentVersion) == trim($trimmedEsxiUpdateListArray[0]))){ // On compare la version actuelle avec la version de la première ligne du tableau si c'est pas le premier il y a une mise à jour
+		// array_search ne fonctionne pas, dans un script jeedom c'est ok mais pas dans la class		
+						if(array_search(trim($esxiCurrentVersion),$trimmedEsxiUpdateListArray) != 0 ){ // si c'est pas le premier de la liste il y a une mise à jour disponible
+						//if(!(trim($esxiCurrentVersion) == trim($trimmedEsxiUpdateListArray[0]))){ // On compare la version actuelle avec la version de la première ligne du tableau si c'est pas le premier il y a une mise à jour
 							$toBeUpdated = "Oui";
 							log::add('vmware', 'debug', 'Valeur de TO BE UPDATED ELSE IF IF : '. $toBeUpdated .'');
 						}else {
