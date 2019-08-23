@@ -52,7 +52,9 @@ function console_log($output, $with_script_tags = true) {
 				echo '<div class="eqLogicAction cursor synchronisation"  data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement // on se base sur le terme synchronisation pour le retrouver dans le JS
 				echo '<img src="plugins/vmware/docs/assets/images/icone_synchronisation.png">';
 				echo '<br>';
-				echo '<span class="name">{{Synchroniser}}<br><br></span>'; 
+				echo '<br>';
+				echo '<span class="name">{{Synchroniser}}</span>'; 
+				echo '<br>';
 				echo '<br>';
 				echo '<br>';
 				//echo '<br>';
