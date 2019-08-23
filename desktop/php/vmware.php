@@ -52,7 +52,7 @@ function console_log($output, $with_script_tags = true) {
 				echo '<div class="eqLogicDisplayCard cursor synchronisation"  data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement // on se base sur le terme synchronisation pour le retrouver dans le JS
 				echo '<i class="fas fa-sync"></i>';
 				echo '<br>';
-				echo '<span>{{Synchroniser}}</span>';
+				echo '<span class="name">{{Synchroniser}}</span>'; // rajout du class="name" pour tester d'aligner le bouton synchroniser correctement
 				echo '</div>';
 				$opacity = ($eqLogicEsxiHost->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogicEsxiHost->getId() . '">';
