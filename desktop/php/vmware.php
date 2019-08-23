@@ -46,7 +46,7 @@ function console_log($output, $with_script_tags = true) {
 		foreach ($eqLogics as $eqLogicEsxiHost) {
 			if ($eqLogicEsxiHost->getConfiguration('type') == 'ESXi') {
             	console_log('ESXI trouvé ' . $eqLogicEsxiHost->getConfiguration('name') . '');
-				echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
+				//echo '<legend>' . $eqLogicEsxiHost->getHumanName(true) . '</legend>';
 				echo '<div class="eqLogicThumbnailContainer">'; 
 					echo '<div class="eqLogicAction cursor synchronisation"  data-id="' . $eqLogicEsxiHost->getId() . '">'; // l'action est traitée dans le vmware.js le data-id permet de récupérer l'info dans le JS pour transmettre l'appel à la fonction refresh pour l'ESXi en question uniquement // on se base sur le terme synchronisation pour le retrouver dans le JS
 					echo '<img src="plugins/vmware/docs/assets/images/icone_synchronisation.png">';
@@ -61,7 +61,7 @@ function console_log($output, $with_script_tags = true) {
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
 					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png">';
 					echo '<br>';
-					//echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
+					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
 					echo '</div>';
 				foreach ($eqLogics as $eqLogicVM) {
 					if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
