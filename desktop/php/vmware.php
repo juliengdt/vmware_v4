@@ -61,7 +61,7 @@ function console_log($output, $with_script_tags = true) {
 				// On affiche une image différente pour le serveur ESXi pour le répérer plus facilement
 					echo '<img src="plugins/vmware/docs/assets/images/icone_esxi.png">';
 					echo '<br>';
-					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(true, true) . '</span>';
+					echo '<span class="name">' . $eqLogicEsxiHost->getHumanName(false, true) . '</span>';
 					echo '</div>';
 				foreach ($eqLogics as $eqLogicVM) {
 					if ($eqLogicVM->getConfiguration('type') == 'vm' && $eqLogicVM->getConfiguration('ESXiHostIpAddress') == $eqLogicEsxiHost->getConfiguration('ipAddress')) {
