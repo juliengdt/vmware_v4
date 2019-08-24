@@ -842,7 +842,7 @@ class vmware extends eqLogic {
 		  
 		  $deviceid = $vm['Name'];
 		  $ipAddress = $vm['IPAddress'];
-		  $name = $vm['Name'];
+		  $name = trim($vm['Name']);
 		  $os = $vm['GuestId'];
 		  $started = str_replace(array("Powered off","Powered on"), array("Non","Oui"), $vm['PowerState'] );
 		  $toolsStatus = str_replace(array("toolsOld","toolsNotInstalled","toolsOk","toolsNotRunning"), array("Pas à jour","Pas installé","Démarré","Pas démarré"), $vm['vmwareTools'] );
@@ -873,7 +873,8 @@ class vmware extends eqLogic {
 			}
 			$snapList = rtrim($snapList, ',');  // nettoyage de la variable pour enlever la virgule à la fin de la liste
 			*/			
-			$vmware->setConfiguration('name',$vm['Name']);
+			//$vmware->setConfiguration('name',$vm['Name']);
+			$vmware->setConfiguration('name',$name);
 			//$vmware->setConfiguration('ramQuantity',$vm['MemoryGB']);
 			//$vmware->setConfiguration('Started',$started);
 			//$vmware->setConfiguration('nbSnap',$nbSnapCount);
