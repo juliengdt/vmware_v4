@@ -1213,9 +1213,9 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');	
 		$replace = $this->preToHtml($_version);
 		log::add('vmware', 'info', 'etape 1'); 
-		if (!is_array($replace)) {
+		/*if (!is_array($replace)) {
 			return $replace;
-		}
+		}*/
 		log::add('vmware', 'info', 'etape 2'); 
 		if($this->getConfiguration("type") == 'ESXi'){
 			log::add('vmware', 'info', 'etape 3'); 
