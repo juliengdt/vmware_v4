@@ -115,6 +115,9 @@ $('.synchronisation').on('click', function () {
                 $('#div_alert').showAlert({message: data.result, level: 'danger'});
                 return;
             }
+			//console.log("On est dans le JS LE IF de l'appel AJAX - avant le reload de la page");
+          	window.location.reload(); // Est-ce que ça recharge la page ?
+          	//console.log("On est dans le JS LE IF de l'appel AJAX - après le reload de la page");
         }
     });
 });
