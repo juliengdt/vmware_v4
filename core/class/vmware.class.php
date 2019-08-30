@@ -1206,11 +1206,51 @@ class vmware extends eqLogic {
 		
 	
     /*
-     * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
+     * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin */
       public function toHtml($_version = 'dashboard') {
-
+		$replace = $this->preToHtml($_version);
+		if (!is_array($replace)) {
+			return $replace;
+		}
+		if($this->getConfiguration("type") == 'ESXi'){
+			
+			$cmd_etat = $this->getCmd(null, 'status');
+			if (is_object($cmd_etat)) {
+				if ($cmd_etat->execCmd()=='Off'){
+					$etat='<i class="fa fa-power-off"></i>';
+					$togglepower=$this->getCmd(null, 'on')->getId();
+				} else {
+					$etat='<i class="fa fa-power-off" style="color:#61f603;"></i>';
+					$togglepower=$this->getCmd(null, 'off')->getId();
+				}
+				if ($cmd_etat->execCmd()=='Lecture'){
+					$state_nb=1;
+				} else {
+					$state_nb=0;
+				}
+			}
+			$replace['#nbVM#'] = "<br>".$replace['#nbVM#'];
+			$replace['#vmList#'] = "<br>".$replace['#vmList#'];
+			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
+			$replace['#cpuNumber#'] = "<br>".$replace['#cpuNumber#'];
+			$replace['#corePerCpuNumber#'] = "<br>".$replace['#corePerCpuNumber#'];
+			$replace['#osType#'] = "<br>".$replace['#osType#'];
+			$replace['#toBeUpdated#'] = "<br>".$replace['#toBeUpdated#'];
+		}else if($this->getConfiguration("type") == 'vm'){
+			$replace['#nbSnap#'] = "<br>".$replace['#nbSnap#'];
+			$replace['#snapShotList#'] = "<br>".$replace['#snapShotList#'];
+			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
+			$replace['#cpuNumber#'] = "<br>".$replace['#cpuNumber#'];
+			$replace['#corePerCpuNumber#'] = "<br>".$replace['#corePerCpuNumber#'];
+			$replace['#osType#'] = "<br>".$replace['#osType#'];
+			$replace['#online#'] = "<br>".$replace['#online#'];
+			$replace['#vmwareTools#'] = "<br>".$replace['#vmwareTools#'];
+		}
+		
+		//return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, $this->getConfiguration('device'), 'vmware')));
+		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqLogic', 'vmware')));
       }
-     */
+     /**/
 
     /*     * **********************Getteur Setteur*************************** */
 }
