@@ -1212,12 +1212,15 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '================== Début du log toHtml =================');
 		log::add('vmware', 'info', '========================================================');	
 		$replace = $this->preToHtml($_version);
+		log::add('vmware', 'info', 'etape 1'); 
 		if (!is_array($replace)) {
 			return $replace;
 		}
+		log::add('vmware', 'info', 'etape 2'); 
 		if($this->getConfiguration("type") == 'ESXi'){
+			log::add('vmware', 'info', 'etape 3'); 
 			
-			$cmd_etat = $this->getCmd(null, 'status');
+		/*	$cmd_etat = $this->getCmd(null, 'status');
 			if (is_object($cmd_etat)) {
 				if ($cmd_etat->execCmd()=='Off'){
 					$etat='<i class="fa fa-power-off"></i>';
@@ -1231,7 +1234,7 @@ class vmware extends eqLogic {
 				} else {
 					$state_nb=0;
 				}
-			}
+			}*/
 			$replace['#nbVM#'] = "<br>".$replace['#nbVM#'];
 			$replace['#vmList#'] = "<br>".$replace['#vmList#'];
 			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
@@ -1240,6 +1243,7 @@ class vmware extends eqLogic {
 			$replace['#osType#'] = "<br>".$replace['#osType#'];
 			$replace['#toBeUpdated#'] = "<br>".$replace['#toBeUpdated#'];
 		}else if($this->getConfiguration("type") == 'vm'){
+			log::add('vmware', 'info', 'etape 4'); 
 			$replace['#nbSnap#'] = "<br>".$replace['#nbSnap#'];
 			$replace['#snapShotList#'] = "<br>".$replace['#snapShotList#'];
 			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
