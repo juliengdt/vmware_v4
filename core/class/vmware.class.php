@@ -1208,6 +1208,9 @@ class vmware extends eqLogic {
     /*
      * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin */
       public function toHtml($_version = 'dashboard') {
+		log::add('vmware', 'info', '========================================================');
+		log::add('vmware', 'info', '================== Début du log toHtml =================');
+		log::add('vmware', 'info', '========================================================');	
 		$replace = $this->preToHtml($_version);
 		if (!is_array($replace)) {
 			return $replace;
@@ -1248,6 +1251,7 @@ class vmware extends eqLogic {
 		}
 		
 		//return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, $this->getConfiguration('device'), 'vmware')));
+		log::add('vmware', 'info', 'Fin fonction toHTML'); 
 		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqLogic', 'vmware')));
       }
      /**/
