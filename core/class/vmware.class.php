@@ -1212,6 +1212,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '================== Début du log toHtml =================');
 		log::add('vmware', 'info', '========================================================');	
 		$replace = $this->preToHtml($_version);
+		//$replace = $this->preToHtml($_version,array(), true);
 		log::add('vmware', 'info', 'etape 1'); 
 		/*if (!is_array($replace)) {
 			return $replace;
@@ -1249,14 +1250,14 @@ class vmware extends eqLogic {
 			$replace['#toBeUpdated#'] = "<br>".$replace['#toBeUpdated#'];
 		}else if($this->getConfiguration("type") == 'vm'){
 			log::add('vmware', 'info', 'etape 4'); 
-			$replace['#nbSnap#'] = "<br>".$replace['#nbSnap#'];
+		/*	$replace['#nbSnap#'] = "<br>".$replace['#nbSnap#'];
 			$replace['#snapShotList#'] = "<br>".$replace['#snapShotList#'];
 			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
 			$replace['#cpuNumber#'] = "<br>".$replace['#cpuNumber#'];
 			$replace['#corePerCpuNumber#'] = "<br>".$replace['#corePerCpuNumber#'];
 			$replace['#osType#'] = "<br>".$replace['#osType#'];
 			$replace['#online#'] = "<br>".$replace['#online#'];
-			$replace['#vmwareTools#'] = "<br>".$replace['#vmwareTools#'];
+			$replace['#vmwareTools#'] = "<br>".$replace['#vmwareTools#'];*/
 		}
 		
 		//return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, $this->getConfiguration('device'), 'vmware')));
