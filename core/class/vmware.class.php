@@ -1216,6 +1216,11 @@ class vmware extends eqLogic {
 		/*if (!is_array($replace)) {
 			return $replace;
 		}*/
+		$version = jeedom::versionAlias($_version);
+		if ($this->getDisplay('hideOn' . $version) == 1) {
+		return '';
+		}
+		
 		log::add('vmware', 'info', 'etape 2'); 
 		if($this->getConfiguration("type") == 'ESXi'){
 			log::add('vmware', 'info', 'etape 3'); 
