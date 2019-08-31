@@ -1213,7 +1213,7 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');	
 		$replace = $this->preToHtml($_version);
 		//$replace = $this->preToHtml($_version,array(), true);
-		log::add('vmware', 'info', 'etape 1'); 
+		log::add('vmware', 'debug', 'etape 1'); 
 		/*if (!is_array($replace)) {
 			return $replace;
 		}*/
@@ -1222,9 +1222,9 @@ class vmware extends eqLogic {
 		return '';
 		}
 		
-		log::add('vmware', 'info', 'etape 2'); 
+		log::add('vmware', 'debug', 'etape 2'); 
 		if($this->getConfiguration("type") == 'ESXi'){
-			log::add('vmware', 'info', 'etape 3'); 
+			log::add('vmware', 'debug', 'etape 3'); 
 			
 		/*	$cmd_etat = $this->getCmd(null, 'status');
 			if (is_object($cmd_etat)) {
@@ -1249,10 +1249,12 @@ class vmware extends eqLogic {
 			$replace['#osType#'] = "<br>".$replace['#osType#'];
 			$replace['#toBeUpdated#'] = "<br>".$replace['#toBeUpdated#'];
 		}else if($this->getConfiguration("type") == 'vm'){
-			log::add('vmware', 'info', 'etape 4'); 
+			log::add('vmware', 'debug', 'etape 4'); 
 			
-			foreach ($this->getCmd('info') as $cmd) {
+			foreach ($this->getCmd('debug') as $cmd) {
 			//  $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
+			
+			log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . 'Valeur de getLogicalId : '. $cmd->getLogicalId() .' Valeur de execCmd : ' .$cmd->execCmd() .''); 
 			  $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 			  $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 			//  $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
@@ -1260,7 +1262,7 @@ class vmware extends eqLogic {
 			//	$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 			 // }
 			}
-			log::add('vmware', 'info', 'etape 5'); 
+			log::add('vmware', 'debug', 'etape 5'); 
 			
 			//$replace['#' . $this->getLogicalId() . '#'] = $this->execCmd();
 			
