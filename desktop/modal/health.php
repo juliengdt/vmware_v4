@@ -105,9 +105,9 @@ foreach ($eqLogics as $eqLogic) {
 			if ($eqLogic->getConfiguration('type') == 'ESXi') {
 				echo '   N/A   ';
 			}else {
-				$onlinecmd = $eqLogic->getCmd('info','vmwareTools');
-				if (is_object($onlinecmd)) {
-					$vmwareToolsStatus = $onlinecmd->execCmd();
+				$vmwareToolscmd = $eqLogic->getCmd('info','vmwareTools');
+				if (is_object($vmwareToolscmd)) {
+					$vmwareToolsStatus = $vmwareToolscmd->execCmd();
 					if ($vmwareToolsStatus == 'Pas à jour'){
 						$vmwareToolsStatus = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
 					}else if ($vmwareToolsStatus == 'Pas installé'){
