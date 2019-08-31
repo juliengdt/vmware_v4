@@ -1214,9 +1214,9 @@ class vmware extends eqLogic {
 		$replace = $this->preToHtml($_version);
 		//$replace = $this->preToHtml($_version,array(), true);
 		log::add('vmware', 'debug', 'etape 1'); 
-		/*if (!is_array($replace)) {
+		if (!is_array($replace)) {
 			return $replace;
-		}*/
+		}
 		$version = jeedom::versionAlias($_version);
 		if ($this->getDisplay('hideOn' . $version) == 1) {
 		return '';
