@@ -1254,7 +1254,7 @@ class vmware extends eqLogic {
 			foreach ($this->getCmd('info') as $cmd) {
 			//  $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 			
-			log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . ' Valeur de getLogicalId : '. $cmd->getLogicalId() .' Valeur de execCmd : ' .$cmd->execCmd() .''); 
+			log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . '  Valeur de getLogicalId : '. $cmd->getLogicalId() .'                     Valeur de execCmd : ' .$cmd->execCmd() .''); 
 //			  $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 //			  $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 			//  $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
