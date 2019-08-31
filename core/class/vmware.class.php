@@ -151,7 +151,8 @@ class vmware extends eqLogic {
 				}
 			}
 			log::add('vmware', 'debug', 'Valeur de TO BE UPDATED QUI VA ETRE MISE A JOUR : '.$toBeUpdated .'');
-			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', "<br>".$toBeUpdated); 
+			////////////////////$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', "<br>".$toBeUpdated);
+			$eqLogicEsxiHost->checkAndUpdateCmd('toBeUpdated', $toBeUpdated);			
 			
 			$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 			stream_set_blocking($closesession, true);
@@ -795,8 +796,8 @@ class vmware extends eqLogic {
 			$cpt = $cpt+1;
 			$vmNameList = $vmName."<br>".$vmNameList;
 		}
-		$vmNameList = "<br>".$vmNameList; // Permet de faire un retour à la ligne avant et après la liste des VMs pour que ça soit plus propre sur le widget
-		//$vmNameList = "<br>".$vmNameList."<br>"; // Permet de faire un retour à la ligne avant et après la liste des VMs pour que ça soit plus propre sur le widget
+		
+		//////////////////$vmNameList = "<br>".$vmNameList; // Permet de faire un retour à la ligne avant la liste des VMs
 		
 		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 		stream_set_blocking($closesession, true);
@@ -812,7 +813,8 @@ class vmware extends eqLogic {
 			
 		$NbVM = count($vmListFull);// Permet de compter le nombre de VM et ensuite tout dans la class vmwareCmd et la fonction execute, s'en servir pour peupler la commande information Nombre de VM
 		log::add('vmware', 'debug', 'Voici le nombre de VM trouvée : ' . $NbVM); 
-		$NbVM = "<br>".count($vmListFull); // pour la mise en forme sur la tuile du widget de l'ESXi, on met un retour à la ligne pour que ça soit plus propre
+		/////////////////////$NbVM = "<br>".count($vmListFull); // pour la mise en forme sur la tuile du widget de l'ESXi, on met un retour à la ligne pour que ça soit plus propre
+		$NbVM = count($vmListFull);
 		
 		$timeEndFunction = microtime(true); //get script end time
 		$time = $timeEndFunction - $timeStartFunction;//calculate the difference between start and stop
@@ -962,10 +964,17 @@ class vmware extends eqLogic {
 		$osESXIClean = trim($osESXI);
 		log::add('vmware', 'debug', 'valeur de la variable OS propre' . $osESXIClean); 
 				
-		$this->checkAndUpdateCmd('ramTotal', "<br>".$memoryGBESXi); 
-		$this->checkAndUpdateCmd('cpuNumber', "<br>".$numCpuESXi); 
-		$this->checkAndUpdateCmd('corePerCpuNumber', "<br>".$numCpuCoresESXi); 
-		$this->checkAndUpdateCmd('osType', "<br>".$osESXIClean); 
+		/////////////$this->checkAndUpdateCmd('ramTotal', "<br>".$memoryGBESXi); 
+		/////////////$this->checkAndUpdateCmd('cpuNumber', "<br>".$numCpuESXi); 
+		/////////////$this->checkAndUpdateCmd('corePerCpuNumber', "<br>".$numCpuCoresESXi); 
+		/////////////$this->checkAndUpdateCmd('osType', "<br>".$osESXIClean); 
+		
+		
+		$this->checkAndUpdateCmd('ramTotal', $memoryGBESXi); 
+		$this->checkAndUpdateCmd('cpuNumber', $numCpuESXi); 
+		$this->checkAndUpdateCmd('corePerCpuNumber', $numCpuCoresESXi); 
+		$this->checkAndUpdateCmd('osType', $osESXIClean); 
+		
 		
 		$closesession = ssh2_exec($connection, 'exit'); // Fermeture de la connexion SSH à l'hyperviseur
 		stream_set_blocking($closesession, true);
