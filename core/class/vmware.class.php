@@ -794,7 +794,8 @@ class vmware extends eqLogic {
 			//'Description' => $description	
 			);
 			$cpt = $cpt+1;
-			$vmNameList = $vmName."<br>".$vmNameList;
+			//$vmNameList = $vmName."<br>".$vmNameList;
+			$vmNameList = $vmName.",".$vmNameList;
 		}
 		
 		//////////////////$vmNameList = "<br>".$vmNameList; // Permet de faire un retour à la ligne avant la liste des VMs
@@ -1237,10 +1238,14 @@ class vmware extends eqLogic {
 			foreach ($this->getCmd('info') as $cmd) {
 				log::add('vmware', 'debug', 'Boucle foreach ESXI --- _ID de la commande : ' .$cmd->getId() . '  Valeur de getLogicalId : '. $cmd->getLogicalId() .'                     Valeur de execCmd : ' .$cmd->execCmd() .''); 
 				$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-				$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
-				log::add('vmware', 'info', 'Fin fonction toHTML ESXi'); 
-				return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmwareESXi', 'vmware')));
+				if ($cmd->getLogicalId() == "vmList"){ 
+					$replace['#' . $cmd->getLogicalId() . '#'] = str_replace(",","<br />",$cmd->execCmd()); // on remplace les , qui séparent les VMs par un retour à la ligne
+				}else {
+					$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+				}
 			}
+			log::add('vmware', 'info', 'Fin fonction toHTML ESXi'); 
+			return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmwareESXi', 'vmware')));
 		}else if($this->getConfiguration("type") == 'vm'){
 			log::add('vmware', 'debug', 'etape 4'); 
 			foreach ($this->getCmd('info') as $cmd) {
