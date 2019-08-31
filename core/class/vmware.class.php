@@ -1250,7 +1250,8 @@ class vmware extends eqLogic {
 			$replace['#toBeUpdated#'] = "<br>".$replace['#toBeUpdated#'];
 		}else if($this->getConfiguration("type") == 'vm'){
 			log::add('vmware', 'info', 'etape 4'); 
-		//	$replace['#nbSnapid#'] = "<br>".$this['nbSnap'];
+			//$replace['#' . $this->getLogicalId() . '#'] = $this->execCmd();
+			$replace['#nbSnap#'] = $this['nbSnap'];
 		/*	$replace['#snapShotList#'] = "<br>".$replace['#snapShotList#'];
 			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
 			$replace['#cpuNumber#'] = "<br>".$replace['#cpuNumber#'];
