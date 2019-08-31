@@ -1251,7 +1251,7 @@ class vmware extends eqLogic {
 		}else if($this->getConfiguration("type") == 'vm'){
 			log::add('vmware', 'debug', 'etape 4'); 
 			
-			foreach ($this->getCmd('debug') as $cmd) {
+			foreach ($this->getCmd('info') as $cmd) {
 			//  $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 			
 			log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . 'Valeur de getLogicalId : '. $cmd->getLogicalId() .' Valeur de execCmd : ' .$cmd->execCmd() .''); 
