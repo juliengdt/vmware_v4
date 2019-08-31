@@ -1234,34 +1234,17 @@ class vmware extends eqLogic {
 		log::add('vmware', 'debug', 'etape 2'); 
 		if($this->getConfiguration("type") == 'ESXi'){
 			log::add('vmware', 'debug', 'etape 3'); 
-			
-		/*	$cmd_etat = $this->getCmd(null, 'status');
-			if (is_object($cmd_etat)) {
-				if ($cmd_etat->execCmd()=='Off'){
-					$etat='<i class="fa fa-power-off"></i>';
-					$togglepower=$this->getCmd(null, 'on')->getId();
-				} else {
-					$etat='<i class="fa fa-power-off" style="color:#61f603;"></i>';
-					$togglepower=$this->getCmd(null, 'off')->getId();
-				}
-				if ($cmd_etat->execCmd()=='Lecture'){
-					$state_nb=1;
-				} else {
-					$state_nb=0;
-				}
-			}*/
-			$replace['#nbVM#'] = "<br>".$replace['#nbVM#'];
-			$replace['#vmList#'] = "<br>".$replace['#vmList#'];
-			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
-			$replace['#cpuNumber#'] = "<br>".$replace['#cpuNumber#'];
-			$replace['#corePerCpuNumber#'] = "<br>".$replace['#corePerCpuNumber#'];
-			$replace['#osType#'] = "<br>".$replace['#osType#'];
-			$replace['#toBeUpdated#'] = "<br>".$replace['#toBeUpdated#'];
+			foreach ($this->getCmd('info') as $cmd) {
+				log::add('vmware', 'debug', 'Boucle foreach ESXI --- _ID de la commande : ' .$cmd->getId() . '  Valeur de getLogicalId : '. $cmd->getLogicalId() .'                     Valeur de execCmd : ' .$cmd->execCmd() .''); 
+				$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+				$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+				log::add('vmware', 'info', 'Fin fonction toHTML ESXi'); 
+				return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmwareESXi', 'vmware')));
+			}
 		}else if($this->getConfiguration("type") == 'vm'){
 			log::add('vmware', 'debug', 'etape 4'); 
-			
 			foreach ($this->getCmd('info') as $cmd) {
-				log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . '  Valeur de getLogicalId : '. $cmd->getLogicalId() .'                     Valeur de execCmd : ' .$cmd->execCmd() .''); 
+				log::add('vmware', 'debug', 'Boucle foreach VM --- _ID de la commande : ' .$cmd->getId() . '  Valeur de getLogicalId : '. $cmd->getLogicalId() .'                     Valeur de execCmd : ' .$cmd->execCmd() .''); 
 				//  $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 				if ($cmd->getLogicalId() == "online"){ 
 					log::add('vmware', 'debug', 'Commande online trouvée'); 
@@ -1292,12 +1275,9 @@ class vmware extends eqLogic {
 				}
 				//  $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
 			}
-			log::add('vmware', 'debug', 'etape 5'); 
+			log::add('vmware', 'info', 'Fin fonction toHTML VM'); 
+			return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmware', 'vmware')));
 		}
-		
-		//return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, $this->getConfiguration('device'), 'vmware')));
-		log::add('vmware', 'info', 'Fin fonction toHTML'); 
-		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmware', 'vmware')));
       }
      /**/
 
