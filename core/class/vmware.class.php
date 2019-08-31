@@ -1255,8 +1255,8 @@ class vmware extends eqLogic {
 			//  $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 			
 			log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . ' Valeur de getLogicalId : '. $cmd->getLogicalId() .' Valeur de execCmd : ' .$cmd->execCmd() .''); 
-			  $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-			  $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+//			  $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+//			  $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 			//  $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
 			 // if ($cmd->getIsHistorized() == 1) {
 			//	$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
@@ -1278,7 +1278,7 @@ class vmware extends eqLogic {
 		
 		//return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, $this->getConfiguration('device'), 'vmware')));
 		log::add('vmware', 'info', 'Fin fonction toHTML'); 
-	//	return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmware', 'vmware')));
+		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmware', 'vmware')));
       }
      /**/
 
