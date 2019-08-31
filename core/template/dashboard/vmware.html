@@ -1,73 +1,34 @@
-<div class="eqLogic-widget eqLogic allowResize norefresh" style="height: #height#;width: #width#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
+  <div class="eqLogic-widget eqLogic allowResize norefresh" style="height: #height#;width: #width#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
         <center><a href="#eqLink#" style="font-size : 1.5em;#hideEqLogicName#">#name_display#</a></strong></center><br />
 
-<!--<div id="plugin_container" class="eqLogic-widget eqLogic allowResize" style="width:#width#;height:#height#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#; #style#" data-category="" data-eqLogic_id="#id#" data-version="#version#" >
-  --><center>
-    <!--<span style="padding-left: 30px;font-size: 1.2em;#hideEqLogicName#"><a href="#eqLink#">#name_display# <span style="font-size: 0.85em;">#object_name#</span></a></span>
-	-->
-<!--    <span style="float: right;width:110px;display: #statuts_display#;">-->
-      <!--<span>-->
-	  <!--<i class="fa fa-camera" title="Nombre de Snapshot"> <span id="nbSnap#id#"><b>#nbSnap# </b></span></i>-->
-	  <span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#nbSnap_id#">Nombre de Snapshot : <br /> <b>#nbSnap# </b></span>
-     <!-- <i id="surveillanceStationmouv" class="icon jeedom-mouvement" title="Détection de mouvement" style="display:#motion_display#;"><span id="motionstatus#id#"></span></i>
-      <i id="surveillanceStationhm" class="fa fa-home" title="Home mode global" style="display: #homemode_display#;"> <span id="homemodestatus#id#" style="display: #homemode_display#;"></span></i>
-   -->
-   <!--   <script>
-        if ('#statecam#' == 'Activée') {
-          $('#statecam#id#').append('<i title="La caméra est activée" class="fa fa-check tooltips" style="font-size : 1.1em;color: #00FF00;" ></i>');
-        }
-        else if ('#statecam#' != 'Activée') {
-          $('#statecam#id#').append('<i title="La caméra est Désactivée" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;"></i>');
-        }
-        if ('#motionstatus#' == 'Désactivée') {
-          $('#motionstatus#id#').append('<i title="Détection de mouvement est désactivée" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;" ></i>');
-        }
-        else if ('#motionstatus#' != 'Désactivée') {
-          $('#motionstatus#id#').append('<i title="Détection de mouvement est activée" class="fa fa-check tooltips" style="font-size : 1.1em;color: #00FF00;"></i>');
-        }
-        if ('#homemodestatus#' == 'Désactivé') {
-          $('#homemodestatus#id#').append('<i title="Home mode global est désactivé" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;" ></i>');
-        }
-        else if ('#homemodestatus#' != 'Désactivé') {
-          $('#homemodestatus#id#').append('<i title="Home mode global est activé" class="fa fa-check tooltips" style="font-size : 1.1em;color: #00FF00;"></i>');
-        }
-      </script>-->
-   <!-- </span>-->
-  </center>
- <!-- <center>
-      <span class="directDisplay zoom cursor" style="width : 90%;max-height:90%;" style="display: #urllive_display#;"><img src='#urllive#' alt='' class="img-responsive" data-eqLogic_id="#id#"/></span>
-  </center>-->
-  <!--<div class="md_cameraZoom" data-eqLogic_id="#id#" title="#name_display#">
-      <center>
-          <div class="display"><img src='#urllive#' alt='' class="img-responsive" data-eqLogic_id="#id#" /></div>
-      </center>
-  </div>-->
-  <!--<center><span style="display: #actions_display#;">#action#</span></center>-->
- <!--<span class="statusCmd" style="position : absolute;left : 5px;bottom : 0px; width : 30px;z-index: 1030;"></span>-->
- <!-- <script>
-        if ($(".md_cameraZoom[data-eqLogic_id=#id#]").length > 1) {
-            while ($(".md_cameraZoom[data-eqLogic_id=#id#]").length > 1) {
-                $(".md_cameraZoom[data-eqLogic_id=#id#]").eq(0).remove();
-            }
-        }
-        $(".md_cameraZoom[data-eqLogic_id=#id#]").dialog({
-            autoOpen: false,
-            modal: true,
-            resizable: true,
-            closeText: '',
-            height: ((jQuery(window).height() - 100) < 780) ? jQuery(window).height() - 100 : 780,
-            width: ((jQuery(window).width() - 100) < 1280) ? (jQuery(window).width() - 100) : 1280,
-            open: function () {
-                $("body").css({overflow: 'hidden'});
-            },
-            beforeClose: function (event, ui) {
-                $("body").css({overflow: 'inherit'});
-            }
-        });
-        $('.zoom[data-eqLogic_id=#id#]').off().unbind();
-        $('.eqLogic[data-eqLogic_id=#id#]').delegate('.zoom', 'click', function () {
-            $(".md_cameraZoom[data-eqLogic_id=#id#] .display").empty().append("<center><img style='width: 100%;max-height:;height: 100%;' src='#urllive#' alt='' class='img-responsive'/></center>");
-            $(".md_cameraZoom[data-eqLogic_id=#id#]").dialog("open");
-        });
-  </script>-->
+    <!-- <div class="row"> -->
+    <!-- <div class="col-md-12"> -->
+        <!-- <div class="row"><div class="status#id#"><center><b>#model# :  #status#</b></center></div></div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-4 nbSnap#id#"><center><i class="techno-charging"></i></center></div><div class="col-md-8 bcharge#id#"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#nbSnap_id#"><b>#nbSnap# %</b></span></div>
+        </div><div class="row">
+            <div class="col-md-4 timeleft#id#"><center><i class="fas fa-clock-o"></i></center></div><div class="col-md-8 timeleft#id#"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#timeleft_id#"><b>#timeleft# mn</b></span></div>
+        </div><div class="row">
+            <div class="col-md-4 outpower#id#"><center><i class="fas fa-bolt"></i></center></div><div class="col-md-8 outpower#id#"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#outpower_id#"><b>#outpower# W</b></span></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+    	<div class="row">
+            <div class="col-md-4 linev#id#"><center><i class="techno-cable1"></i></center></div><div class="col-md-8 linev#id#"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#linev_id#"><b>#linev# V</b></span></div>
+        </div><div class="row">
+            <div class="col-md-4 loadpct#id#"><center><i class="techno-courbes"></i></center></div><div class="col-md-8 loadpct#id#"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#loadpct_id#"><b>#loadpct# %</b></span></div>
+        </div><div class="row">
+            <div class="col-md-4 battv#id#"><center><i class="fas fa-bolt"></i></center></div><div class="col-md-8 battv#id#"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#battv_id#"><b>#battv# V</b></span></div>
+        </div>
+    </div>
+	</div>
 </div>
+
+
+
+
+
