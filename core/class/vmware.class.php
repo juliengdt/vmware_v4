@@ -681,7 +681,7 @@ class vmware extends eqLogic {
 			
 			// stockage des informations récupérées lors de l'interrogation de la liste des vms
 			$ID = intval($vmLineArray[0]);
-			$vmName = $vmLineArray[1];
+			$vmName = trim($vmLineArray[1]);
 			//$osType = $vmLineArray[2];
 			//$osType = str_replace("Guest","",$vmLineArray[2]);
 			//$hardwareVersion = $vmLineArray[3];
