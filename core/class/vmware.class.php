@@ -1266,7 +1266,7 @@ class vmware extends eqLogic {
 				if ($cmd->getLogicalId() == "online"){ 
 					log::add('vmware', 'debug', 'Commande online trouvée'); 
 					$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-					$vmwareToolsStatus = $cmd->execCmd()
+					$vmwareToolsStatus = $cmd->execCmd();
 					if ($vmwareToolsStatus == 'Pas à jour'){
 						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
 					}else if ($vmwareToolsStatus == 'Pas installé'){
