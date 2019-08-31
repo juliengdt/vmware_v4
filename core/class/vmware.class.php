@@ -1278,7 +1278,7 @@ class vmware extends eqLogic {
 		
 		//return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, $this->getConfiguration('device'), 'vmware')));
 		log::add('vmware', 'info', 'Fin fonction toHTML'); 
-		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmware', 'vmware')));
+	//	return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'vmware', 'vmware')));
       }
      /**/
 
