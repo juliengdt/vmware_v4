@@ -1264,7 +1264,7 @@ class vmware extends eqLogic {
 			
 			//$replace['#' . $this->getLogicalId() . '#'] = $this->execCmd();
 			
-			$replace['#nbSnap#'] = $this['nbSnap'];
+		//	$replace['#nbSnap#'] = $this['nbSnap'];
 		/*	$replace['#snapShotList#'] = "<br>".$replace['#snapShotList#'];
 			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
 			$replace['#cpuNumber#'] = "<br>".$replace['#cpuNumber#'];
