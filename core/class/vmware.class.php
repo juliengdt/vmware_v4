@@ -1261,28 +1261,32 @@ class vmware extends eqLogic {
 			log::add('vmware', 'debug', 'etape 4'); 
 			
 			foreach ($this->getCmd('info') as $cmd) {
-			//  $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
-			
-			log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . '  Valeur de getLogicalId : '. $cmd->getLogicalId() .'                     Valeur de execCmd : ' .$cmd->execCmd() .''); 
-			  $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-			  $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
-			//  $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
-			 // if ($cmd->getIsHistorized() == 1) {
-			//	$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
-			 // }
+				log::add('vmware', 'debug', 'Boucle foreach _ID de la commande : ' .$cmd->getId() . '  Valeur de getLogicalId : '. $cmd->getLogicalId() .'                     Valeur de execCmd : ' .$cmd->execCmd() .''); 
+				//  $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
+				if ($cmd->getLogicalId() == "online"){ 
+					log::add('vmware', 'debug', 'Commande online trouvée'); 
+					$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+					$vmwareToolsStatus = $cmd->execCmd()
+					if ($vmwareToolsStatus == 'Pas à jour'){
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
+					}else if ($vmwareToolsStatus == 'Pas installé'){
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-danger" style="font-size : 1em;" title="{{Pas installé}}"><i class="fas fa-times"></i></span>';	
+					}else if ($vmwareToolsStatus == 'Démarré'){
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em;" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
+					}else if ($vmwareToolsStatus == 'Pas démarré'){
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas démarré}}"><i class="fas fa-check"></i></span>';	
+					}else {
+						$replace['#' . $cmd->getLogicalId() . '#'] = $vmwareToolsStatus;
+					}
+				}elseif ($cmd->getLogicalId() == "vmwareTools") {
+					log::add('vmware', 'debug', 'Commande vmwareTools trouvée'); 
+				}else { // Ni online ni vmwareTools donc on laisse le widget se remplir par défaut
+					$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+					$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+				}
+				//  $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
 			}
 			log::add('vmware', 'debug', 'etape 5'); 
-			
-			//$replace['#' . $this->getLogicalId() . '#'] = $this->execCmd();
-			
-		//	$replace['#nbSnap#'] = $this['nbSnap'];
-		/*	$replace['#snapShotList#'] = "<br>".$replace['#snapShotList#'];
-			$replace['#ramTotal#'] = "<br>".$replace['#ramTotal#'];
-			$replace['#cpuNumber#'] = "<br>".$replace['#cpuNumber#'];
-			$replace['#corePerCpuNumber#'] = "<br>".$replace['#corePerCpuNumber#'];
-			$replace['#osType#'] = "<br>".$replace['#osType#'];
-			$replace['#online#'] = "<br>".$replace['#online#'];
-			$replace['#vmwareTools#'] = "<br>".$replace['#vmwareTools#'];*/
 		}
 		
 		//return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, $this->getConfiguration('device'), 'vmware')));
