@@ -1266,6 +1266,12 @@ class vmware extends eqLogic {
 				if ($cmd->getLogicalId() == "online"){ 
 					log::add('vmware', 'debug', 'Commande online trouvée'); 
 					$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+					$online = $cmd->execCmd();
+					if ($online == 'Oui'){
+						$online = '<span class="label label-success" style="font-size : 1em;" title="{{Oui}}"><i class="fas fa-check"></i></span>';
+					} else {
+						$online = '<span class="label label-danger" style="font-size : 1em;" title="{{Non}}"><i class="fas fa-times"></i></span>';	
+					}
 				}elseif ($cmd->getLogicalId() == "vmwareTools") {
 					log::add('vmware', 'debug', 'Commande vmwareTools trouvée'); 
 					$vmwareToolsStatus = $cmd->execCmd();
