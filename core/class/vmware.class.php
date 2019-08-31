@@ -1266,6 +1266,8 @@ class vmware extends eqLogic {
 				if ($cmd->getLogicalId() == "online"){ 
 					log::add('vmware', 'debug', 'Commande online trouvée'); 
 					$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+				}elseif ($cmd->getLogicalId() == "vmwareTools") {
+					log::add('vmware', 'debug', 'Commande vmwareTools trouvée'); 
 					$vmwareToolsStatus = $cmd->execCmd();
 					if ($vmwareToolsStatus == 'Pas à jour'){
 						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
@@ -1278,8 +1280,6 @@ class vmware extends eqLogic {
 					}else {
 						$replace['#' . $cmd->getLogicalId() . '#'] = $vmwareToolsStatus;
 					}
-				}elseif ($cmd->getLogicalId() == "vmwareTools") {
-					log::add('vmware', 'debug', 'Commande vmwareTools trouvée'); 
 				}else { // Ni online ni vmwareTools donc on laisse le widget se remplir par défaut
 					$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 					$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
