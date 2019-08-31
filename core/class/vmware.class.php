@@ -1260,7 +1260,7 @@ class vmware extends eqLogic {
 			//	$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 			 // }
 			}
-			
+			log::add('vmware', 'info', 'etape 5'); 
 			
 			//$replace['#' . $this->getLogicalId() . '#'] = $this->execCmd();
 			
