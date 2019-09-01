@@ -1268,7 +1268,8 @@ class vmware extends eqLogic {
 					}else if ($vmwareToolsStatus == 'Pas installé'){
 						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-danger" style="font-size : 1em;" title="{{Pas installé}}"><i class="fas fa-times"></i></span>';	
 					}else if ($vmwareToolsStatus == 'Démarré'){
-						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em;" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
+						//$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em;" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em; vertical-align:top" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
 					}else if ($vmwareToolsStatus == 'Pas démarré'){
 						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas démarré}}"><i class="fas fa-check"></i></span>';	
 					}else {
