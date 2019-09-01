@@ -1256,22 +1256,22 @@ class vmware extends eqLogic {
 					$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 					$online = $cmd->execCmd();
 					if ($online == 'Oui'){
-						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em;" title="{{Oui}}"><i class="fas fa-check"></i></span>';
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em; vertical-align:top" title="{{Oui}}"><i class="fas fa-check"></i></span>';
 					} else {
-						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-danger" style="font-size : 1em;" title="{{Non}}"><i class="fas fa-times"></i></span>';	
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-danger" style="font-size : 1em; vertical-align:top" title="{{Non}}"><i class="fas fa-times"></i></span>';	
 					}
 				}elseif ($cmd->getLogicalId() == "vmwareTools") {
 					log::add('vmware', 'debug', 'Commande vmwareTools trouvée'); 
 					$vmwareToolsStatus = $cmd->execCmd();
 					if ($vmwareToolsStatus == 'Pas à jour'){
-						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em; vertical-align:top" title="{{Pas à jour}}"><i class="fas fa-cog"></i></span>';
 					}else if ($vmwareToolsStatus == 'Pas installé'){
-						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-danger" style="font-size : 1em;" title="{{Pas installé}}"><i class="fas fa-times"></i></span>';	
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-danger" style="font-size : 1em; vertical-align:top" title="{{Pas installé}}"><i class="fas fa-times"></i></span>';	
 					}else if ($vmwareToolsStatus == 'Démarré'){
 						//$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em;" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
 						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-success" style="font-size : 1em; vertical-align:top" title="{{Démarré}}"><i class="fas fa-check"></i></span>';	
 					}else if ($vmwareToolsStatus == 'Pas démarré'){
-						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em;" title="{{Pas démarré}}"><i class="fas fa-check"></i></span>';	
+						$replace['#' . $cmd->getLogicalId() . '#'] = '<span class="label label-warning" style="font-size : 1em; vertical-align:top" title="{{Pas démarré}}"><i class="fas fa-check"></i></span>';	
 					}else {
 						$replace['#' . $cmd->getLogicalId() . '#'] = $vmwareToolsStatus;
 					}
