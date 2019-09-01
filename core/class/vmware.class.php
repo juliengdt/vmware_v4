@@ -1221,8 +1221,8 @@ class vmware extends eqLogic {
 		log::add('vmware', 'info', '========================================================');
 		log::add('vmware', 'info', '================== Début du log toHtml =================');
 		log::add('vmware', 'info', '========================================================');	
-		$replace = $this->preToHtml($_version);
-		//$replace = $this->preToHtml($_version,array(), true);
+		//$replace = $this->preToHtml($_version);
+		$replace = $this->preToHtml($_version,array(), true);
 		log::add('vmware', 'debug', 'etape 1'); 
 		if (!is_array($replace)) {
 			return $replace;
