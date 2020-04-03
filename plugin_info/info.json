@@ -1,5 +1,5 @@
 {
-	"id" : "vmware",
+	"id" : "esxi",
 	"name" : "Vmware",
 	"description" : "Plugin permettant le pilotage de votre ESXi pour lister les VMs et divers attributs. Gestion des snapshots, Gestion du stop/start, etc",
 	"licence" : "AGPL",
